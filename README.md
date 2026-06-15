@@ -1,8 +1,6 @@
 # Kelvin
 
-Kelvin is a custom management and control system for brewery cooling applications and digital tap list manager. It is targetted for deployment on a heavily optimized, resource-constrained Raspberry Pi Zero 2 W (512MB RAM) running Raspberry Pi OS Lite.
-
-The core system manages a compact vapour-phase refridgeration unit alongside a clean web-based tap list display and administrative control panel.
+Kelvin is an embedded application and presentation layer for a bespoke, reconfigurable refrigeration solution. Architected for deployment on the resource-constrained Raspberry Pi Zero 2 W (512MB RAM) running Raspberry Pi OS Lite, the system manages a compact vapor-phase refrigeration unit alongside a clean web-based tap list display and back-end administrative control panel.
 
 ---
 
