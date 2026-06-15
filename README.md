@@ -1,15 +1,15 @@
 # Kelvin
 
-Kelvin is a bespoke brewery automation engine, taproom telemetry hub, and digital tap list manager. It runs on a heavily optimized, resource-constrained Raspberry Pi Zero 2 W (512MB RAM) running Raspberry Pi OS Lite.
+Kelvin is a custom management and control system for brewery cooling applications and digital tap list manager. It is targetted for deployment on a heavily optimized, resource-constrained Raspberry Pi Zero 2 W (512MB RAM) running Raspberry Pi OS Lite.
 
-The core system manages a reconfigurable industrial cooling solution alongside a clean web-based tap list display and administrative control panel.
+The core system manages a compact vapour-phase refridgeration unit alongside a clean web-based tap list display and administrative control panel.
 
 ---
 
 ## ⚙️ System Architecture & Hardware Specs
 
 ### 1. Thermal Control & Refrigeration
-* **Primary Chiller:** Rigid Compact Liquid Chiller Module (Model: **DV3220E-C (24V)**).
+* **Primary Chiller:** Rigid Compact Liquid Chiller Module (Model: **DV3220E-C**).
 * **Operation Modes:** 
   * *Service Mode:* Chills glycol loop exclusively for the draft tap system and cask.
   * *Brewing Mode:* Reconfigured to chill water reservoir for brewday wort cooling.
@@ -17,8 +17,8 @@ The core system manages a reconfigurable industrial cooling solution alongside a
 * **Control Interface:** UART interface communicating with the compressor control board using **Modbus RTU** commands.
 
 ### 2. Sensor Integration & Telemetry
-* **Temperature Monitoring:** DS18B20 **1-Wire** digital sensors distributed across the fluid loops.
-* **Fluid Dynamics:** Custom **PWM** signals driving the glycol/water loop circulation pump.
+* **Temperature Monitoring:** DS18B20 **1-Wire** digital sensors distributed across the fluid reservoirs and loops.
+* **Fluid Dynamics:** Custom **PWM** signals driving the glycol/water loop circulation pump, plus flow rate sensing.
 * **Telemetry Cadence:** System status, hardware diagnostics, and thermal metrics are sampled and written to the database **once per minute**.
 
 ---
@@ -97,3 +97,31 @@ Launch the production instances explicitly bound to all network interfaces to al
 ```bash
 RAILS_ENV=production MALLOC_ARENA_MAX=2 bin/rails s -b 0.0.0.0
 ```
+
+### 📌 Raspberry Pi 16-Pin Assignment Layout (BCM Mapping)
+
+This table mirrors the physical layout of the first 16 pins on the Raspberry Pi header. Even-numbered pins are on the right (outer edge), and odd-numbered pins are on the left (inner edge).
+
+| Left Column (Odd Pins) | Pin # | Pin # | Right Column (Even Pins) |
+| :--- | :---: | :---: | :--- |
+| **3.3V Power** <br> ➡️ *Shifter LV Ref & Sensors* | **01** | **02** | **5V Power** <br> ➡️ *Shifter HV Reference* |
+| **GPIO 2** (SDA) <br> ⬅️ `chiller_fault` *[Shifter CH3]* | **03** | **04** | **5V Power** <br> ➡️ *Unused* |
+| **GPIO 3** (SCL) <br> ⬅️ `flow_rate` *[Direct 3.3V Input]* | **05** | **06** | **Ground** <br> ➡️ *Common System Ground* |
+| **GPIO 4** (GPCLK0) <br> 🔄 `temp0, temp1, temp2` *[1-Wire]* | **07** | **08** | **GPIO 14** (TXD0) <br> ➡️ `chiller_tx` *[Shifter CH1]* |
+| **Ground** <br> ➡️ *Common System Ground* | **09** | **10** | **GPIO 15** (RXD0) <br> ⬅️ `chiller_rx` *[Shifter CH2]* |
+| **GPIO 17** <br> ➡️ `pump_power` *[Direct 3.3V to Relay]* | **11** | **12** | **GPIO 18** (PWM0) <br> ➡️ `pump_speed` *[Shifter CH4]* |
+| **GPIO 27** <br> ➡️ `aux_power` *[Direct 3.3V to MOSFET]* | **13** | **14** | **Ground** <br> ➡️ *Common System Ground* |
+| **GPIO 22** <br> 🔄 `temp3` *[1-Wire Bus 2]* | **15** | **16** | **GPIO 23** <br> 🔄 `temp4` *[1-Wire Bus 3]* |
+
+---
+
+### ⚙️ Hardware Connection & Logic Reference
+
+* **Shifter Allocation (SparkFun 4-Channel):**
+  * **CH1:** Pin 8 (`GPIO 14`) ➡️ 3.3V to 5V TX signal to chiller microcontroller.
+  * **CH2:** Pin 10 (`GPIO 15`) ⬅️ 5V to 3.3V RX signal from chiller microcontroller.
+  * **CH3:** Pin 3 (`GPIO 2`) ⬅️ 5V to 3.3V logic level fault safety step-down.
+  * **CH4:** Pin 12 (`GPIO 18`) ➡️ 3.3V to 5V PWM signal to feed the analog filter.
+* **Analog Speed Conversion:** The 5V PWM output exiting Shifter CH4 must pass through your **10 kΩ series resistor** and **22 μF ceramic capacitor** shunt-to-ground to provide the true 0–5V analog voltage required by the Fortior FU6832S motor controller pin (P3.4).
+* **Pull-up Resistors:** Pins 7, 15, and 16 require an individual **4.7 kΩ pull-up resistor** tied to the 3.3V rail (Pin 1) to establish stable 1-Wire communication.
+
