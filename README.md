@@ -109,7 +109,7 @@ This table mirrors the physical layout of the first 16 pins on the Raspberry Pi 
 | **Ground** <br> ➡️ *Common System Ground* | **09** | **10** | **GPIO 15** (RXD0) <br> ⬅️ `chiller_rx` *[Shifter CH2]* |
 | **GPIO 17** <br> ➡️ `pump_power` *[Direct 3.3V to Relay]* | **11** | **12** | **GPIO 18** (PWM0) <br> ➡️ `pump_speed` *[Shifter CH4]* |
 | **GPIO 27** <br> ➡️ `aux_power` *[Direct 3.3V to MOSFET]* | **13** | **14** | **Ground** <br> ➡️ *Common System Ground* |
-| **GPIO 22** <br> 🔄 `temp3` *[1-Wire Bus 2]* | **15** | **16** | **GPIO 23** <br> 🔄 `temp4` *[1-Wire Bus 3]* |
+| **GPIO 22** <br> 🔄 `temp3, temp4` *[1-Wire Bus 2]* | **15** | **16** | **GPIO 23** <br> 🔄 `TBD` |
 
 ---
 
@@ -120,6 +120,21 @@ This table mirrors the physical layout of the first 16 pins on the Raspberry Pi 
   * **CH2:** Pin 10 (`GPIO 15`) ⬅️ 5V to 3.3V RX signal from chiller microcontroller.
   * **CH3:** Pin 3 (`GPIO 2`) ⬅️ 5V to 3.3V logic level fault safety step-down.
   * **CH4:** Pin 12 (`GPIO 18`) ➡️ 3.3V to 5V PWM signal to feed the analog filter.
-* **Analog Speed Conversion:** The 5V PWM output exiting Shifter CH4 must pass through your **10 kΩ series resistor** and **22 μF ceramic capacitor** shunt-to-ground to provide the true 0–5V analog voltage required by the Fortior FU6832S motor controller pin (P3.4).
-* **Pull-up Resistors:** Pins 7, 15, and 16 require an individual **4.7 kΩ pull-up resistor** tied to the 3.3V rail (Pin 1) to establish stable 1-Wire communication.
+* **Analog Speed Conversion 1:** The 5V PWM output exiting Shifter CH4 passes through a **10 kΩ series resistor** and **22 μF ceramic capacitor** shunt-to-ground to provide the true 0–5V analog voltage required by the Fortior FU6832S motor controller pin (P3.4).
+* **Analog Speed Conversion 2:** A 3.3V software driven PWM output is used to switch a power MOSFET to drive the condenser fans utilizing a **SF24G flyback diode** and **330 μF electrolytic capacitor** shunt for smoothing.
+* **Pull-up Resistors:** Pins 7, 15, and 16 use dual **10 kΩ pull-up resistor** in parallel tied to the 3.3V rail (Pin 1) to establish stable 1-Wire communication.
 
+```
+     o--[24-USB]----o--<24v           3x TEMP1>--{--GPIO4
+     |              |                 2x TEMP2>--{--GPIO22
+GPIO27--[MOSFET]----o                {--o-----------SIG GND
+     |  [CAP+.o]====+==<FAN+  TTY>---{--+--[..>..]--GPIO14
+     o--[330u.o]--o=+==<FAN-         {--+--[..<..]--GPIO15
+     |            | |       FAULT>---{--o--[SHIFT]==3v3+5v
+GPIO17--[MOSFET]--+-o                {-----[..>..]--GPIO2
+     |  [......]--+----[....CAP.o]--[RES]--[..<..]--GPIO18
+     o--[......]--o----[....22u.o]
+     |            |    [.........]--}--<PUMP     {--3v3
+    GND          GND   [PUMP DRVR]--}            {--GPIO3
+    SIG          PWR   [.........]--}     FLOW>--{--GND
+```
