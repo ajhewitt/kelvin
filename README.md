@@ -2,7 +2,8 @@
 
 Kelvin is an embedded application and presentation layer for a bespoke, reconfigurable refrigeration solution. Architected for deployment on the resource-constrained Raspberry Pi Zero 2 W (512MB RAM) running Raspberry Pi OS Lite, the system manages a compact vapor-phase refrigeration unit alongside a clean web-based tap list display and back-end administrative control panel.
 
-Vibe-coded by Gemini via Google search prompt in _AI Mode_
+Vibe-coded by Gemini (for free) using the Google search prompt in _AI Mode_
+
 ---
 
 ## ⚙️ System Architecture & Hardware Specs
