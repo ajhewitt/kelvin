@@ -2,6 +2,7 @@
 
 Kelvin is an embedded application and presentation layer for a bespoke, reconfigurable refrigeration solution. Architected for deployment on the resource-constrained Raspberry Pi Zero 2 W (512MB RAM) running Raspberry Pi OS Lite, the system manages a compact vapor-phase refrigeration unit alongside a clean web-based tap list display and back-end administrative control panel.
 
+Vibe-coded by Gemini via Google search prompt in _AI Mode_
 ---
 
 ## ⚙️ System Architecture & Hardware Specs
@@ -124,6 +125,8 @@ This table mirrors the physical layout of the first 16 pins on the Raspberry Pi 
 * **Analog Speed Conversion 2:** A 3.3V software driven PWM output is used to switch a power MOSFET to drive the condenser fans utilizing a **SF24G flyback diode** and **330 μF electrolytic capacitor** shunt for smoothing.
 * **Pull-up Resistors:** Pins 7, 15, and 16 use dual **10 kΩ pull-up resistor** in parallel tied to the 3.3V rail (Pin 1) to establish stable 1-Wire communication.
 
+#### SCHEMATIC
+
 ```
      o--[24-USB]----o--<24v           3x TEMP1>--{--GPIO4
      |              |                 2x TEMP2>--{--GPIO22
@@ -137,4 +140,19 @@ GPIO17--[MOSFET]--+-o                {-----[..<..]--GPIO7
      |            |    [.........]--}--<PUMP     {--3v3
     GND          GND   [PUMP DRVR]--}            {--GPIO3
     SIG          PWR   [.........]--}     FLOW>--{--GND
+```
+
+#### CHILLER HARNESS
+
+```
+PI-ZERO  <-- RIBBON |SHIFTER| JST --> CHILLER
+
+(pin06)    GND (brn)-GND
+(pin04)     5V (red)-----HV
+(pin01) ** 3V3 (org)--LV GND-\
+(pin08) GPIO14 (yel)-LV1 HV1--}-<MODBUS TTY
+(pin10) GPIO15 (grn)-LV2 HV2-/
+(pin07) GPIO 4 (blu)-LV3 HV3==}-<COMP SPEED
+(pin12) GPIO18 (pur)-LV4 HV4-\
+ ** PUMP SPEED (gry)--[RES]--/
 ```
