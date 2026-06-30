@@ -105,13 +105,12 @@ This table mirrors the physical layout of the first 16 pins on the Raspberry Pi 
 | Left Column (Odd Pins) | Pin # | Pin # | Right Column (Even Pins) |
 | :--- | :---: | :---: | :--- |
 | **3.3V Power** <br> ➡️ *Shifter LV Ref & Sensors* | **01** | **02** | **5V Power** <br> ➡️ *Shifter HV Reference* |
-| **GPIO 2** (SDA) <br> ⬅️ *TBD* | **03** | **04** | **5V Power** <br> ➡️ *Unused* |
+| **GPIO 2** (SDA) <br> ⬅️ `temp0..3` *[1-Wire Bus]* | **03** | **04** | **5V Power** <br> ➡️ *Unused* |
 | **GPIO 3** (SCL) <br> ⬅️ `flow_rate` *[Direct 3.3V Input]* | **05** | **06** | **Ground** <br> ➡️ *Common System Ground* |
 | **GPIO 4** (GPCLK0) <br> 🔄 `comp_speed` *[Shifter CH3]* | **07** | **08** | **GPIO 14** (TXD0) <br> ➡️ `chiller_tx` *[Shifter CH1]* |
 | **Ground** <br> ➡️ *Common System Ground* | **09** | **10** | **GPIO 15** (RXD0) <br> ⬅️ `chiller_rx` *[Shifter CH2]* |
 | **GPIO 17** <br> ➡️ `pump_power` *[Direct 3.3V to MOSFET]* | **11** | **12** | **GPIO 18** (PWM0) <br> ➡️ `pump_speed` *[Shifter CH4]* |
 | **GPIO 27** <br> ➡️ `fan_speed` *[Direct 3.3V to MOSFET]* | **13** | **14** | **Ground** <br> ➡️ *Common System Ground* |
-| **GPIO 22** <br> 🔄 `temp0, temp1, temp2` *[1-Wire Bus 1]* | **15** | **16** | **GPIO 23** <br> 🔄 `temp3, temp4` *[1-Wire Bus 2]* |
 
 ---
 
@@ -129,18 +128,18 @@ This table mirrors the physical layout of the first 16 pins on the Raspberry Pi 
 #### SCHEMATIC
 
 ```
-     o--[24-USB]----o--<24v           3x TEMP1>--{--GPIO4
-     |              |                 2x TEMP2>--{--GPIO22
-GPIO27--[MOSFET]----o                {--o-----------SIG GND
+     o--[24-USB]----o--<24v             4xTEMP>--{--GPIO2
+     |              |                 (1kRES-3v3){--5v
+GPIO27--[MOSFET]----o                {--o--------{--SIG GND
      |  [CAP+.o]====+==<FAN+  TTY>---{--+--[..>..]--GPIO14
      o--[330u.o]--o=+==<FAN-         {--+--[..<..]--GPIO15
-     |            | |        COMP>---{--o--[SHIFT]==3v3+5v
+     |            | |        COMP>---{--o--[SHIFT]==3v3,5v
 GPIO17--[MOSFET]--+-o                {-----[..<..]--GPIO7
      |  [......]--+----[....CAP.o]--[RES]--[..<..]--GPIO18
-     o--[......]--o----[....22u.o]
+     o--[......]--o----[....15u.o]   10k
      |            |    [.........]--}--<PUMP     {--3v3
-    GND          GND   [PUMP DRVR]--}            {--GPIO3
-    SIG          PWR   [.........]--}     FLOW>--{--GND
+    GND          GND   [PUMP DRVR]--}     FLOW>--{--GPIO3
+    SIG          PWR   [.........]--}(10kRES-3v3){--GND
 ```
 
 #### CHILLER HARNESS
