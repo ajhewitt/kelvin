@@ -107,17 +107,16 @@ This table mirrors the physical layout of the first 16 pins on the Raspberry Pi 
 | **3.3V Power** <br> ➡️ *Shifter LV Ref & Sensors* | **01** | **02** | **5V Power** <br> ➡️ *Shifter HV Reference* |
 | **GPIO 2** (SDA) <br> ⬅️ `temp0..3` *[1-Wire Bus]* | **03** | **04** | **5V Power** <br> ➡️ *Unused* |
 | **GPIO 3** (SCL) <br> ⬅️ `flow_rate` *[Direct 3.3V Input]* | **05** | **06** | **Ground** <br> ➡️ *Common System Ground* |
-| **GPIO 4** (GPCLK0) <br> 🔄 `comp_speed` *[Shifter CH1]* | **07** | **08** | **GPIO 14** (TXD0) <br> ➡️ `chiller_tx` *[Shifter CH2]* |
+| **GPIO 4** (GPCLK0) <br> 🔄`fan_speed` *[Direct 3.3V to MOSFET]* | **07** | **08** | **GPIO 14** (TXD0) <br> ➡️ `chiller_tx` *[Shifter CH2]* |
 | **Ground** <br> ➡️ *Common System Ground* | **09** | **10** | **GPIO 15** (RXD0) <br> ⬅️ `chiller_rx` *[Shifter CH3]* |
 | **GPIO 17** <br> ➡️ `pump_power` *[Direct 3.3V to MOSFET]* | **11** | **12** | **GPIO 18** (PWM0) <br> ➡️ `pump_speed` *[Shifter CH4]* |
-| **GPIO 27** <br> ➡️ `fan_speed` *[Direct 3.3V to MOSFET]* | **13** | **14** | **Ground** <br> ➡️ *Common System Ground* |
 
 ---
 
 ### ⚙️ Hardware Connection & Logic Reference
 
 * **Shifter Allocation (SparkFun 4-Channel):**
-  * **CH1:** Pin 7 (`GPIO 4`) ➡️ 3.3V to 5V clock signal as aux compresor speed control.
+  * **CH1:** NC
   * **CH2:** Pin 8 (`GPIO 14`) ➡️ 3.3V to 5V TX signal to chiller microcontroller.
   * **CH3:** Pin 10 (`GPIO 15`) ⬅️ 5V to 3.3V RX signal from chiller microcontroller.
   * **CH4:** Pin 12 (`GPIO 18`) ➡️ 3.3V to 5V PWM signal to feed the analog filter.
@@ -130,8 +129,8 @@ This table mirrors the physical layout of the first 16 pins on the Raspberry Pi 
 ```
      o--[24-USB]----o--<24v            (1kRES-3v3)/-GPIO2
      |              |                   4xTEMP>--{--5v
-GPIO27--[MOSFET]----o           COMP\_/-o---------\-SIG GND
-     |  [CAP+.o]====+==<FAN+          \-+--[..>..]--GPIO4
+ GPIO7--[MOSFET]----o                   o---------\-SIG GND
+     |  [CAP+.o]====+==<FAN+            |  [..>..]
      o--[330u.o]--o=+==<FAN-          /-+--[..<..]--GPIO14
      |            | |           TTY>-{--o--[SHIFT]==3v3,5v
 GPIO17--[MOSFET]--+-o                 \----[..<..]--GPIO15
@@ -149,10 +148,9 @@ PI-ZERO  <-- RIBBON |SHIFTER| JST --> CHILLER
 
 (pin06)    GND (brn)-GND
 (pin04)     5V (red)-----HV
-(pin01) ** 3V3 (org)--LV GND-\_/COMP SPEED
-(pin07) GPIO 4 (blu)-LV1 HV1-/
-(pin08) GPIO14 (yel)-LV2 HV2-\_/MODBUS TTY
+(pin01) ** 3V3 (org)--LV GND-\
+(pin08) GPIO14 (yel)-LV2 HV2--}-<MODBUS TTY
 (pin10) GPIO15 (grn)-LV3 HV3-/
-(pin12) GPIO18 (pur)-LV4 HV4-\
- ** PUMP SPEED (gry)--[RES]--/
+(pin12) GPIO18 (blu)-LV4 HV4-\
+ ** PUMP SPEED (pur)--[RES]--/
 ```
