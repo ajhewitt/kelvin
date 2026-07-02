@@ -104,8 +104,8 @@ This table mirrors the physical layout of the first 16 pins on the Raspberry Pi 
 
 | Left Column (Odd Pins) | Pin # | Pin # | Right Column (Even Pins) |
 | :--- | :---: | :---: | :--- |
-| **3.3V Power** <br> ➡️ *Shifter LV Ref & Sensors* | **01** | **02** | **5V Power** <br> ➡️ *Shifter HV Reference* |
-| **GPIO 2** (SDA) <br> ⬅️ `temp0..3` *[1-Wire Bus]* | **03** | **04** | **5V Power** <br> ➡️ *Unused* |
+| **3.3V Power** <br> ➡️ *Shifter LV Ref & Sensors* | **01** | **02** | **5V Power** <br> ➡️ *Temp Sensors* |
+| **GPIO 2** (SDA) <br> ⬅️ `temp0..3` *[1-Wire Bus]* | **03** | **04** | **5V Power** <br> ➡️ *Shifter HV Reference* |
 | **GPIO 3** (SCL) <br> ⬅️ `flow_rate` *[Direct 3.3V Input]* | **05** | **06** | **Ground** <br> ➡️ *Common System Ground* |
 | **GPIO 4** (GPCLK0) <br> 🔄`fan_speed` *[Direct 3.3V to MOSFET]* | **07** | **08** | **GPIO 14** (TXD0) <br> ➡️ `chiller_tx` *[Shifter CH2]* |
 | **Ground** <br> ➡️ *Common System Ground* | **09** | **10** | **GPIO 15** (RXD0) <br> ⬅️ `chiller_rx` *[Shifter CH3]* |
@@ -133,7 +133,7 @@ This table mirrors the physical layout of the first 16 pins on the Raspberry Pi 
      |  [CAP+.o]====+==<FAN+            |  [..>..]
      o--[330u.o]--o=+==<FAN-          /-+--[..<..]--GPIO14
      |            | |           TTY>-{--o--[SHIFT]==3v3,5v
-GPIO17--[MOSFET]--+-o                 \----[..<..]--GPIO15
+GPIO17--[MOSFET]--+-o                 \----[..>..]--GPIO15
      |  [......]--+----[....CAP.o]--[RES]--[..<..]--GPIO18
      o--[......]--o----[....15u.o]   10k
      |            |    [.........]--\_/PUMP       /-3v3
