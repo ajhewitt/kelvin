@@ -3,13 +3,13 @@ class Session < ApplicationRecord
   has_many :control_actions, dependent: :destroy
   has_many :sensor_readings, dependent: :destroy
 
-  enum :status, { pending: 0, active: 1, inactive: 2, complete: 3 }, default: :pending
+  enum :status, {pending: 0, active: 1, inactive: 2, complete: 3}, default: :pending
 
   validate :ensure_lifecycle_integrity, on: :update
 
   def elapsed_minutes
     return 0 unless started_at
-    (( (ended_at || Time.current) - started_at) / 60).to_i
+    (((ended_at || Time.current) - started_at) / 60).to_i
   end
 
   private

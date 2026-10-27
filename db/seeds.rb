@@ -8,8 +8,8 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-require_dependency 'actuator'
-require_dependency 'sensor'
+require_dependency "actuator"
+require_dependency "sensor"
 
 # Configurations
 Configuration.create!(name: "Service Mode", slug: "service")

@@ -2,7 +2,7 @@ class Actuator < ApplicationRecord
   has_many :control_actions, dependent: :destroy
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true
-  
+
   # Stub method that subclasses overwrite with raw physical protocols
   def trigger!(value)
     raise NotImplementedError, "Subclasses must implement physical execution logic"
