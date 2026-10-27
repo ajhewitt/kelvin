@@ -15,4 +15,14 @@ RSpec.describe Drink, type: :model do
     expect(Drink.new(name: "Mild", ibu: 12.5)).not_to be_valid
     expect(Drink.new(name: "Mild", srm: -1)).not_to be_valid
   end
+
+  it "only takes a picture as its image" do
+    drink = Drink.new(name: "Orange Dinosaur")
+
+    drink.image.attach(io: file_fixture("drink.png").open, filename: "drink.png")
+    expect(drink).to be_valid
+
+    drink.image.attach(io: StringIO.new("not a picture"), filename: "notes.txt")
+    expect(drink).not_to be_valid
+  end
 end

@@ -38,7 +38,7 @@ bottle_660ml = Bottle.find_or_create_by!(volume: 0.66, unit: "liter")
 st_mars = Brand.find_or_create_by!(name: "St. Mars of the Desert") { |b| b.country = "UK" }
 cider_hill = Brand.find_or_create_by!(name: "Cider Hill Cellars") { |b| b.country = "USA" }
 
-event = Event.find_or_create_by!(date: Date.new(2025, 12, 13)) do |e|
+event = Event.find_or_create_by!(date: Date.new(2025, 11, 28)) do |e|
   e.name = "A Decade in the Making"
   e.tagline = "A Decade in the Making ’25"
 end

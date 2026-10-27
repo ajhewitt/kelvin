@@ -42,6 +42,19 @@ RSpec.describe Package, type: :model do
     expect(Package.exists?(keg.id)).to be(true)
   end
 
+  describe "#board_size" do
+    it "shows a bottle's size, as a bare number for millilitres" do
+      expect(Bottle.new(volume: 0.66, unit: "liter").board_size).to eq("(660)")
+      expect(Bottle.new(volume: 0.09375, unit: "gal").board_size).to eq("(12 oz)")
+      expect(Bottle.new(volume: 1.5, unit: "liter").board_size).to eq("(1.5 L)")
+    end
+
+    it "leaves cans, kegs and casks without a size" do
+      expect([Can.new(volume: 0.44, unit: "liter"), Keg.new(volume: 5, unit: "gal"), Cask.new(volume: 4.5, unit: "imp_gal")].map(&:board_size))
+        .to all(be_nil)
+    end
+  end
+
   describe "#volume_label" do
     {
       [Keg, 5, "gal"] => "5 gal",

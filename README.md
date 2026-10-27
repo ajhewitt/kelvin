@@ -77,9 +77,9 @@ The task reads the physical system pins, interfaces with the Modbus communicatio
 ## 🚀 Deployment & Installation
 
 ### Local Repository Preparation
-1. Initialize the system package lists and ensure core compilation utilities are ready:
+1. Initialize the system package lists and ensure core compilation utilities are ready, along with libvips (resizes drink images for the board) and a color emoji font (so the kiosk browser can draw emoji):
    ```bash
-   sudo apt update && sudo apt install git curl gpg build-essential -y
+   sudo apt update && sudo apt install git curl gpg build-essential libvips-tools fonts-noto-color-emoji -y
    ```
 2. Disable local documentation downloads to save disk space and write I/O:
    ```bash

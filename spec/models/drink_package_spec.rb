@@ -60,6 +60,25 @@ RSpec.describe DrinkPackage, type: :model do
     expect(side(Package.cooperage)).to eq([[1, "Porter"], [2, "Mild"], [3, "Bitter"]])
   end
 
+  it "shows the drink's image unless it's switched off for the event" do
+    drink = Drink.create!(name: "Orange Dinosaur", abv: 9)
+    drink.image.attach(io: file_fixture("drink.png").open, filename: "drink.png")
+    item = event.drink_packages.create!(drink: drink, package: keg)
+
+    expect(item.image).to eq(drink.image)
+
+    item.update!(show_image: false)
+    expect(item.image).to be_nil
+  end
+
+  it "keeps the emoji short" do
+    item = event.drink_packages.new(drink: Drink.create!(name: "Old Powderhouse"), package: keg, emoji: "🔥")
+    expect(item).to be_valid
+
+    item.emoji = "🔥" * 17
+    expect(item).not_to be_valid
+  end
+
   it "closes the gap when an item is removed" do
     list("Mild", 3.2, keg)
     bitter = list("Bitter", 4.2, keg)

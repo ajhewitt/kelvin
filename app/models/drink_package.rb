@@ -9,6 +9,7 @@ class DrinkPackage < ApplicationRecord
 
   validates :drink_id, uniqueness: {scope: [:event_id, :package_id], message: "is already listed in that package"}
   validates :position, numericality: {only_integer: true, greater_than: 0}, allow_nil: true
+  validates :emoji, length: {maximum: 16}
   validate :position_unique_on_its_side, if: -> { position && event && package }
 
   before_create :insert_by_abv, unless: :position
@@ -17,6 +18,11 @@ class DrinkPackage < ApplicationRecord
   # The other items on this item's side of the board
   def siblings
     event.drink_packages.joins(:package).merge(cooperage? ? Package.cooperage : Package.packaged).where.not(id: id)
+  end
+
+  # The drink's image, unless it's switched off for this event
+  def image
+    drink.image if show_image? && drink.image.attached?
   end
 
   # Moves this item to a position on its side, renumbering the side from 1

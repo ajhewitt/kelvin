@@ -1,0 +1,34 @@
+<header>
+  <h1 class="board-title">The Ludlow Park</h1>
+  <p class="board-tagline"><span><%= @board.tagline %></span></p>
+</header>
+
+<main class="board-lists">
+  <% [@board.left, @board.right].each do |sections| %>
+    <section>
+      <% sections.each do |section| %>
+        <h2 class="board-section-title"><%= section.title %></h2>
+        <ul class="board-items">
+          <% section.items.each do |item| %>
+            <% description = item.drink.description.presence %>
+            <li class="board-item<%= " board-item--described" if description %>">
+              <div class="board-item-text">
+                <span class="board-item-name"><%= [item.drink.name, item.package.board_size].compact.join(" ") %></span>
+                <% if description %>
+                  <p class="board-item-description"><%= description %></p>
+                <% end %>
+              </div>
+              <% if item.image %>
+                <%= image_tag item.image.variant(resize_to_limit: [240, 240]), class: "board-item-image", alt: "" %>
+              <% end %>
+              <% if item.emoji.present? %>
+                <span class="board-item-emoji"><%= item.emoji %></span>
+              <% end %>
+              <span class="board-item-abv"><%= abv_label(item.drink) %></span>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </section>
+  <% end %>
+</main>

@@ -25,6 +25,20 @@ class Package < ApplicationRecord
 
   # "5 gal", "4.5 imp gal" or "20 L", and under one unit "16 oz", "20 imp oz" or "660 ml"
   def volume_label
+    volume_parts&.join(" ")
+  end
+
+  # Only bottles show their size on the board
+  def board_size
+  end
+
+  def to_s
+    "#{type} #{volume_label}"
+  end
+
+  private
+
+  def volume_parts
     return unless volume && UNIT_LABELS.key?(unit)
 
     amount, label =
@@ -34,10 +48,6 @@ class Package < ApplicationRecord
       else
         [volume, UNIT_LABELS.fetch(unit)]
       end
-    "#{ActiveSupport::NumberHelper.number_to_rounded(amount, precision: 2, strip_insignificant_zeros: true)} #{label}"
-  end
-
-  def to_s
-    "#{type} #{volume_label}"
+    [ActiveSupport::NumberHelper.number_to_rounded(amount, precision: 2, strip_insignificant_zeros: true), label]
   end
 end
