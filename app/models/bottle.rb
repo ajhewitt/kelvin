@@ -1,0 +1,2 @@
+class Bottle < Package
+end

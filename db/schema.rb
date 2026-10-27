@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_14_000001) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_27_180000) do
   create_table "actuators", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name", null: false
@@ -19,6 +19,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_14_000001) do
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_actuators_on_slug", unique: true
     t.index ["type"], name: "index_actuators_on_type"
+  end
+
+  create_table "brands", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "country"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_brands_on_name", unique: true
   end
 
   create_table "configurations", force: :cascade do |t|
@@ -37,6 +45,49 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_14_000001) do
     t.integer "session_id", null: false
     t.index ["actuator_id"], name: "index_control_actions_on_actuator_id"
     t.index ["session_id"], name: "index_control_actions_on_session_id"
+  end
+
+  create_table "drink_packages", force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.integer "drink_id", null: false
+    t.integer "package_id", null: false
+    t.integer "position", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["drink_id"], name: "index_drink_packages_on_drink_id"
+    t.index ["event_id", "drink_id", "package_id"], name: "index_drink_packages_on_event_id_and_drink_id_and_package_id", unique: true
+    t.index ["package_id"], name: "index_drink_packages_on_package_id"
+  end
+
+  create_table "drinks", force: :cascade do |t|
+    t.integer "brand_id"
+    t.string "name", null: false
+    t.text "description"
+    t.decimal "abv", precision: 5, scale: 2
+    t.integer "ibu"
+    t.decimal "srm", precision: 4, scale: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brand_id"], name: "index_drinks_on_brand_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.date "date", null: false
+    t.string "name", null: false
+    t.string "tagline"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["date"], name: "index_events_on_date", unique: true
+  end
+
+  create_table "packages", force: :cascade do |t|
+    t.string "type", null: false
+    t.float "volume", null: false
+    t.string "unit", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["type", "volume", "unit"], name: "index_packages_on_type_and_volume_and_unit", unique: true
   end
 
   create_table "sensor_readings", force: :cascade do |t|
@@ -73,6 +124,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_14_000001) do
 
   add_foreign_key "control_actions", "actuators"
   add_foreign_key "control_actions", "sessions"
+  add_foreign_key "drink_packages", "drinks"
+  add_foreign_key "drink_packages", "events"
+  add_foreign_key "drink_packages", "packages"
+  add_foreign_key "drinks", "brands"
   add_foreign_key "sensor_readings", "sensors"
   add_foreign_key "sensor_readings", "sessions"
   add_foreign_key "sessions", "configurations"

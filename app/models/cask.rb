@@ -1,0 +1,2 @@
+class Cask < Package
+end
