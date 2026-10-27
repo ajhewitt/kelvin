@@ -73,6 +73,17 @@ RSpec.describe "Board", type: :request do
     expect(stats).to eq([["", "", "4.2%"], ["12.5 SRM", "76 IBU", "6.5%"]])
   end
 
+  it "keeps kicked items on the board, crossed out" do
+    event = Event.create!(name: "Black Friday", date: Date.new(2026, 11, 27))
+    list(event, "Urchin", 6.1, bottle, brand: st_mars, kicked: true)
+    list(event, "Mermaid Beacon", 4.8, keg)
+
+    get root_path
+
+    expect(page.css(".board-item-name").map(&:text)).to contain_exactly("Urchin (660)", "Mermaid Beacon")
+    expect(page.css(".board-item--kicked .board-item-name").map(&:text)).to eq(["Urchin (660)"])
+  end
+
   it "still renders before any event exists" do
     get root_path
 

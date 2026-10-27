@@ -11,7 +11,7 @@
         <ul class="board-items">
           <% section.items.each do |item| %>
             <% description = item.drink.description.presence %>
-            <li class="board-item<%= " board-item--described" if description %>">
+            <li class="<%= class_names("board-item", "board-item--described": description, "board-item--kicked": item.kicked?) %>">
               <div class="board-item-text">
                 <span class="board-item-name"><%= [item.drink.name, item.package.board_size].compact.join(" ") %></span>
                 <% if description %>

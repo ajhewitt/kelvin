@@ -45,6 +45,7 @@ class CreateTapList < ActiveRecord::Migration[8.1]
       t.integer :position, null: false
       t.string :emoji
       t.boolean :show_image, default: true, null: false
+      t.boolean :kicked, default: false, null: false # sold out, shown crossed out
       t.timestamps
     end
     add_index :drink_packages, [:event_id, :drink_id, :package_id], unique: true

@@ -71,6 +71,13 @@ RSpec.describe DrinkPackage, type: :model do
     expect(item.image).to be_nil
   end
 
+  it "isn't kicked until marked" do
+    item = list("Urchin", 6.1, can)
+
+    expect(item).not_to be_kicked
+    expect { item.update!(kicked: true) }.not_to change { item.reload.position }
+  end
+
   it "keeps the emoji short" do
     item = event.drink_packages.new(drink: Drink.create!(name: "Old Powderhouse"), package: keg, emoji: "🔥")
     expect(item).to be_valid

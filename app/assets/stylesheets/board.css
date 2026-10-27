@@ -118,6 +118,28 @@ html.board-page {
   margin-bottom: 1.2em;
 }
 
+/*
+ * A kicked item stays on the board, faded, with a solid line through its name row. The fade
+ * goes on the item's contents so the line itself keeps full strength.
+ */
+.board-item--kicked {
+  position: relative;
+}
+
+.board-item--kicked > * {
+  opacity: 0.35;
+}
+
+/* 0.78em centres the line on the name row: 1.3em text at a line height of 1.35 */
+.board-item--kicked::after {
+  content: "";
+  position: absolute;
+  top: 0.78em;
+  right: -0.4em;
+  left: -0.4em;
+  border-top: 0.2em solid var(--board-coral);
+}
+
 .board-item-text {
   flex: 1;
 }
