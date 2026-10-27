@@ -11,8 +11,8 @@ RSpec.describe Board do
     event.drink_packages.create!(drink: Drink.create!(name: name, abv: abv, brand: brand), package: package)
   end
 
-  def outline(sections)
-    sections.map { |section| [section.title, section.items.map { |item| item.drink.name }] }
+  def outline(side)
+    side.sections.map { |section| [section.title, section.items.map { |item| item.drink.name }] }
   end
 
   it "puts the house's drinks under the side's heading, then each brand in list order" do
@@ -41,9 +41,19 @@ RSpec.describe Board do
     expect(outline(Board.new(event).right)).to eq([["St. Mars of the Desert", ["Urchin"]]])
   end
 
+  it "gives a stat a column on a side only when a drink there has a value for it" do
+    event.update!(show_ibu: true)
+    event.drink_packages.create!(drink: Drink.create!(name: "Gridlock IPA", abv: 6.5, ibu: 76), package: keg)
+    list("India Wharf Pale Ale", 4.2, keg)
+    list("Urchin", 6.1, can, st_mars)
+
+    expect(Board.new(event).left.stats).to eq([:ibu, :abv])
+    expect(Board.new(event).right.stats).to eq([:abv])
+  end
+
   it "shows nothing without an event" do
     board = Board.new(nil)
 
-    expect([board.tagline, board.left, board.right]).to eq([nil, [], []])
+    expect([board.tagline, board.left, board.right]).to eq([nil, Board::Side.new(sections: [], stats: []), Board::Side.new(sections: [], stats: [])])
   end
 end

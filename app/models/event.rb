@@ -17,6 +17,11 @@ class Event < ApplicationRecord
     where(date: business_date(time)..).order(:date).first || order(date: :desc).first
   end
 
+  # The drink stats the board shows for this event, in board order
+  def stats
+    {srm: show_srm?, ibu: show_ibu?, abv: show_abv?}.select { |_stat, shown| shown }.keys
+  end
+
   private
 
   # The board always shows an event

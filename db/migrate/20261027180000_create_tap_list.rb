@@ -30,6 +30,10 @@ class CreateTapList < ActiveRecord::Migration[8.1]
       t.string :name, null: false
       t.string :tagline
       t.text :description
+      # Which drink stats the board shows, in the order SRM, IBU, ABV
+      t.boolean :show_abv, default: true, null: false
+      t.boolean :show_ibu, default: false, null: false
+      t.boolean :show_srm, default: false, null: false
       t.timestamps
     end
     add_index :events, :date, unique: true
@@ -39,6 +43,8 @@ class CreateTapList < ActiveRecord::Migration[8.1]
       t.references :drink, null: false, foreign_key: true
       t.references :package, null: false, foreign_key: true
       t.integer :position, null: false
+      t.string :emoji
+      t.boolean :show_image, default: true, null: false
       t.timestamps
     end
     add_index :drink_packages, [:event_id, :drink_id, :package_id], unique: true

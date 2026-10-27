@@ -29,7 +29,7 @@ RSpec.describe "Board", type: :request do
     expect(page.at_css(".board-tagline").text.strip).to eq("Old Skool ’26")
     expect(page.css(".board-section-title").map(&:text)).to eq(["Tap List", "St. Mars of the Desert"])
     expect(page.css(".board-item-name").map(&:text)).to eq(["Mermaid Beacon", "Urchin (660)"])
-    expect(page.css(".board-item-abv").map(&:text)).to eq(["4.8%", "6.1%"])
+    expect(page.css(".board-item-stat").map(&:text)).to eq(["4.8%", "6.1%"])
     expect(response.body).not_to include("Harvey's Mild")
   end
 
@@ -60,6 +60,17 @@ RSpec.describe "Board", type: :request do
 
     expect(page.css("img.board-item-image").size).to eq(1)
     expect(page.at_css(".board-item-emoji").text.strip).to eq("🔥")
+  end
+
+  it "shows the stats turned on for the event, SRM then IBU then ABV, skipping missing values" do
+    event = Event.create!(name: "Black Friday", date: Date.new(2026, 11, 27), show_ibu: true, show_srm: true)
+    list(event, "India Wharf Pale Ale", 4.2, keg)
+    event.drink_packages.create!(drink: Drink.create!(name: "Gridlock IPA", abv: 6.5, ibu: 76, srm: 12.5), package: keg)
+
+    get root_path
+
+    stats = page.css(".board-item-stats").map { |row| row.css(".board-item-stat").map { |stat| stat.text.strip } }
+    expect(stats).to eq([["", "", "4.2%"], ["12.5 SRM", "76 IBU", "6.5%"]])
   end
 
   it "still renders before any event exists" do

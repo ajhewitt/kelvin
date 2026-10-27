@@ -123,7 +123,7 @@ html.board-page {
 }
 
 .board-item-name,
-.board-item-abv {
+.board-item-stat {
   color: var(--board-coral);
   font-size: 1.3em;
   font-weight: 800;
@@ -132,10 +132,32 @@ html.board-page {
   text-transform: uppercase;
 }
 
-/* The negative margin cancels the trailing letter spacing so ABVs line up on the right */
-.board-item-abv {
-  margin-right: -0.22em;
+/* Each stat sits in a fixed-width slot, right-aligned, so every kind lines up down the list */
+.board-item-stats {
+  display: flex;
+  gap: 1em;
+}
+
+.board-item-stat {
+  text-align: right;
   white-space: nowrap;
+}
+
+.board-item-stat--srm {
+  min-width: 5.6em;
+}
+
+.board-item-stat--ibu {
+  min-width: 5.4em;
+}
+
+.board-item-stat--abv {
+  min-width: 4.2em;
+}
+
+/* The negative margin cancels the trailing letter spacing so the last stat lines up on the right */
+.board-item-stat:last-child {
+  margin-right: -0.22em;
 }
 
 .board-item-description {

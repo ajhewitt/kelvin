@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_27_200522) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_27_200521) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -40,10 +40,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_27_200522) do
   end
 
   create_table "actuators", force: :cascade do |t|
-    t.datetime "created_at", null: false
+    t.string "type", null: false
     t.string "name", null: false
     t.string "slug", null: false
-    t.string "type", null: false
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_actuators_on_slug", unique: true
     t.index ["type"], name: "index_actuators_on_type"
@@ -58,19 +58,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_27_200522) do
   end
 
   create_table "configurations", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "description"
     t.string "name", null: false
     t.string "slug", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_configurations_on_slug", unique: true
   end
 
   create_table "control_actions", force: :cascade do |t|
-    t.string "action_value", null: false
-    t.integer "actuator_id", null: false
-    t.datetime "executed_at", null: false
     t.integer "session_id", null: false
+    t.integer "actuator_id", null: false
+    t.string "action_value", null: false
+    t.datetime "executed_at", null: false
     t.index ["actuator_id"], name: "index_control_actions_on_actuator_id"
     t.index ["session_id"], name: "index_control_actions_on_session_id"
   end
@@ -80,10 +80,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_27_200522) do
     t.integer "drink_id", null: false
     t.integer "package_id", null: false
     t.integer "position", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "emoji"
     t.boolean "show_image", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["drink_id"], name: "index_drink_packages_on_drink_id"
     t.index ["event_id", "drink_id", "package_id"], name: "index_drink_packages_on_event_id_and_drink_id_and_package_id", unique: true
     t.index ["package_id"], name: "index_drink_packages_on_package_id"
@@ -106,6 +106,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_27_200522) do
     t.string "name", null: false
     t.string "tagline"
     t.text "description"
+    t.boolean "show_abv", default: true, null: false
+    t.boolean "show_ibu", default: false, null: false
+    t.boolean "show_srm", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["date"], name: "index_events_on_date", unique: true
@@ -121,21 +124,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_27_200522) do
   end
 
   create_table "sensor_readings", force: :cascade do |t|
+    t.integer "session_id", null: false
+    t.integer "sensor_id", null: false
     t.float "reading_value", null: false
     t.datetime "recorded_at", null: false
-    t.integer "sensor_id", null: false
-    t.integer "session_id", null: false
     t.index ["sensor_id"], name: "index_sensor_readings_on_sensor_id"
     t.index ["session_id", "recorded_at"], name: "index_sensor_readings_on_session_id_and_recorded_at"
     t.index ["session_id"], name: "index_sensor_readings_on_session_id"
   end
 
   create_table "sensors", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.boolean "is_virtual", default: false, null: false
+    t.string "type", null: false
     t.string "name", null: false
     t.string "slug", null: false
-    t.string "type", null: false
+    t.boolean "is_virtual", default: false, null: false
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_sensors_on_slug", unique: true
     t.index ["type"], name: "index_sensors_on_type"
@@ -143,10 +146,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_27_200522) do
 
   create_table "sessions", force: :cascade do |t|
     t.integer "configuration_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "ended_at"
-    t.datetime "started_at"
     t.integer "status", default: 0, null: false
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["configuration_id"], name: "index_sessions_on_configuration_id"
     t.index ["status"], name: "index_sessions_on_status"

@@ -47,6 +47,18 @@ RSpec.describe Event, type: :model do
     end
   end
 
+  describe "#stats" do
+    it "shows only ABV by default" do
+      expect(Event.new.stats).to eq([:abv])
+    end
+
+    it "puts SRM before IBU before ABV" do
+      expect(Event.new(show_ibu: true).stats).to eq([:ibu, :abv])
+      expect(Event.new(show_srm: true, show_ibu: true).stats).to eq([:srm, :ibu, :abv])
+      expect(Event.new(show_abv: false, show_ibu: true).stats).to eq([:ibu])
+    end
+  end
+
   it "won't delete the last event, so the board always has one to show" do
     only = event_on(Date.new(2026, 11, 14))
 
