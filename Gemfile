@@ -53,7 +53,7 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
-  gem "rspec-rails", "~> 7.0" # Matches Rails 8+ expectations
+  gem "rspec-rails", "~> 8.0" # Matches Rails 8+ expectations
 end
 
 group :development do
