@@ -23,6 +23,7 @@ html.board-page {
 .board {
   --board-background: #1e1a2b;
   --board-coral: #f99491;
+  --board-coral-faded: rgb(249 148 145 / 35%);
   --board-cream: #fffef6;
   --board-text: #ece8f1;
 
@@ -119,25 +120,21 @@ html.board-page {
 }
 
 /*
- * A kicked item stays on the board, faded, with a solid line through its name row. The fade
- * goes on the item's contents so the line itself keeps full strength.
+ * A kicked item stays on the board with its name and stats struck through: the letters fade
+ * while the line keeps the full coral. Descriptions, images and emoji just fade.
  */
-.board-item--kicked {
-  position: relative;
+.board-item--kicked .board-item-name,
+.board-item--kicked .board-item-stat {
+  color: var(--board-coral-faded);
+  text-decoration-line: line-through;
+  text-decoration-color: var(--board-coral);
+  text-decoration-thickness: 0.15em;
 }
 
-.board-item--kicked > * {
+.board-item--kicked .board-item-description,
+.board-item--kicked .board-item-image,
+.board-item--kicked .board-item-emoji {
   opacity: 0.35;
-}
-
-/* 0.78em centres the line on the name row: 1.3em text at a line height of 1.35 */
-.board-item--kicked::after {
-  content: "";
-  position: absolute;
-  top: 0.78em;
-  right: -0.4em;
-  left: -0.4em;
-  border-top: 0.2em solid var(--board-coral);
 }
 
 .board-item-text {
