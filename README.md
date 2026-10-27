@@ -2,6 +2,8 @@
 
 Kelvin is an embedded application and presentation layer for a bespoke, reconfigurable refrigeration solution. Architected for deployment on the resource-constrained Raspberry Pi Zero 2 W (512MB RAM) running Raspberry Pi OS Lite, the system manages a compact vapor-phase refrigeration unit alongside a clean web-based tap list display and back-end administrative control panel.
 
+Vibe-coded by Gemini (for free) using the Google search prompt in _AI Mode_
+
 ---
 
 ## ⚙️ System Architecture & Hardware Specs
@@ -102,24 +104,53 @@ This table mirrors the physical layout of the first 16 pins on the Raspberry Pi 
 
 | Left Column (Odd Pins) | Pin # | Pin # | Right Column (Even Pins) |
 | :--- | :---: | :---: | :--- |
-| **3.3V Power** <br> ➡️ *Shifter LV Ref & Sensors* | **01** | **02** | **5V Power** <br> ➡️ *Shifter HV Reference* |
-| **GPIO 2** (SDA) <br> ⬅️ `chiller_fault` *[Shifter CH3]* | **03** | **04** | **5V Power** <br> ➡️ *Unused* |
+| **3.3V Power** <br> ➡️ *Shifter LV Ref & Sensors* | **01** | **02** | **5V Power** <br> ➡️ *Temp Sensors* |
+| **GPIO 2** (SDA) <br> ⬅️ `temp0..3` *[1-Wire Bus]* | **03** | **04** | **5V Power** <br> ➡️ *Shifter HV Reference* |
 | **GPIO 3** (SCL) <br> ⬅️ `flow_rate` *[Direct 3.3V Input]* | **05** | **06** | **Ground** <br> ➡️ *Common System Ground* |
-| **GPIO 4** (GPCLK0) <br> 🔄 `temp0, temp1, temp2` *[1-Wire]* | **07** | **08** | **GPIO 14** (TXD0) <br> ➡️ `chiller_tx` *[Shifter CH1]* |
-| **Ground** <br> ➡️ *Common System Ground* | **09** | **10** | **GPIO 15** (RXD0) <br> ⬅️ `chiller_rx` *[Shifter CH2]* |
-| **GPIO 17** <br> ➡️ `pump_power` *[Direct 3.3V to Relay]* | **11** | **12** | **GPIO 18** (PWM0) <br> ➡️ `pump_speed` *[Shifter CH4]* |
-| **GPIO 27** <br> ➡️ `aux_power` *[Direct 3.3V to MOSFET]* | **13** | **14** | **Ground** <br> ➡️ *Common System Ground* |
-| **GPIO 22** <br> 🔄 `temp3` *[1-Wire Bus 2]* | **15** | **16** | **GPIO 23** <br> 🔄 `temp4` *[1-Wire Bus 3]* |
+| **GPIO 4** (GPCLK0) <br> 🔄`fan_speed` *[Direct 3.3V to MOSFET]* | **07** | **08** | **GPIO 14** (TXD0) <br> ➡️ `chiller_tx` *[Shifter CH2]* |
+| **Ground** <br> ➡️ *Common System Ground* | **09** | **10** | **GPIO 15** (RXD0) <br> ⬅️ `chiller_rx` *[Shifter CH3]* |
+| **GPIO 17** <br> ➡️ `pump_power` *[Direct 3.3V to MOSFET]* | **11** | **12** | **GPIO 18** (PWM0) <br> ➡️ `pump_speed` *[Shifter CH4]* |
 
 ---
 
 ### ⚙️ Hardware Connection & Logic Reference
 
 * **Shifter Allocation (SparkFun 4-Channel):**
-  * **CH1:** Pin 8 (`GPIO 14`) ➡️ 3.3V to 5V TX signal to chiller microcontroller.
-  * **CH2:** Pin 10 (`GPIO 15`) ⬅️ 5V to 3.3V RX signal from chiller microcontroller.
-  * **CH3:** Pin 3 (`GPIO 2`) ⬅️ 5V to 3.3V logic level fault safety step-down.
+  * **CH1:** NC
+  * **CH2:** Pin 8 (`GPIO 14`) ➡️ 3.3V to 5V TX signal to chiller microcontroller.
+  * **CH3:** Pin 10 (`GPIO 15`) ⬅️ 5V to 3.3V RX signal from chiller microcontroller.
   * **CH4:** Pin 12 (`GPIO 18`) ➡️ 3.3V to 5V PWM signal to feed the analog filter.
-* **Analog Speed Conversion:** The 5V PWM output exiting Shifter CH4 must pass through your **10 kΩ series resistor** and **22 μF ceramic capacitor** shunt-to-ground to provide the true 0–5V analog voltage required by the Fortior FU6832S motor controller pin (P3.4).
-* **Pull-up Resistors:** Pins 7, 15, and 16 require an individual **4.7 kΩ pull-up resistor** tied to the 3.3V rail (Pin 1) to establish stable 1-Wire communication.
+* **Analog Speed Conversion 1:** The 5V PWM output exiting Shifter CH4 passes through a **10 kΩ series resistor** and **15 μF ceramic capacitor** shunt-to-ground to provide the true 0–5V analog voltage required by the Fortior FU6832S motor controller pin (P3.4).
+* **Analog Speed Conversion 2:** A 3.3V software driven PWM output is used to switch a power MOSFET to drive the condenser fans utilizing a **SF24G flyback diode** and **330 μF electrolytic capacitor** shunt for smoothing.
+* **Pull-up Resistors:** Pins 7, 15, and 16 use dual **10 kΩ pull-up resistor** in parallel tied to the 3.3V rail (Pin 1) to establish stable 1-Wire communication.
 
+#### SCHEMATIC
+
+```
+     o--[24-USB]----o--<24v            (1kRES-3v3)/-GPIO2
+     |              |                   4xTEMP>--{--5v
+ GPIO7--[MOSFET]----o                   o---------\-SIG GND
+     |  [CAP+.o]====+==<FAN+            |  [..>..]
+     o--[330u.o]--o=+==<FAN-          /-+--[..<..]--GPIO14
+     |            | |           TTY>-{--o--[SHIFT]==3v3,5v
+GPIO17--[MOSFET]--+-o                 \----[..>..]--GPIO15
+     |  [......]--+----[....CAP.o]--[RES]--[..<..]--GPIO18
+     o--[......]--o----[....15u.o]   10k
+     |            |    [.........]--\_/PUMP       /-3v3
+    GND          GND   [PUMP DRVR]--/      FLOW>-{--GPIO3
+    SIG          PWR   [.........]-/  (10kRES-3v3)\-GND
+```
+
+#### CHILLER HARNESS
+
+```
+PI-ZERO  <-- RIBBON |SHIFTER| JST --> CHILLER
+
+(pin06)    GND (brn)-GND
+(pin04)     5V (red)-----HV
+(pin01) ** 3V3 (org)--LV GND-\
+(pin08) GPIO14 (yel)-LV2 HV2--}-<MODBUS TTY
+(pin10) GPIO15 (grn)-LV3 HV3-/
+(pin12) GPIO18 (blu)-LV4 HV4-\
+ ** PUMP SPEED (pur)--[RES]--/
+```
