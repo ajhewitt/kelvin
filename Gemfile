@@ -53,7 +53,7 @@ group :development, :test do
   # Ruby style guide, linter, and formatter [https://github.com/standardrb/standard]
   gem "standard", require: false
 
-  gem "rspec-rails", "~> 7.0" # Matches Rails 8+ expectations
+  gem "rspec-rails", "~> 8.0" # Matches Rails 8+ expectations
 end
 
 group :development do
