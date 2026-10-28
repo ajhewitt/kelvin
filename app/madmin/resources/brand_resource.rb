@@ -1,5 +1,5 @@
 class BrandResource < Madmin::Resource
-  menu position: 3
+  menu parent: "Tap list", position: 3
 
   # Attributes
   attribute :name

@@ -1,5 +1,6 @@
 class UserResource < Madmin::Resource
-  menu position: 5
+  # Linked from the sidebar's footer, next to logging out, rather than in a section
+  menu false
 
   # Attributes
   attribute :id, form: false, index: false, show: false

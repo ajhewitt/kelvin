@@ -29,6 +29,14 @@
 
 en:
   activerecord:
+    # Sentence case in the admin, where Madmin would title-case them
+    models:
+      control_action:
+        one: Control action
+        other: Control actions
+      sensor_reading:
+        one: Sensor reading
+        other: Sensor readings
     attributes:
       drink:
         abv: ABV
@@ -43,3 +51,7 @@ en:
         amount: Size
         measure: Measure
         volume: Size
+  time:
+    formats:
+      # The admin's times, to the second for the logs
+      admin: "%a %-d %b %Y, %H:%M:%S"

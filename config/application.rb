@@ -21,8 +21,12 @@ module Kelvin
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Times show in the server's own time zone, as set on the Pi, and are stored in UTC
+    if File.symlink?("/etc/localtime") && (zone = File.readlink("/etc/localtime")[%r{zoneinfo/(?:posix/|right/)?(.+)}, 1])
+      config.time_zone = zone
+    end
 
     config.generators do |g|
       g.test_framework :rspec,

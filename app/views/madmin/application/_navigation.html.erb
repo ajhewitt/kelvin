@@ -16,5 +16,6 @@
 
 <footer>
   <%= link_to "Board", main_app.root_path, target: "_blank" %>
+  <%= link_to "Users", madmin_users_path %>
   <%= button_to "Log out #{current_user.username}", main_app.login_path, method: :delete, class: "btn btn-secondary" %>
 </footer>

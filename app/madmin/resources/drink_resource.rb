@@ -1,5 +1,5 @@
 class DrinkResource < Madmin::Resource
-  menu position: 2
+  menu parent: "Tap list", position: 2
 
   # Attributes
   attribute :name
