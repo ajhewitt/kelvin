@@ -1,0 +1,198 @@
+/*
+ * The tap list board for the bar TV. Sizes follow the screen width so the board fits any
+ * 16:9 display: 1rem is 16px on a 1920px-wide screen.
+ */
+
+@font-face {
+  font-family: "Bebas Neue";
+  src: url("BebasNeue-Regular.ttf") format("truetype");
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("Montserrat-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-display: block;
+}
+
+html.board-page {
+  font-size: calc(100vw / 120);
+}
+
+.board {
+  --board-background: #1e1a2b;
+  --board-coral: #f99491;
+  --board-coral-faded: rgb(249 148 145 / 35%);
+  --board-cream: #fffef6;
+  --board-text: #ece8f1;
+
+  margin: 0;
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--board-background);
+  color: var(--board-text);
+  font-family: "Montserrat", sans-serif;
+}
+
+.board-title {
+  width: 78rem;
+  margin: 2.6rem auto 0;
+  border: 0.4rem solid var(--board-cream);
+  padding: 1.1rem 0 0.6rem;
+  color: var(--board-coral);
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 8.5rem;
+  font-weight: normal;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-align: center;
+}
+
+/* The tagline sits between two rules that run to the edges of the screen */
+.board-tagline {
+  display: flex;
+  align-items: center;
+  margin: 2.8rem 0 3rem;
+  color: var(--board-coral);
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2.6rem;
+  letter-spacing: 0.35em;
+  line-height: 1;
+}
+
+.board-tagline::before,
+.board-tagline::after {
+  content: "";
+  flex: 1;
+  border-top: 0.3rem solid var(--board-cream);
+}
+
+/* The extra left padding balances the letter spacing after the last letter */
+.board-tagline span {
+  padding: 0.1em 0.6em 0 0.95em;
+}
+
+.board-tagline span:empty {
+  display: none;
+}
+
+/* Two columns whose text shrinks with --fit when a list is too long for the screen */
+.board-lists {
+  --fit: 1;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 9rem;
+  width: 92rem;
+  margin: 0 auto;
+  font-size: calc(var(--fit) * 1rem);
+}
+
+.board-section-title {
+  margin: 0 0 0.75em;
+  border: 0.15em solid var(--board-cream);
+  padding: 0.4em 0 0.3em 0.3em;
+  color: var(--board-cream);
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2.4em;
+  font-weight: normal;
+  letter-spacing: 0.3em;
+  line-height: 1;
+  text-align: center;
+}
+
+.board-items {
+  margin: 0 0 2.6em;
+  padding: 0;
+  list-style: none;
+}
+
+.board-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1em;
+  margin-bottom: 0.25em;
+}
+
+.board-item--described {
+  margin-bottom: 1.2em;
+}
+
+/*
+ * A kicked item stays on the board with its name and stats struck through: the letters fade
+ * while the line keeps the full coral. Descriptions, images and emoji just fade.
+ */
+.board-item--kicked .board-item-name,
+.board-item--kicked .board-item-stat {
+  color: var(--board-coral-faded);
+  text-decoration-line: line-through;
+  text-decoration-color: var(--board-coral);
+  text-decoration-thickness: 0.15em;
+}
+
+.board-item--kicked .board-item-description,
+.board-item--kicked .board-item-image,
+.board-item--kicked .board-item-emoji {
+  opacity: 0.35;
+}
+
+.board-item-text {
+  flex: 1;
+}
+
+.board-item-name,
+.board-item-stat {
+  color: var(--board-coral);
+  font-size: 1.3em;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+/* Each stat sits in a fixed-width slot, right-aligned, so every kind lines up down the list */
+.board-item-stats {
+  display: flex;
+  gap: 1em;
+}
+
+.board-item-stat {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.board-item-stat--srm {
+  min-width: 5.6em;
+}
+
+.board-item-stat--ibu {
+  min-width: 5.4em;
+}
+
+.board-item-stat--abv {
+  min-width: 4.2em;
+}
+
+/* The negative margin cancels the trailing letter spacing so the last stat lines up on the right */
+.board-item-stat:last-child {
+  margin-right: -0.22em;
+}
+
+.board-item-description {
+  margin: 0.2em 0 0;
+  font-size: 1.1em;
+  letter-spacing: 0.03em;
+  line-height: 1.45;
+}
+
+.board-item-image {
+  align-self: center;
+  width: auto;
+  height: 4.5em;
+}
+
+.board-item-emoji {
+  font-size: 1.5em;
+  line-height: 1.2;
+}

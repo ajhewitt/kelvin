@@ -1,0 +1,2 @@
+class Can < Package
+end

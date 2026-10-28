@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" class="board-page">
+  <head>
+    <title>The Ludlow Park</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%# Reload every minute to pick up list changes and the next event %>
+    <meta http-equiv="refresh" content="60">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <%= stylesheet_link_tag "board" %>
+  </head>
+
+  <body class="board">
+    <%= yield %>
+
+    <script>
+      // Shrinks the lists until they fit on screen, for events with long lists
+      (function () {
+        var lists = document.querySelector(".board-lists");
+        if (!lists) return;
+
+        function fit() {
+          var bottomMargin = parseFloat(getComputedStyle(document.documentElement).fontSize) * 2;
+          var scale = 1;
+          lists.style.setProperty("--fit", scale);
+          while (lists.getBoundingClientRect().bottom > window.innerHeight - bottomMargin && scale > 0.5) {
+            scale -= 0.02;
+            lists.style.setProperty("--fit", scale);
+          }
+        }
+
+        (document.fonts ? document.fonts.ready : Promise.resolve()).then(fit);
+        window.addEventListener("resize", fit);
+      })();
+    </script>
+  </body>
+</html>

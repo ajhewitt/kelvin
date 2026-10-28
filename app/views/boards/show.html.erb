@@ -1,0 +1,38 @@
+<header>
+  <h1 class="board-title">The Ludlow Park</h1>
+  <p class="board-tagline"><span><%= @board.tagline %></span></p>
+</header>
+
+<main class="board-lists">
+  <% [@board.left, @board.right].each do |side| %>
+    <section>
+      <% side.sections.each do |section| %>
+        <h2 class="board-section-title"><%= section.title %></h2>
+        <ul class="board-items">
+          <% section.items.each do |item| %>
+            <% description = item.drink.description.presence %>
+            <li class="<%= class_names("board-item", "board-item--described": description, "board-item--kicked": item.kicked?) %>">
+              <div class="board-item-text">
+                <span class="board-item-name"><%= [item.drink.name, item.package.board_size].compact.join(" ") %></span>
+                <% if description %>
+                  <p class="board-item-description"><%= description %></p>
+                <% end %>
+              </div>
+              <% if item.image %>
+                <%= image_tag item.image.variant(:thumb), class: "board-item-image", alt: "" %>
+              <% end %>
+              <% if item.emoji.present? %>
+                <span class="board-item-emoji"><%= item.emoji %></span>
+              <% end %>
+              <span class="board-item-stats">
+                <% side.stats.each do |stat| %>
+                  <span class="board-item-stat board-item-stat--<%= stat %>"><%= stat_label(item.drink, stat) %></span>
+                <% end %>
+              </span>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </section>
+  <% end %>
+</main>

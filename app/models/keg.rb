@@ -1,0 +1,2 @@
+class Keg < Package
+end
