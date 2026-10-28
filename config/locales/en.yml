@@ -28,4 +28,18 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      drink:
+        abv: ABV
+        ibu: IBU
+        srm: SRM
+      event:
+        show_abv: Show ABV
+        show_ibu: Show IBU
+        show_srm: Show SRM
+      package:
+        # Sizes are typed as printed on the package, then stored as a volume and unit
+        amount: Size
+        measure: Measure
+        volume: Size

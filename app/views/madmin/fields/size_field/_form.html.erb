@@ -1,0 +1,4 @@
+<div class="size-field">
+  <%= form.number_field :amount, id: form.field_id(:size), step: :any, min: 0, class: "form-input" %>
+  <%= form.select :measure, Package::MEASURES.keys, {}, {class: "form-input", "aria-label": "Measure"} %>
+</div>

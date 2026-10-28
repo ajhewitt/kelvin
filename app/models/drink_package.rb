@@ -12,7 +12,7 @@ class DrinkPackage < ApplicationRecord
   validates :emoji, length: {maximum: 16}
   validate :position_unique_on_its_side, if: -> { position && event && package }
 
-  before_create :insert_by_abv, unless: :position
+  before_create :insert_in_section, unless: :position
   after_destroy :close_gap
 
   # The other items on this item's side of the board
@@ -20,32 +20,59 @@ class DrinkPackage < ApplicationRecord
     event.drink_packages.joins(:package).merge(cooperage? ? Package.cooperage : Package.packaged).where.not(id: id)
   end
 
+  # The other items in this item's section of the board: the same brand's drinks, or the house's
+  # own, on the same side
+  def section_siblings
+    siblings.joins(:drink).where(drinks: {brand_id: drink.brand_id})
+  end
+
   # The drink's image, unless it's switched off for this event
   def image
     drink.image if show_image? && drink.image.attached?
   end
 
-  # Moves this item to a position on its side, renumbering the side from 1
-  def move_to(new_position)
+  # Swaps places with the next item up or down its section
+  def move(direction)
+    neighbor =
+      if direction == :up
+        section_siblings.where(position: ...position).order(position: :desc).first
+      else
+        section_siblings.where(position: (position + 1)..).order(:position).first
+      end
+    return unless neighbor
+
     transaction do
-      ordered = siblings.order(:position).to_a
-      ordered.insert((new_position - 1).clamp(0, ordered.size), self)
-      ordered.each.with_index(1) { |item, index| item.update_column(:position, index) }
+      neighbor_position = neighbor.position
+      neighbor.update_column(:position, position)
+      update_column(:position, neighbor_position)
+    end
+  end
+
+  # Moves this item's brand, with all its drinks, up or down past the next brand on its side,
+  # renumbering the side in board order. The house's own drinks stay first.
+  def move_brand(direction)
+    sections = [self, *siblings.includes(:drink)].sort_by(&:position).group_by { |item| item.drink.brand_id }
+    house = sections.delete(nil) || []
+    brands = sections.keys
+    from = brands.index(drink.brand_id)
+    to = from && ((direction == :up) ? from - 1 : from + 1)
+    return unless to&.between?(0, brands.size - 1)
+
+    brands[from], brands[to] = brands[to], brands[from]
+    transaction do
+      [*house, *sections.values_at(*brands).flatten].each.with_index(1) { |item, index| item.update_column(:position, index) }
     end
   end
 
   private
 
-  # New items go before the first stronger drink on their side, with drinks that have no ABV
-  # counting as strongest, so a side stays in ABV order unless it has been rearranged
-  def insert_by_abv
-    stronger = drink.abv && siblings.joins(:drink).where("drinks.abv > ? OR drinks.abv IS NULL", drink.abv).order(:position).first
-    if stronger
-      self.position = stronger.position
-      shift(siblings.where(position: position..), 1)
-    else
-      self.position = siblings.maximum(:position).to_i + 1
-    end
+  # New items go in ABV order within their section, before the first stronger drink of the same
+  # brand on their side, with drinks that have no ABV counting as strongest. A brand that's new
+  # to the side starts a section at the bottom.
+  def insert_in_section
+    stronger = drink.abv && section_siblings.where("drinks.abv > ? OR drinks.abv IS NULL", drink.abv).order(:position).first
+    self.position = stronger&.position || (section_siblings.maximum(:position) || siblings.maximum(:position)).to_i + 1
+    shift(siblings.where(position: position..), 1)
   end
 
   def close_gap

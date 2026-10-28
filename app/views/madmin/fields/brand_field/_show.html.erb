@@ -1,0 +1,5 @@
+<% if (brand = field.value(record)) %>
+  <%= link_to brand.name, madmin_brand_path(brand) %>
+<% else %>
+  House
+<% end %>

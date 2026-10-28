@@ -1,0 +1,110 @@
+<%= content_for :title, "#{@event.name} list" %>
+
+<header class="header">
+  <h1>
+    <%= link_to "Events", madmin_events_path %>
+    /
+    <%= link_to @event.name, madmin_event_path(@event) %>
+  </h1>
+
+  <div class="actions">
+    <%= link_to "Board", event_board_path(@event), class: "btn btn-secondary", target: "_blank" %>
+    <%= link_to "Add a drink", "#add", class: "btn btn-primary" %>
+  </div>
+</header>
+
+<p class="list-event">
+  <%= l @event.date, format: :long %>
+  <% if @event.tagline.present? %>· <%= @event.tagline %><% end %>
+  <% if @event == Event.current %><span class="list-badge">On the TV</span><% end %>
+</p>
+
+<div class="list-sides">
+  <% {"Draft" => @board.left, "Bottles and cans" => @board.right}.each do |side_title, side| %>
+    <section class="list-side">
+      <h2 class="list-side-title"><%= side_title %></h2>
+
+      <% if side.sections.empty? %>
+        <p class="list-empty">Nothing here yet.</p>
+      <% end %>
+
+      <% brands = side.sections.filter_map(&:brand) %>
+      <% side.sections.each do |section| %>
+        <div class="list-section">
+          <div class="list-section-header">
+            <h3><%= section.title %></h3>
+
+            <% if section.brand && brands.many? %>
+              <% brand_index = brands.index(section.brand) %>
+              <div class="list-buttons">
+                <%= button_to "↑", move_brand_madmin_event_drink_package_path(@event, section.items.first, direction: "up"), method: :patch,
+                      disabled: brand_index.zero?, class: "btn btn-secondary", title: "Move #{section.title} up", "aria-label": "Move #{section.title} up" %>
+                <%= button_to "↓", move_brand_madmin_event_drink_package_path(@event, section.items.first, direction: "down"), method: :patch,
+                      disabled: brand_index == brands.size - 1, class: "btn btn-secondary", title: "Move #{section.title} down", "aria-label": "Move #{section.title} down" %>
+              </div>
+            <% end %>
+          </div>
+
+          <ol class="list-items">
+            <% section.items.each_with_index do |item, index| %>
+              <li id="<%= dom_id(item) %>" class="<%= class_names("list-item", "list-item--kicked": item.kicked?) %>">
+                <% if item.image %>
+                  <%= image_tag main_app.url_for(item.image.variant(:thumb)), class: "list-item-image", alt: "" %>
+                <% end %>
+
+                <div class="list-item-text">
+                  <span class="list-item-name"><%= [item.emoji.presence, item.drink.name].compact.join(" ") %></span>
+                  <span class="list-item-details">
+                    <%= [item.package, *[:abv, :ibu, :srm].map { |stat| stat_label(item.drink, stat) }].compact.join(" · ") %>
+                  </span>
+                </div>
+
+                <div class="list-buttons">
+                  <%= button_to (item.kicked? ? "Unkick" : "Kick"), madmin_event_drink_package_path(@event, item), method: :patch,
+                        params: {drink_package: {kicked: !item.kicked?}}, class: class_names("btn list-kick", item.kicked? ? "btn-secondary" : "btn-primary") %>
+                  <%= button_to "↑", move_madmin_event_drink_package_path(@event, item, direction: "up"), method: :patch,
+                        disabled: index.zero?, class: "btn btn-secondary", title: "Move up", "aria-label": "Move #{item.drink.name} up" %>
+                  <%= button_to "↓", move_madmin_event_drink_package_path(@event, item, direction: "down"), method: :patch,
+                        disabled: index == section.items.size - 1, class: "btn btn-secondary", title: "Move down", "aria-label": "Move #{item.drink.name} down" %>
+                  <%= link_to "Edit", edit_madmin_event_drink_package_path(@event, item), class: "btn btn-secondary" %>
+                </div>
+              </li>
+            <% end %>
+          </ol>
+        </div>
+      <% end %>
+    </section>
+  <% end %>
+</div>
+
+<section id="add" class="list-add">
+  <h2 class="list-side-title">Add a drink</h2>
+
+  <%= form_with model: @item, url: madmin_event_drink_packages_path(@event) do |form| %>
+    <%= render "madmin/drink_packages/errors", item: @item %>
+
+    <div class="form-group">
+      <%= form.label :drink_id, "Drink" %>
+      <%= form.select :drink_id, drink_choices, {prompt: "Choose a drink"}, {required: true, class: "form-input"} %>
+      <div class="form-description">New this year? <%= link_to "Add the drink", new_madmin_drink_path %> first.</div>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :package_id, "Package" %>
+      <%= form.select :package_id, package_choices, {prompt: "Choose a package"}, {required: true, class: "form-input"} %>
+      <div class="form-description">Kegs and casks go on the left of the board. <%= link_to "Add a package", new_madmin_package_path %></div>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :emoji %>
+      <%= form.text_field :emoji, class: "form-input list-emoji" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.check_box :show_image %>
+      <%= form.label :show_image, "Show the drink's image, if it has one" %>
+    </div>
+
+    <%= form.submit "Add to the list", class: "btn btn-primary" %>
+  <% end %>
+</section>

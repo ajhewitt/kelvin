@@ -92,11 +92,26 @@ The task reads the physical system pins, interfaces with the Modbus communicatio
    RAILS_ENV=production bin/rails assets:precompile
    ```
 
+4. Add a login for the admin screens (it asks for a username and password):
+   ```bash
+   RAILS_ENV=production bin/rails users:create
+   ```
+
 ### Running the Server
 Launch the production instances explicitly bound to all network interfaces to allow external administrative oversight over your local network:
 ```bash
 RAILS_ENV=production MALLOC_ARENA_MAX=2 bin/rails s -b 0.0.0.0
 ```
+
+### 🍺 Tap List Admin
+The board at `/` is public, for the TV. Everything else is behind a login at `/login`, which opens on the list for the event the board is showing:
+
+* **Current list:** the event's drinks laid out like the board. Kick a drink (it stays on the board, crossed out), move drinks up and down within their brand, move whole brands, set an emoji or hide a drink's image, and add or take off drinks. The board picks up changes within a minute.
+* **Events:** date, name, tagline and which stats the board shows (SRM, IBU, ABV).
+* **Drinks:** name, brand (blank for the house's own), ABV, IBU, SRM, description and image. When a beer comes back with different numbers, use **Copy as new brew** so earlier events keep theirs.
+* **Brands, Packages and Users:** package sizes are typed as printed (12 oz, 660 ml, 5 gal, 4.5 imp gal).
+
+The admin screens are [Madmin](https://github.com/excid3/madmin) resources in `app/madmin/resources`, with the list page in `app/controllers/madmin/drink_packages_controller.rb`.
 
 ### 📌 Raspberry Pi 16-Pin Assignment Layout (BCM Mapping)
 

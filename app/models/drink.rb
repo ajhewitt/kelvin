@@ -12,6 +12,13 @@ class Drink < ApplicationRecord
   validates :srm, numericality: {greater_than_or_equal_to: 0}, allow_nil: true
   validate :image_is_a_picture, if: -> { image.attached? }
 
+  # "Orange Dinosaur (8%)": the ABV tells apart brews of the same drink
+  def to_s
+    return name unless abv
+
+    "#{name} (#{ActiveSupport::NumberHelper.number_to_rounded(abv, precision: 2, strip_insignificant_zeros: true)}%)"
+  end
+
   private
 
   def image_is_a_picture

@@ -16,6 +16,12 @@ RSpec.describe Drink, type: :model do
     expect(Drink.new(name: "Mild", srm: -1)).not_to be_valid
   end
 
+  it "shows its ABV alongside its name, to tell brews apart" do
+    expect(Drink.new(name: "Orange Dinosaur", abv: 8).to_s).to eq("Orange Dinosaur (8%)")
+    expect(Drink.new(name: "Old Powderhouse", abv: 12.2).to_s).to eq("Old Powderhouse (12.2%)")
+    expect(Drink.new(name: "Mystery").to_s).to eq("Mystery")
+  end
+
   it "only takes a picture as its image" do
     drink = Drink.new(name: "Orange Dinosaur")
 

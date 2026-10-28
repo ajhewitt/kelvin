@@ -12,4 +12,10 @@ Rails.application.routes.draw do
   # The tap list board for the TV shows the current event; any event's board can be previewed by id
   root "boards#show"
   get "events/:event_id/board", to: "boards#show", as: :event_board
+
+  # Logging in to the admin screens, which are under /madmin (config/routes/madmin.rb)
+  get "login", to: "logins#new"
+  post "login", to: "logins#create"
+  delete "login", to: "logins#destroy"
+  draw :madmin
 end
