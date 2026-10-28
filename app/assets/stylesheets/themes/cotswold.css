@@ -1,0 +1,64 @@
+/* Cotswold: slate and moss on honey-coloured stone, in Spectral */
+@import url("/fonts/spectral-sc.css");
+@import url("/fonts/spectral.css");
+
+.board {
+  --board-background: #e8d7af;
+  --board-accent: #33393f;
+  --board-accent-faded: rgb(51 57 63 / 30%);
+  --board-rule: #5f6b3a;
+  --board-text: #565b5e;
+  --board-display-font: "Spectral SC", serif;
+  --board-font: "Spectral", serif;
+  --board-item-spacing: 0.1em;
+
+  background: radial-gradient(ellipse at 50% 35%, #f2e5c4 0%, var(--board-background) 55%, #dcc898 100%);
+}
+
+/* Small capitals from the font, so no uppercasing */
+.board-title {
+  border-width: 0.2rem;
+  padding: 1.4rem 0 1.1rem;
+  font-size: 7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: none;
+}
+
+.board-tagline {
+  color: var(--board-rule);
+  font-family: var(--board-font);
+  font-size: 2.8rem;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  text-transform: none;
+}
+
+.board-tagline::before,
+.board-tagline::after {
+  border-top-width: 0.15rem;
+}
+
+.board-section-title {
+  border-width: 0.06em 0;
+  padding: 0.35em 0 0.3em;
+  font-size: 2.2em;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: none;
+}
+
+.board-item-name,
+.board-item-stat {
+  font-size: 1.35em;
+  font-weight: 600;
+}
+
+.board-item-stat {
+  color: var(--board-rule);
+}
+
+.board-item-description {
+  font-size: 1.2em;
+  font-style: italic;
+}

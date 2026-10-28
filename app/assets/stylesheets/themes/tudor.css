@@ -1,0 +1,68 @@
+/* Tudor: cream and oxblood on black, like a timber-framed inn, in the Fell types */
+@import url("/fonts/im-fell-english-sc.css");
+@import url("/fonts/im-fell-english.css");
+@import url("/fonts/eb-garamond.css");
+
+.board {
+  --board-background: #141210;
+  --board-accent: #efe8da;
+  --board-accent-faded: rgb(239 232 218 / 30%);
+  --board-rule: #efe8da;
+  --board-text: #c4baa9;
+  --board-display-font: "IM Fell English SC", serif;
+  /* The Fell types only have old-style numerals, which make 660 read as 66o */
+  --board-font: "EB Garamond", serif;
+  --board-item-spacing: 0.12em;
+  --board-oxblood: #8f2b26;
+
+  background: radial-gradient(ellipse at 50% 30%, #1f1c19 0%, #141210 60%);
+}
+
+/* Beams above and below the name; small capitals from the font */
+.board-title {
+  border-width: 0.9rem 0;
+  padding: 1.5rem 0 1.2rem;
+  font-size: 7.5rem;
+  letter-spacing: 0.06em;
+  text-transform: none;
+}
+
+.board-tagline {
+  color: #d8574d;
+  font-family: var(--board-font);
+  font-size: 2.8rem;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  text-transform: none;
+}
+
+.board-tagline::before,
+.board-tagline::after {
+  border-top: 0.5rem solid var(--board-oxblood);
+}
+
+/* Oxblood beams */
+.board-section-title {
+  border: 0;
+  padding: 0.35em 0 0.3em;
+  background: var(--board-oxblood);
+  font-size: 2.3em;
+  letter-spacing: 0.2em;
+  text-transform: none;
+}
+
+.board-item-name,
+.board-item-stat {
+  font-size: 1.45em;
+  font-weight: 600;
+}
+
+.board-item-stat {
+  color: #e0a39c;
+}
+
+.board-item-description {
+  font-family: "IM Fell English", serif;
+  font-size: 1.2em;
+  font-style: italic;
+}

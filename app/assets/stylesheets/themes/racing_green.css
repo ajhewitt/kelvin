@@ -1,0 +1,64 @@
+/* Racing Green: cream and brass on British racing green, in Roman capitals and Garamond */
+@import url("/fonts/cinzel.css");
+@import url("/fonts/eb-garamond.css");
+
+.board {
+  --board-background: #0d3326;
+  --board-accent: #f0e6cc;
+  --board-accent-faded: rgb(240 230 204 / 35%);
+  --board-rule: #c9a55f;
+  --board-text: #cdd6cb;
+  --board-display-font: "Cinzel", serif;
+  --board-font: "EB Garamond", serif;
+  --board-item-spacing: 0.12em;
+
+  background: radial-gradient(ellipse at 50% 35%, #154636 0%, #0d3326 55%, #082219 100%);
+}
+
+/* Brass hairlines above and below the name */
+.board-title {
+  width: 92rem;
+  border-width: 0.25rem 0;
+  padding: 1.6rem 0 1.3rem;
+  font-size: 6.4rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.board-tagline {
+  color: var(--board-rule);
+  font-family: var(--board-font);
+  font-size: 3rem;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  text-transform: none;
+}
+
+.board-tagline::before,
+.board-tagline::after {
+  border-top-width: 0.15rem;
+}
+
+.board-section-title {
+  border-width: 0.08em 0;
+  padding: 0.45em 0 0.35em;
+  color: var(--board-rule);
+  font-size: 2.2em;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+}
+
+.board-item-name,
+.board-item-stat {
+  font-size: 1.45em;
+  font-weight: 600;
+}
+
+.board-item-stat {
+  color: var(--board-rule);
+}
+
+.board-item-description {
+  font-size: 1.25em;
+  font-style: italic;
+}

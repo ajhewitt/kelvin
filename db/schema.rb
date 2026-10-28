@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_28_043704) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_28_131649) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -112,6 +112,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_28_043704) do
     t.boolean "show_srm", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "theme", default: "classic", null: false
     t.index ["date"], name: "index_events_on_date", unique: true
   end
 

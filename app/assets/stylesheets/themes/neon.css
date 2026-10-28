@@ -1,0 +1,70 @@
+/* Neon: signs glowing behind the bar, with a kicked drink's sign switched off */
+@import url("/fonts/tilt-neon.css");
+@import url("/fonts/barlow-semi-condensed.css");
+
+.board {
+  --board-background: #0b0a12;
+  --board-accent: #ffe0f3;
+  --board-accent-faded: #4a4558;
+  --board-rule: #5ce8ff;
+  --board-text: #c9c3dc;
+  --board-display-font: "Tilt Neon", sans-serif;
+  --board-font: "Tilt Neon", sans-serif;
+  --board-item-spacing: 0.12em;
+  --board-neon: #ff3ea5;
+
+  background: radial-gradient(ellipse at 50% 15%, #201837 0%, #0b0a12 60%);
+}
+
+.board-title {
+  border: 0.25rem solid var(--board-rule);
+  border-radius: 1.5rem;
+  color: #fff0fa;
+  font-size: 7.4rem;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 0.05em #fff, 0 0 0.15em var(--board-neon), 0 0 0.4em var(--board-neon), 0 0 0.8em var(--board-neon);
+  box-shadow: 0 0 0.6rem var(--board-rule), 0 0 1.6rem rgb(92 232 255 / 60%), inset 0 0 1rem rgb(92 232 255 / 45%);
+}
+
+.board-tagline {
+  color: var(--board-rule);
+  letter-spacing: 0.25em;
+  text-shadow: 0 0 0.3em var(--board-rule);
+}
+
+.board-tagline::before,
+.board-tagline::after {
+  border-top-width: 0.2rem;
+  box-shadow: 0 0 0.6rem var(--board-rule);
+}
+
+.board-section-title {
+  border: 0.1em solid var(--board-rule);
+  border-radius: 0.4em;
+  letter-spacing: 0.25em;
+  text-shadow: 0 0 0.25em var(--board-rule);
+  box-shadow: 0 0 0.3em var(--board-rule), inset 0 0 0.3em rgb(92 232 255 / 40%);
+}
+
+.board-item-name {
+  font-weight: normal;
+  text-shadow: 0 0 0.25em var(--board-neon);
+}
+
+.board-item-stat {
+  color: var(--board-rule);
+  font-weight: normal;
+  text-shadow: 0 0 0.25em var(--board-rule);
+}
+
+.board-item-description {
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 1.25em;
+  font-weight: 500;
+}
+
+.board-item--kicked .board-item-name,
+.board-item--kicked .board-item-stat {
+  text-shadow: none;
+  text-decoration-color: var(--board-neon);
+}

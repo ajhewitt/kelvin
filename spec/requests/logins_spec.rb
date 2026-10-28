@@ -56,6 +56,15 @@ RSpec.describe "Logins", type: :request do
     expect(flash[:alert]).to start_with("Too many tries")
   end
 
+  it "says how to add the first login" do
+    get login_path
+    expect(response.body).not_to include("bin/rails users:create")
+
+    User.delete_all
+    get login_path
+    expect(response.body).to include("There are no logins yet")
+  end
+
   it "keeps the board public" do
     get root_path
     expect(response).to have_http_status(:ok)

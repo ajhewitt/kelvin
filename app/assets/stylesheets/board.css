@@ -1,17 +1,20 @@
 /*
  * The tap list board for the bar TV. Sizes follow the screen width so the board fits any
  * 16:9 display: 1rem is 16px on a 1920px-wide screen.
+ *
+ * The colors and fonts here are the Classic theme. An event can pick another theme from
+ * themes/, which sets the variables below and restyles the title, rules and headings.
  */
 
 @font-face {
   font-family: "Bebas Neue";
-  src: url("BebasNeue-Regular.ttf") format("truetype");
+  src: url("/bebas-neue/BebasNeue-Regular.ttf") format("truetype");
   font-display: block;
 }
 
 @font-face {
   font-family: "Montserrat";
-  src: url("Montserrat-VariableFont_wght.ttf") format("truetype");
+  src: url("/montserrat/Montserrat-VariableFont_wght.ttf") format("truetype");
   font-weight: 100 900;
   font-display: block;
 }
@@ -22,31 +25,43 @@ html.board-page {
 
 .board {
   --board-background: #1e1a2b;
-  --board-coral: #f99491;
-  --board-coral-faded: rgb(249 148 145 / 35%);
-  --board-cream: #fffef6;
+  /* The title, tagline, drink names and stats */
+  --board-accent: #f99491;
+  /* Kicked drinks */
+  --board-accent-faded: rgb(249 148 145 / 35%);
+  /* Rules and boxes */
+  --board-rule: #fffef6;
+  --board-heading: var(--board-rule);
+  /* Descriptions */
   --board-text: #ece8f1;
+  /* The title, tagline and section headings, then everything else */
+  --board-display-font: "Bebas Neue", sans-serif;
+  --board-font: "Montserrat", sans-serif;
+  /* Between the letters of drink names and stats */
+  --board-item-spacing: 0.22em;
 
   margin: 0;
   min-height: 100vh;
   overflow: hidden;
   background: var(--board-background);
   color: var(--board-text);
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--board-font);
 }
 
+/* Uppercase for display fonts that, unlike Bebas Neue, have lowercase letters */
 .board-title {
   width: 78rem;
   margin: 2.6rem auto 0;
-  border: 0.4rem solid var(--board-cream);
+  border: 0.4rem solid var(--board-rule);
   padding: 1.1rem 0 0.6rem;
-  color: var(--board-coral);
-  font-family: "Bebas Neue", sans-serif;
+  color: var(--board-accent);
+  font-family: var(--board-display-font);
   font-size: 8.5rem;
   font-weight: normal;
   letter-spacing: 0.04em;
   line-height: 1;
   text-align: center;
+  text-transform: uppercase;
 }
 
 /* The tagline sits between two rules that run to the edges of the screen */
@@ -54,18 +69,19 @@ html.board-page {
   display: flex;
   align-items: center;
   margin: 2.8rem 0 3rem;
-  color: var(--board-coral);
-  font-family: "Bebas Neue", sans-serif;
+  color: var(--board-accent);
+  font-family: var(--board-display-font);
   font-size: 2.6rem;
   letter-spacing: 0.35em;
   line-height: 1;
+  text-transform: uppercase;
 }
 
 .board-tagline::before,
 .board-tagline::after {
   content: "";
   flex: 1;
-  border-top: 0.3rem solid var(--board-cream);
+  border-top: 0.3rem solid var(--board-rule);
 }
 
 /* The extra left padding balances the letter spacing after the last letter */
@@ -91,15 +107,16 @@ html.board-page {
 
 .board-section-title {
   margin: 0 0 0.75em;
-  border: 0.15em solid var(--board-cream);
+  border: 0.15em solid var(--board-rule);
   padding: 0.4em 0 0.3em 0.3em;
-  color: var(--board-cream);
-  font-family: "Bebas Neue", sans-serif;
+  color: var(--board-heading);
+  font-family: var(--board-display-font);
   font-size: 2.4em;
   font-weight: normal;
   letter-spacing: 0.3em;
   line-height: 1;
   text-align: center;
+  text-transform: uppercase;
 }
 
 .board-items {
@@ -121,13 +138,13 @@ html.board-page {
 
 /*
  * A kicked item stays on the board with its name and stats struck through: the letters fade
- * while the line keeps the full coral. Descriptions, images and emoji just fade.
+ * while the line keeps the full accent color. Descriptions, images and emoji just fade.
  */
 .board-item--kicked .board-item-name,
 .board-item--kicked .board-item-stat {
-  color: var(--board-coral-faded);
+  color: var(--board-accent-faded);
   text-decoration-line: line-through;
-  text-decoration-color: var(--board-coral);
+  text-decoration-color: var(--board-accent);
   text-decoration-thickness: 0.15em;
 }
 
@@ -143,10 +160,10 @@ html.board-page {
 
 .board-item-name,
 .board-item-stat {
-  color: var(--board-coral);
+  color: var(--board-accent);
   font-size: 1.3em;
   font-weight: 800;
-  letter-spacing: 0.22em;
+  letter-spacing: var(--board-item-spacing);
   line-height: 1.35;
   text-transform: uppercase;
 }
@@ -176,7 +193,7 @@ html.board-page {
 
 /* The negative margin cancels the trailing letter spacing so the last stat lines up on the right */
 .board-item-stat:last-child {
-  margin-right: -0.22em;
+  margin-right: calc(-1 * var(--board-item-spacing));
 }
 
 .board-item-description {

@@ -1,0 +1,68 @@
+/* Letterpress: a printed menu, wood type in red and black on warm paper */
+@import url("/fonts/alfa-slab-one.css");
+@import url("/fonts/zilla-slab.css");
+
+.board {
+  --board-background: #efe4cc;
+  --board-accent: #2a2320;
+  --board-accent-faded: rgb(42 35 32 / 35%);
+  --board-rule: #2a2320;
+  --board-heading: #efe4cc;
+  --board-text: #4a3f38;
+  --board-display-font: "Alfa Slab One", serif;
+  --board-font: "Zilla Slab", serif;
+  --board-item-spacing: 0.1em;
+  --board-red: #a8302a;
+
+  background: radial-gradient(ellipse at 50% 40%, #f7efdd 0%, #efe4cc 60%, #e0d1b2 100%);
+  /* Zilla Slab's old-style numerals make 660 read as 66o */
+  font-variant-numeric: lining-nums;
+}
+
+.board-title {
+  border-width: 0.5rem 0;
+  padding: 1.2rem 0 0.7rem;
+  color: var(--board-red);
+  font-size: 8rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.board-tagline {
+  color: var(--board-text);
+  font-family: var(--board-font);
+  font-size: 2.8rem;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: none;
+}
+
+/* Black bars of wood type */
+.board-section-title {
+  border: 0;
+  background: var(--board-rule);
+  letter-spacing: 0.2em;
+  text-transform: none;
+}
+
+.board-item-name,
+.board-item-stat {
+  font-size: 1.4em;
+  font-weight: 700;
+}
+
+.board-item-stat {
+  color: var(--board-red);
+}
+
+.board-item-description {
+  font-size: 1.2em;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.board-item--kicked .board-item-name,
+.board-item--kicked .board-item-stat {
+  text-decoration-color: var(--board-red);
+}

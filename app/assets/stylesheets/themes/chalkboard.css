@@ -1,0 +1,73 @@
+/* Chalkboard: chalk on slate in a wooden frame, hand-lettered */
+@import url("/fonts/cabin-sketch.css");
+@import url("/fonts/amatic-sc.css");
+@import url("/fonts/patrick-hand.css");
+
+.board {
+  --board-background: #2b302e;
+  --board-accent: #f4f1e8;
+  --board-accent-faded: rgb(244 241 232 / 35%);
+  --board-rule: #f1dd8a;
+  --board-text: #cfd8d3;
+  --board-display-font: "Amatic SC", cursive;
+  --board-font: "Patrick Hand", cursive;
+  --board-item-spacing: 0.03em;
+
+  /* The frame is drawn on the board itself, so it holds the title's margin inside it */
+  display: flow-root;
+  box-sizing: border-box;
+  height: 100vh;
+  background:
+    radial-gradient(circle at 18% 28%, rgb(255 255 255 / 5%) 0, transparent 38%),
+    radial-gradient(circle at 82% 72%, rgb(255 255 255 / 4%) 0, transparent 42%),
+    var(--board-background);
+  box-shadow: inset 0 0 0 1.1rem #5b3d26, inset 0 0 0 1.4rem #3a2616, inset 0 0 4rem 2rem rgb(0 0 0 / 35%);
+}
+
+.board-title {
+  border: 0;
+  font-family: "Cabin Sketch", cursive;
+  font-size: 8.5rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: none;
+}
+
+.board-tagline {
+  color: var(--board-rule);
+  font-size: 3.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: none;
+}
+
+.board-tagline::before,
+.board-tagline::after {
+  border-top: 0.2rem dashed rgb(241 221 138 / 60%);
+}
+
+.board-section-title {
+  border: 0;
+  border-bottom: 0.06em dashed var(--board-rule);
+  padding: 0 0 0.05em;
+  font-size: 3.8em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: none;
+}
+
+.board-item-name {
+  font-size: 1.75em;
+  font-weight: normal;
+  text-transform: none;
+}
+
+.board-item-stat {
+  color: #a8d8ea;
+  font-size: 1.6em;
+  font-weight: normal;
+}
+
+.board-item-description {
+  font-size: 1.25em;
+}

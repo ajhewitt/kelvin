@@ -1,0 +1,63 @@
+/* Admiralty: brass on navy, the name in a double frame */
+@import url("/fonts/marcellus-sc.css");
+@import url("/fonts/lora.css");
+
+.board {
+  --board-background: #0f1b2e;
+  --board-accent: #f2ede2;
+  --board-accent-faded: rgb(242 237 226 / 35%);
+  --board-rule: #c9a35d;
+  --board-text: #c3cad6;
+  --board-display-font: "Marcellus SC", serif;
+  --board-font: "Lora", serif;
+  --board-item-spacing: 0.12em;
+
+  background: radial-gradient(ellipse at 50% 35%, #1a2d4b 0%, #0f1b2e 55%, #0a1220 100%);
+}
+
+/* A brass frame with a second one just outside it; small capitals from the font */
+.board-title {
+  border-width: 0.2rem;
+  outline: 0.2rem solid var(--board-rule);
+  outline-offset: 0.5rem;
+  padding: 1.4rem 0 1.1rem;
+  color: var(--board-rule);
+  font-size: 7rem;
+  letter-spacing: 0.1em;
+  text-transform: none;
+}
+
+.board-tagline {
+  font-family: var(--board-font);
+  font-size: 2.8rem;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  text-transform: none;
+}
+
+.board-tagline::before,
+.board-tagline::after {
+  border-top-width: 0.15rem;
+}
+
+.board-section-title {
+  border-width: 0 0 0.06em;
+  padding: 0.2em 0 0.3em;
+  font-size: 2.3em;
+  letter-spacing: 0.25em;
+  text-transform: none;
+}
+
+.board-item-name,
+.board-item-stat {
+  font-weight: 700;
+}
+
+.board-item-stat {
+  color: var(--board-rule);
+}
+
+.board-item-description {
+  font-size: 1.15em;
+  font-style: italic;
+}

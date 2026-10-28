@@ -1,0 +1,61 @@
+/* Frost: ice and silver on winter slate */
+@import url("/fonts/marcellus.css");
+@import url("/fonts/jost.css");
+
+.board {
+  --board-background: #172028;
+  --board-accent: #dfecf5;
+  --board-accent-faded: rgb(223 236 245 / 30%);
+  --board-rule: #8ea6b8;
+  --board-heading: #b6cbda;
+  --board-text: #a9b9c5;
+  --board-display-font: "Marcellus", serif;
+  --board-font: "Jost", sans-serif;
+  --board-item-spacing: 0.16em;
+
+  background: radial-gradient(ellipse at 50% 25%, #24323e 0%, var(--board-background) 60%, #10171d 100%);
+}
+
+/* The left padding balances the letter spacing after the last letter */
+.board-title {
+  width: 92rem;
+  border: 0;
+  padding: 0 0 0 0.18em;
+  font-size: 6.8rem;
+  letter-spacing: 0.18em;
+}
+
+.board-tagline {
+  color: var(--board-heading);
+  font-family: var(--board-font);
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 0.5em;
+}
+
+.board-tagline::before,
+.board-tagline::after {
+  border-top-width: 0.1rem;
+}
+
+.board-section-title {
+  border-width: 0.04em 0;
+  padding: 0.45em 0 0.35em;
+  font-size: 2em;
+  letter-spacing: 0.35em;
+}
+
+.board-item-name,
+.board-item-stat {
+  font-size: 1.35em;
+  font-weight: 500;
+}
+
+.board-item-stat {
+  color: var(--board-heading);
+}
+
+.board-item-description {
+  font-size: 1.15em;
+  font-weight: 300;
+}

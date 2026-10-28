@@ -1,6 +1,9 @@
 <main class="login">
   <h1 class="login-title">The Ludlow Park</h1>
 
+  <% unless User.exists? %>
+    <div class="alert alert-notice">There are no logins yet. Add one on the server with <code>bin/rails users:create</code></div>
+  <% end %>
   <% if alert %>
     <div class="alert alert-danger"><%= alert %></div>
   <% end %>
