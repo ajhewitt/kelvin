@@ -1,0 +1,59 @@
+/* Broadsheet: black on newsprint, the name set like a newspaper's masthead */
+@import url("/fonts/old-standard-tt.css");
+
+.board {
+  --board-background: #f3f0e7;
+  --board-accent: #161616;
+  --board-accent-faded: rgb(22 22 22 / 30%);
+  --board-rule: #161616;
+  --board-text: #3d3d3a;
+  --board-display-font: "Old Standard TT", serif;
+  --board-font: "Old Standard TT", serif;
+  --board-item-spacing: 0.08em;
+
+  background: radial-gradient(ellipse at 50% 40%, #f8f6ef 0%, #f3f0e7 60%, #e8e4d8 100%);
+}
+
+/* A thin rule above the masthead and a double one below */
+.board-title {
+  border-width: 0.15rem 0 0.6rem;
+  border-style: solid solid double;
+  padding: 1rem 0 1.2rem;
+  font-size: 8.5rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.board-tagline {
+  color: var(--board-text);
+  font-size: 2.6rem;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  text-transform: none;
+}
+
+.board-tagline::before,
+.board-tagline::after {
+  border-top-width: 0.12rem;
+}
+
+/* Column heads: a heavy rule above, a light one below */
+.board-section-title {
+  border-width: 0.18em 0 0.04em;
+  padding: 0.3em 0 0.25em;
+  font-size: 2.2em;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.board-item-name,
+.board-item-stat {
+  font-size: 1.35em;
+  font-weight: 700;
+}
+
+.board-item-description {
+  font-size: 1.2em;
+  font-style: italic;
+}

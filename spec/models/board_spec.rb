@@ -56,5 +56,6 @@ RSpec.describe Board do
     board = Board.new(nil)
 
     expect([board.tagline, board.left, board.right]).to eq([nil, Board::Side.new(sections: [], stats: []), Board::Side.new(sections: [], stats: [])])
+    expect(board.theme).to eq("classic")
   end
 end

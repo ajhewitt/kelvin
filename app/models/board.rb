@@ -18,6 +18,10 @@ class Board
     event&.tagline
   end
 
+  def theme
+    event&.theme || "classic"
+  end
+
   def left
     side(:cooperage)
   end

@@ -1,0 +1,66 @@
+/* Gin Palace: silver and sage on Victorian teal, in high-contrast Bodoni */
+@import url("/fonts/bodoni-moda.css");
+@import url("/fonts/lora.css");
+
+.board {
+  --board-background: #0b2a2e;
+  --board-accent: #e9f0f1;
+  --board-accent-faded: rgb(233 240 241 / 30%);
+  --board-rule: #aebfc3;
+  --board-heading: #a9c9b8;
+  --board-text: #b9cdc9;
+  --board-display-font: "Bodoni Moda", serif;
+  --board-font: "Bodoni Moda", serif;
+  --board-item-spacing: 0.1em;
+
+  background: radial-gradient(ellipse at 50% 35%, #12404a 0%, #0b2a2e 55%, #071c1f 100%);
+}
+
+/* A fine silver frame with a second line just inside it */
+.board-title {
+  border-width: 0.15rem;
+  outline: 0.12rem solid var(--board-rule);
+  outline-offset: -0.7rem;
+  padding: 1.6rem 0 1.3rem;
+  font-size: 6.2rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.board-tagline {
+  color: var(--board-heading);
+  font-family: "Lora", serif;
+  font-size: 2.8rem;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  text-transform: none;
+}
+
+.board-tagline::before,
+.board-tagline::after {
+  border-top-width: 0.12rem;
+}
+
+.board-section-title {
+  border-width: 0.05em 0;
+  padding: 0.45em 0 0.35em;
+  font-size: 2.1em;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+
+.board-item-name,
+.board-item-stat {
+  font-size: 1.35em;
+  font-weight: 700;
+}
+
+.board-item-stat {
+  color: var(--board-heading);
+}
+
+.board-item-description {
+  font-family: "Lora", serif;
+  font-size: 1.15em;
+  font-style: italic;
+}

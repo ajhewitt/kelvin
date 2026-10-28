@@ -3,10 +3,15 @@
   <head>
     <title>The Ludlow Park</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%# Reload every minute to pick up list changes and the next event %>
-    <meta http-equiv="refresh" content="60">
+    <%# Reload every minute to pick up list changes and the next event, unless previewing a theme %>
+    <% unless @preview_theme %>
+      <meta http-equiv="refresh" content="60">
+    <% end %>
     <link rel="icon" href="/icon.png" type="image/png">
     <%= stylesheet_link_tag "board" %>
+    <% unless @theme == "classic" %>
+      <%= stylesheet_link_tag "themes/#{@theme}" %>
+    <% end %>
   </head>
 
   <body class="board">

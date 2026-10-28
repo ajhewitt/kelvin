@@ -1,0 +1,74 @@
+/* Wedgwood: white on jasperware blue, the name in a cameo's rounded frame */
+@import url("/fonts/cormorant-garamond.css");
+@import url("/fonts/jost.css");
+
+.board {
+  --board-background: #5b7ea5;
+  --board-accent: #fff;
+  --board-accent-faded: rgb(255 255 255 / 40%);
+  --board-rule: #f4f7fb;
+  --board-text: #eef3f9;
+  --board-display-font: "Cormorant Garamond", serif;
+  --board-font: "Jost", sans-serif;
+  --board-item-spacing: 0.14em;
+
+  background: radial-gradient(ellipse at 50% 35%, #6a8db4 0%, var(--board-background) 55%, #4c6d92 100%);
+  /* Cormorant's old-style numerals make 660 read as 66o */
+  font-variant-numeric: lining-nums;
+}
+
+/* Raised white relief, in a rounded frame */
+.board-title {
+  position: relative;
+  border-width: 0.25rem;
+  border-radius: 999rem;
+  padding: 1.6rem 0 1.3rem;
+  font-size: 6.2rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-shadow: 0 0.04em 0 rgb(0 0 0 / 18%);
+}
+
+/* A fine line just inside the frame, drawn as a border since older WebKit doesn't round outlines */
+.board-title::before {
+  content: "";
+  position: absolute;
+  inset: 0.55rem;
+  border: 0.12rem solid var(--board-rule);
+  border-radius: inherit;
+}
+
+.board-tagline {
+  color: var(--board-text);
+  font-size: 3rem;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: none;
+}
+
+.board-tagline::before,
+.board-tagline::after {
+  border-top-width: 0.12rem;
+}
+
+.board-section-title {
+  border-width: 0.05em 0;
+  padding: 0.4em 0 0.3em;
+  font-size: 2.2em;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+}
+
+.board-item-name,
+.board-item-stat {
+  font-size: 1.3em;
+  font-weight: 500;
+}
+
+.board-item-description {
+  font-family: var(--board-display-font);
+  font-size: 1.3em;
+  font-style: italic;
+  font-weight: 500;
+}

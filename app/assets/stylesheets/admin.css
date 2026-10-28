@@ -6,7 +6,7 @@
 
 @font-face {
   font-family: "Bebas Neue";
-  src: url("BebasNeue-Regular.ttf") format("truetype");
+  src: url("/bebas-neue/BebasNeue-Regular.ttf") format("truetype");
   font-display: swap;
 }
 
@@ -232,4 +232,51 @@ input[type="file"]::file-selector-button {
 .list-emoji {
   display: block;
   max-width: 8rem;
+}
+
+/* Every theme previewed on an event's board, each a live, scaled-down board */
+
+.theme-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(22rem, 100%), 1fr));
+  gap: 1.25rem;
+}
+
+.theme-card {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+}
+
+.theme-card--current {
+  border-color: #f99491;
+  box-shadow: 0 0 0 1px #f99491;
+}
+
+/* The board sizes itself from its viewport width, so the frame alone scales it */
+.theme-card iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  pointer-events: none;
+}
+
+.theme-card figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-top: 1px solid var(--border-color);
+  padding: 0.6rem 0.75rem;
+}
+
+.theme-card figcaption strong {
+  display: block;
+  font-size: 1rem;
+}
+
+.theme-card figcaption span:not(.list-badge) {
+  color: var(--light-text-color);
 }

@@ -14,6 +14,10 @@ RSpec.describe "Board", type: :request do
     Nokogiri::HTML(response.body)
   end
 
+  def stylesheets
+    page.css("link[rel=stylesheet]").map { |link| link["href"] }
+  end
+
   it "shows the current event's list on the root page" do
     last_year = Event.create!(name: "A Decade in the Making", date: Date.new(2025, 11, 28), tagline: "A Decade in the Making ’25")
     this_year = Event.create!(name: "Black Friday", date: Date.new(2026, 11, 27), tagline: "Old Skool ’26")
@@ -82,6 +86,34 @@ RSpec.describe "Board", type: :request do
 
     expect(page.css(".board-item-name").map(&:text)).to contain_exactly("Urchin (660)", "Mermaid Beacon")
     expect(page.css(".board-item--kicked .board-item-name").map(&:text)).to eq(["Urchin (660)"])
+  end
+
+  it "dresses the board in the event's theme" do
+    Event.create!(name: "Black Friday", date: Date.new(2026, 11, 27), theme: "public_house")
+
+    get root_path
+
+    expect(stylesheets).to contain_exactly(a_string_matching(%r{/board-\w+\.css}), a_string_matching(%r{/themes/public_house-\w+\.css}))
+  end
+
+  it "needs only the board's own stylesheet for the Classic theme" do
+    Event.create!(name: "Black Friday", date: Date.new(2026, 11, 27))
+
+    get root_path
+
+    expect(stylesheets).to contain_exactly(a_string_matching(%r{/board-\w+\.css}))
+  end
+
+  it "previews any theme without reloading every minute" do
+    event = Event.create!(name: "Black Friday", date: Date.new(2026, 11, 27))
+
+    get event_board_path(event, theme: "neon")
+    expect(stylesheets).to include(a_string_matching(%r{/themes/neon-\w+\.css}))
+    expect(page.at_css("meta[http-equiv=refresh]")).to be_nil
+
+    get event_board_path(event, theme: "../board")
+    expect(stylesheets.size).to eq(1)
+    expect(page.at_css("meta[http-equiv=refresh]")).to be_present
   end
 
   it "still renders before any event exists" do

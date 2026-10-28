@@ -9,10 +9,15 @@ class EventResource < Madmin::Resource
   attribute :show_abv, index: false
   attribute :show_ibu, index: false
   attribute :show_srm, index: false, description: "The board shows them in the order SRM, IBU, ABV, skipping drinks without a value"
+  attribute :theme, field: ThemeField, index: true
 
   # The drinks on the list have their own page
   member_action collection: true do |event|
     link_to "List", madmin_event_drink_packages_path(event), class: "btn btn-primary"
+  end
+
+  member_action do |event|
+    link_to "Themes", themes_madmin_event_path(event), class: "btn btn-secondary"
   end
 
   member_action do |event|

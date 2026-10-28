@@ -1,0 +1,68 @@
+/* Tweed: mustard and oatmeal on country tweed, in Baskerville and Lato */
+@import url("/fonts/libre-baskerville.css");
+@import url("/fonts/lato.css");
+
+.board {
+  --board-background: #2c2a21;
+  --board-accent: #ece2ca;
+  --board-accent-faded: rgb(236 226 202 / 30%);
+  --board-rule: #cfa64a;
+  --board-heading: #cfa64a;
+  --board-text: #c9c0a8;
+  --board-display-font: "Libre Baskerville", serif;
+  --board-font: "Lato", sans-serif;
+  --board-item-spacing: 0.16em;
+
+  /* A faint herringbone weave */
+  background:
+    repeating-linear-gradient(45deg, rgb(255 255 255 / 1.5%) 0 0.4rem, transparent 0.4rem 0.8rem),
+    repeating-linear-gradient(-45deg, rgb(0 0 0 / 6%) 0 0.4rem, transparent 0.4rem 0.8rem),
+    radial-gradient(ellipse at 50% 35%, #3a382c 0%, var(--board-background) 60%);
+}
+
+.board-title {
+  border: 0;
+  padding: 0;
+  font-size: 7.5rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.board-tagline {
+  color: var(--board-rule);
+  font-size: 2.8rem;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  text-transform: none;
+}
+
+.board-tagline::before,
+.board-tagline::after {
+  border-top-width: 0.15rem;
+}
+
+.board-section-title {
+  border-width: 0 0 0.06em;
+  padding: 0.2em 0 0.3em;
+  font-family: var(--board-font);
+  font-size: 1.8em;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+}
+
+.board-item-name,
+.board-item-stat {
+  font-size: 1.3em;
+  font-weight: 700;
+}
+
+.board-item-stat {
+  color: var(--board-rule);
+}
+
+.board-item-description {
+  font-family: var(--board-display-font);
+  font-size: 1.1em;
+  font-style: italic;
+}

@@ -1,6 +1,12 @@
 # Below are the routes for madmin
 namespace :madmin do
   resources :events do
+    # The board's themes, previewed for the event, and picking one
+    member do
+      get :themes
+      patch :theme
+    end
+
     # An event's list, as it'll show on the board
     resources :drink_packages, path: "list", only: [:index, :create, :edit, :update, :destroy] do
       member do

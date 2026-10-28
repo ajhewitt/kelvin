@@ -1,0 +1,4 @@
+<%= form.select field.attribute_name, field.options_for_select(record), {}, {class: "form-input"} %>
+<% if record.persisted? %>
+  <div class="form-description"><%= link_to "See every theme on this event's board", themes_madmin_event_path(record) %></div>
+<% end %>

@@ -1,0 +1,63 @@
+/* Mahogany: amber and copper on dark wood, in Caslon */
+@import url("/fonts/libre-caslon-display.css");
+@import url("/fonts/libre-caslon-text.css");
+
+.board {
+  --board-background: #2a1710;
+  --board-accent: #e8b574;
+  --board-accent-faded: rgb(232 181 116 / 35%);
+  --board-rule: #b77a4a;
+  --board-heading: #f1e1c8;
+  --board-text: #dcc8ad;
+  --board-display-font: "Libre Caslon Display", serif;
+  --board-font: "Libre Caslon Text", serif;
+  --board-item-spacing: 0.1em;
+
+  background: radial-gradient(ellipse at 50% 35%, #3d2318 0%, #2a1710 55%, #1b0e09 100%);
+}
+
+.board-title {
+  border: 0;
+  padding: 0;
+  font-size: 9rem;
+  letter-spacing: 0.03em;
+  text-transform: none;
+}
+
+.board-tagline {
+  color: var(--board-rule);
+  font-family: var(--board-font);
+  font-size: 2.8rem;
+  font-style: italic;
+  letter-spacing: 0.1em;
+  text-transform: none;
+}
+
+/* Headings between copper rules, like the tagline */
+.board-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  border: 0;
+  padding: 0;
+  font-size: 2.2em;
+  letter-spacing: 0.2em;
+}
+
+.board-section-title::before,
+.board-section-title::after {
+  content: "";
+  flex: 1;
+  border-top: 0.06em solid var(--board-rule);
+}
+
+.board-item-name,
+.board-item-stat {
+  font-size: 1.35em;
+  font-weight: 700;
+}
+
+.board-item-description {
+  font-size: 1.15em;
+  font-style: italic;
+}

@@ -1,0 +1,61 @@
+/* Public House: gold leaf on oxblood, like a pub sign or the mirror behind the bar */
+@import url("/fonts/playfair-display-sc.css");
+@import url("/fonts/playfair-display.css");
+@import url("/fonts/lora.css");
+
+.board {
+  --board-background: #2a0c10;
+  --board-accent: #dcb76e;
+  --board-accent-faded: rgb(220 183 110 / 35%);
+  --board-rule: #dcb76e;
+  --board-heading: #f1e4cc;
+  --board-text: #f1e4cc;
+  --board-display-font: "Playfair Display SC", serif;
+  --board-font: "Lora", serif;
+  --board-item-spacing: 0.12em;
+
+  background: radial-gradient(ellipse at 50% 35%, #431419 0%, #2a0c10 55%, #1a0608 100%);
+}
+
+/* Small capitals from the font, so no uppercasing */
+.board-title {
+  border: 0.6rem double var(--board-rule);
+  padding: 1.2rem 0 1rem;
+  font-size: 6.2rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: none;
+}
+
+.board-tagline {
+  font-family: "Playfair Display", serif;
+  font-size: 3rem;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: none;
+}
+
+.board-tagline::before,
+.board-tagline::after {
+  border-top: 0.55rem double var(--board-rule);
+}
+
+.board-section-title {
+  border-width: 0.22em 0;
+  border-style: double;
+  padding: 0.4em 0 0.3em;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: none;
+}
+
+.board-item-name,
+.board-item-stat {
+  font-weight: 700;
+}
+
+.board-item-description {
+  font-size: 1.15em;
+  font-style: italic;
+}

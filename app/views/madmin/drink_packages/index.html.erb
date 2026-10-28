@@ -9,6 +9,7 @@
 
   <div class="actions">
     <%= link_to "Board", event_board_path(@event), class: "btn btn-secondary", target: "_blank" %>
+    <%= link_to "Theme: #{@event.theme.titleize}", themes_madmin_event_path(@event), class: "btn btn-secondary" %>
     <%= link_to "Add a drink", "#add", class: "btn btn-primary" %>
   </div>
 </header>

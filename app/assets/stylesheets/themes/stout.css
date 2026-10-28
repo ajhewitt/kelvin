@@ -1,0 +1,71 @@
+/* Stout: cream and gold on black, like a well-poured pint, in Cormorant */
+@import url("/fonts/cormorant-sc.css");
+@import url("/fonts/cormorant-garamond.css");
+
+.board {
+  --board-background: #0e0c0b;
+  --board-accent: #efe3c6;
+  --board-accent-faded: rgb(239 227 198 / 30%);
+  --board-rule: #b99a5d;
+  --board-heading: #efe3c6;
+  --board-text: #c7bba3;
+  --board-display-font: "Cormorant SC", serif;
+  --board-font: "Cormorant Garamond", serif;
+  --board-item-spacing: 0.14em;
+
+  background: radial-gradient(ellipse at 50% 30%, #1d1814 0%, #0e0c0b 60%);
+  /* Cormorant's old-style numerals make 660 read as 66o */
+  font-variant-numeric: lining-nums;
+}
+
+/* Small capitals from the font, so no uppercasing */
+.board-title {
+  width: 92rem;
+  border: 0;
+  padding: 0;
+  font-size: 7.2rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: none;
+}
+
+.board-tagline {
+  color: var(--board-rule);
+  font-family: var(--board-font);
+  font-size: 3rem;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: none;
+}
+
+.board-tagline::before,
+.board-tagline::after {
+  border-top-width: 0.1rem;
+}
+
+/* A gold hairline under each heading */
+.board-section-title {
+  border-width: 0 0 0.04em;
+  padding: 0 0 0.3em;
+  font-size: 2.6em;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: none;
+}
+
+.board-item-name,
+.board-item-stat {
+  font-size: 1.55em;
+  font-weight: 700;
+}
+
+.board-item-stat {
+  color: var(--board-rule);
+}
+
+.board-item-description {
+  font-size: 1.3em;
+  font-style: italic;
+  font-weight: 500;
+}

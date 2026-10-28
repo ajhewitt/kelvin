@@ -1,0 +1,37 @@
+<%= content_for :title, "Themes for #{@record.name}" %>
+
+<header class="header">
+  <h1>
+    <%= link_to "Events", madmin_events_path %>
+    /
+    <%= link_to @record.name, madmin_event_path(@record) %>
+    /
+    Themes
+  </h1>
+
+  <div class="actions">
+    <%= link_to "List", madmin_event_drink_packages_path(@record), class: "btn btn-secondary" %>
+  </div>
+</header>
+
+<p class="list-event">Each preview is this event's board. The TV picks up a new theme within a minute.</p>
+
+<div class="theme-gallery">
+  <% Event::THEMES.each do |theme, description| %>
+    <figure class="<%= class_names("theme-card", "theme-card--current": theme == @record.theme) %>">
+      <iframe src="<%= event_board_path(@record, theme: theme) %>" title="<%= theme.titleize %> preview" loading="lazy" tabindex="-1"></iframe>
+      <figcaption>
+        <div>
+          <strong><%= theme.titleize %></strong>
+          <span><%= description %></span>
+        </div>
+        <% if theme == @record.theme %>
+          <span class="list-badge">In use</span>
+        <% else %>
+          <%= button_to "Use", theme_madmin_event_path(@record), method: :patch, params: {theme: theme},
+                class: "btn btn-secondary", "aria-label": "Use #{theme.titleize}" %>
+        <% end %>
+      </figcaption>
+    </figure>
+  <% end %>
+</div>
