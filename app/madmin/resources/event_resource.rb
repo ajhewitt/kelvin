@@ -1,5 +1,5 @@
 class EventResource < Madmin::Resource
-  menu position: 1
+  menu parent: "Tap list", position: 1
 
   # Attributes
   attribute :date, index: true

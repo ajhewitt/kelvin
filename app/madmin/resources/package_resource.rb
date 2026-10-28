@@ -1,5 +1,5 @@
 class PackageResource < Madmin::Resource
-  menu position: 4
+  menu parent: "Tap list", position: 4
 
   # Attributes
   attribute :type, :select, collection: Package::TYPES, index: true, edit: false

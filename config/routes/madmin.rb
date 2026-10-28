@@ -1,5 +1,6 @@
 # Below are the routes for madmin
 namespace :madmin do
+  # The tap list
   resources :events do
     # The board's themes, previewed for the event, and picking one
     member do
@@ -20,6 +21,17 @@ namespace :madmin do
   end
   resources :brands
   resources :packages
+
+  # Refrigeration
+  resources :configurations
+  resources :sessions
+  resources :sensors
+  resources :actuators
+
+  # Logs the hardware writes, to look through rather than change
+  resources :sensor_readings, only: [:index, :show]
+  resources :control_actions, only: [:index, :show]
+
   resources :users
   namespace :active_storage do
     # Removing a drink's image from its form

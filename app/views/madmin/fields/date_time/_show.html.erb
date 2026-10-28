@@ -1,0 +1,4 @@
+<%# In the server's own time zone (config/application.rb), without an offset %>
+<% if (time = field.value(record)) %>
+  <%= l(time, format: :admin) %>
+<% end %>

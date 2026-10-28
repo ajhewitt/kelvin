@@ -5,3 +5,10 @@ Madmin.site_name = "The Ludlow Park"
 Rails.application.config.after_initialize do
   Madmin.stylesheets << "admin"
 end
+
+# The sidebar's sections, in order; resources join one with `menu parent:`
+Madmin.menu.before_render do
+  add label: "Tap list", position: 1
+  add label: "Refrigeration", position: 2
+  add label: "Logs", position: 3
+end

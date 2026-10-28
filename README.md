@@ -103,13 +103,21 @@ Launch the production instances explicitly bound to all network interfaces to al
 RAILS_ENV=production MALLOC_ARENA_MAX=2 bin/rails s -b 0.0.0.0
 ```
 
-### 🍺 Tap List Admin
-The board at `/` is public, for the TV. Everything else is behind a login at `/login`, which opens on the list for the event the board is showing:
+### 🍺 Admin
+The board at `/` is public, for the TV. Everything else is behind a login at `/login`, which opens on the list for the event the board is showing. The sidebar has three sections, with **Users** at the bottom by logging out.
+
+**Tap list**
 
 * **Current list:** the event's drinks laid out like the board. Kick a drink (it stays on the board, crossed out), move drinks up and down within their brand, move whole brands, set an emoji or hide a drink's image, and add or take off drinks. The board picks up changes within a minute.
 * **Events:** date, name, tagline, which stats the board shows (SRM, IBU, ABV) and the board's theme. **Themes** previews all 18 on the event's board, from Classic (the original look) to Public House, Racing Green, Tudor and the rest. Each is a stylesheet in `app/assets/stylesheets/themes`, with its fonts bundled so the kiosk needs no internet.
 * **Drinks:** name, brand (blank for the house's own), ABV, IBU, SRM, description and image. When a beer comes back with different numbers, use **Copy as new brew** so earlier events keep theirs.
-* **Brands, Packages and Users:** package sizes are typed as printed (12 oz, 660 ml, 5 gal, 4.5 imp gal).
+* **Brands and Packages:** package sizes are typed as printed (12 oz, 660 ml, 5 gal, 4.5 imp gal).
+
+**Refrigeration:** the configurations, sessions, sensors and actuators the hardware runs on. A sensor or actuator's type is the class that drives it, one to a file in `app/models` (`one_wire_sensor.rb`, `pwm_actuator.rb` and so on).
+
+**Logs:** the sensor readings and control actions the hardware writes, newest first and read-only. Filter them by time, value, sensor or session; a sensor, actuator or session links to its own.
+
+Times show in the Pi's time zone (`sudo raspi-config`, then restart the server), and are stored in UTC.
 
 The admin screens are [Madmin](https://github.com/excid3/madmin) resources in `app/madmin/resources`, with the list page in `app/controllers/madmin/drink_packages_controller.rb`.
 
