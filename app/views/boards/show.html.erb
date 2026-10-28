@@ -19,7 +19,7 @@
                 <% end %>
               </div>
               <% if item.image %>
-                <%= image_tag item.image.variant(resize_to_limit: [240, 240]), class: "board-item-image", alt: "" %>
+                <%= image_tag item.image.variant(:thumb), class: "board-item-image", alt: "" %>
               <% end %>
               <% if item.emoji.present? %>
                 <span class="board-item-emoji"><%= item.emoji %></span>

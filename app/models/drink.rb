@@ -2,7 +2,9 @@ class Drink < ApplicationRecord
   # Drinks without a brand are the house's own
   belongs_to :brand, optional: true
   has_many :drink_packages, dependent: :destroy
-  has_one_attached :image
+  has_one_attached :image do |attachable|
+    attachable.variant :thumb, resize_to_limit: [240, 240]
+  end
 
   validates :name, presence: true
   validates :abv, numericality: {in: 0..100}, allow_nil: true

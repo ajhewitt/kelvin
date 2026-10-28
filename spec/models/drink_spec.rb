@@ -25,4 +25,11 @@ RSpec.describe Drink, type: :model do
     drink.image.attach(io: StringIO.new("not a picture"), filename: "notes.txt")
     expect(drink).not_to be_valid
   end
+
+  it "can resize its image for the board" do
+    drink = Drink.create!(name: "Orange Dinosaur")
+    drink.image.attach(io: file_fixture("drink.png").open, filename: "drink.png")
+
+    expect { drink.image.variant(:thumb).processed }.not_to raise_error
+  end
 end
