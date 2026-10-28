@@ -3,7 +3,8 @@
 # then a section per brand in the order the brands first appear on the list.
 class Board
   Side = Data.define(:sections, :stats)
-  Section = Data.define(:title, :items)
+  # The house's own section has no brand
+  Section = Data.define(:title, :brand, :items)
 
   SIDE_TITLES = {cooperage: "Tap List", packaged: "Bottle List"}.freeze
 
@@ -41,7 +42,7 @@ class Board
   def sections(kind, on_side)
     by_brand = on_side.group_by { |item| item.drink.brand }
     house = by_brand.delete(nil)
-    branded = by_brand.map { |brand, brand_items| Section.new(title: brand.name, items: brand_items) }
-    house ? [Section.new(title: SIDE_TITLES.fetch(kind), items: house), *branded] : branded
+    branded = by_brand.map { |brand, brand_items| Section.new(title: brand.name, brand: brand, items: brand_items) }
+    house ? [Section.new(title: SIDE_TITLES.fetch(kind), brand: nil, items: house), *branded] : branded
   end
 end

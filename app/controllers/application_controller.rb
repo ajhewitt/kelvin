@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include Authentication
+
   # No allow_browser check: the kiosk's WPE WebKit reports itself as Safari 17.0 or older
   # before WPE 2.46, which Rails' :modern preset would turn away with a 406.
 

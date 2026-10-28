@@ -42,6 +42,48 @@ RSpec.describe Package, type: :model do
     expect(Package.exists?(keg.id)).to be(true)
   end
 
+  it "keeps its type, since drinks on lists would change sides" do
+    keg = Keg.create!(volume: 5, unit: "gal")
+
+    expect { keg.update(type: "Bottle") }.to raise_error(ActiveRecord::ReadonlyAttributeError)
+  end
+
+  describe "sizes typed as printed" do
+    {
+      ["12", "oz"] => [0.09375, "gal"],
+      ["660", "ml"] => [0.66, "liter"],
+      ["20", "imp oz"] => [0.125, "imp_gal"],
+      ["5", "gal"] => [5, "gal"],
+      ["4.5", "imp gal"] => [4.5, "imp_gal"],
+      ["20", "L"] => [20, "liter"]
+    }.each do |(amount, measure), (volume, unit)|
+      it "stores #{amount} #{measure} as #{volume} #{unit}" do
+        package = Can.new(amount: amount, measure: measure)
+
+        expect(package).to be_valid
+        expect([package.volume, package.unit]).to eq([volume, unit])
+      end
+    end
+
+    it "shows a stored size the way it's typed" do
+      package = Bottle.create!(volume: 0.66, unit: "liter")
+
+      expect([package.amount, package.measure]).to eq(["660", "ml"])
+    end
+
+    it "spots a size that's already a package of the same type" do
+      Can.create!(amount: "16", measure: "oz")
+
+      expect(Can.new(amount: "16", measure: "oz")).not_to be_valid
+      expect(Bottle.new(amount: "16", measure: "oz")).to be_valid
+    end
+
+    it "rejects sizes that aren't numbers or measures" do
+      expect(Can.new(amount: "a pint", measure: "oz")).not_to be_valid
+      expect(Can.new(amount: "1", measure: "pint")).not_to be_valid
+    end
+  end
+
   describe "#board_size" do
     it "shows a bottle's size, as a bare number for millilitres" do
       expect(Bottle.new(volume: 0.66, unit: "liter").board_size).to eq("(660)")

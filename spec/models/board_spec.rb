@@ -15,7 +15,7 @@ RSpec.describe Board do
     side.sections.map { |section| [section.title, section.items.map { |item| item.drink.name }] }
   end
 
-  it "puts the house's drinks under the side's heading, then each brand in list order" do
+  it "puts the house's drinks under the side's heading, then each brand in the order it was added" do
     list("Mermaid Beacon", 4.8, keg)
     list("Pliny the Elder", 8, keg, russian_river)
     list("Gridlock IPA", 6.5, keg)
@@ -30,9 +30,10 @@ RSpec.describe Board do
     ])
     expect(outline(Board.new(event).right)).to eq([
       ["Bottle List", ["Ludlow Lager"]],
-      ["St. Mars of the Desert", ["Urchin", "Babamama"]],
-      ["Russian River", ["Supplication"]]
+      ["Russian River", ["Supplication"]],
+      ["St. Mars of the Desert", ["Urchin", "Babamama"]]
     ])
+    expect(Board.new(event).right.sections.map(&:brand)).to eq([nil, russian_river, st_mars])
   end
 
   it "leaves out a side's heading when all its drinks are branded" do

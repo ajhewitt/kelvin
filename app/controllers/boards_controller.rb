@@ -1,4 +1,5 @@
 class BoardsController < ApplicationController
+  allow_unauthenticated_access
   layout "board"
 
   def show

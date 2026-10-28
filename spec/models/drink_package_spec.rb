@@ -6,8 +6,11 @@ RSpec.describe DrinkPackage, type: :model do
   let(:cask) { Cask.create!(volume: 4.5, unit: "imp_gal") }
   let(:can) { Can.create!(volume: 0.125, unit: "gal") }
 
-  def list(name, abv, package)
-    event.drink_packages.create!(drink: Drink.create!(name: name, abv: abv), package: package)
+  let(:st_mars) { Brand.create!(name: "St. Mars of the Desert") }
+  let(:cider_hill) { Brand.create!(name: "Cider Hill Cellars") }
+
+  def list(name, abv, package, brand = nil, **options)
+    event.drink_packages.create!(drink: Drink.create!(name: name, abv: abv, brand: brand), package: package, **options)
   end
 
   def side(packages)
@@ -27,12 +30,26 @@ RSpec.describe DrinkPackage, type: :model do
     expect(side(Package.packaged)).to eq([[1, "Festbier"], [2, "Urchin"]])
   end
 
-  it "keeps drinks without an ABV at the end of their side" do
+  it "keeps drinks without an ABV at the end of their section" do
     list("Mystery", nil, keg)
     list("Porter", 5, keg)
     list("Mild", 3.2, keg)
 
     expect(side(Package.cooperage)).to eq([[1, "Mild"], [2, "Porter"], [3, "Mystery"]])
+  end
+
+  it "keeps ABV order within each brand, with a brand new to the side starting at the bottom" do
+    list("Barbapapa", 10, can, st_mars)
+    list("Winter", 12.5, can, cider_hill)
+    list("Civilization Machine", 3.7, can, st_mars)
+    list("Strawberry Harvest", 8, can, cider_hill)
+    list("Ludlow Lager", 5, can)
+
+    expect(side(Package.packaged)).to eq([
+      [1, "Civilization Machine"], [2, "Barbapapa"],
+      [3, "Strawberry Harvest"], [4, "Winter"],
+      [5, "Ludlow Lager"]
+    ])
   end
 
   it "only rejects a taken position on the same side" do
@@ -50,14 +67,55 @@ RSpec.describe DrinkPackage, type: :model do
     expect(event.drink_packages.new(drink: drink, package: keg)).to be_valid
   end
 
-  it "moves an item and renumbers its side" do
-    list("Mild", 3.2, keg)
-    list("Bitter", 4.2, keg)
-    porter = list("Porter", 5, keg)
+  describe "#move" do
+    it "swaps places with the next item up or down its section, past other brands" do
+      urchin = list("Urchin", 6.1, can, st_mars, position: 1)
+      list("Winter", 12.5, can, cider_hill, position: 2)
+      list("Tripel", 8, can, st_mars, position: 3)
 
-    porter.move_to(1)
+      urchin.move(:down)
+      expect(side(Package.packaged)).to eq([[1, "Tripel"], [2, "Winter"], [3, "Urchin"]])
 
-    expect(side(Package.cooperage)).to eq([[1, "Porter"], [2, "Mild"], [3, "Bitter"]])
+      urchin.reload.move(:up)
+      expect(side(Package.packaged)).to eq([[1, "Urchin"], [2, "Winter"], [3, "Tripel"]])
+    end
+
+    it "stays put at either end of its section" do
+      mild = list("Mild", 3.2, keg)
+      porter = list("Porter", 5, keg)
+
+      mild.reload.move(:up)
+      porter.reload.move(:down)
+
+      expect(side(Package.cooperage)).to eq([[1, "Mild"], [2, "Porter"]])
+    end
+  end
+
+  describe "#move_brand" do
+    it "moves a brand's drinks past the next brand's, keeping the house's drinks first" do
+      list("Ludlow Lager", 5, can)
+      list("Urchin", 6.1, can, st_mars)
+      list("Tripel", 8, can, st_mars)
+      winter = list("Winter", 12.5, can, cider_hill)
+
+      winter.reload.move_brand(:up)
+      expect(side(Package.packaged)).to eq([[1, "Ludlow Lager"], [2, "Winter"], [3, "Urchin"], [4, "Tripel"]])
+
+      winter.reload.move_brand(:up)
+      expect(side(Package.packaged)).to eq([[1, "Ludlow Lager"], [2, "Winter"], [3, "Urchin"], [4, "Tripel"]])
+
+      winter.reload.move_brand(:down)
+      expect(side(Package.packaged)).to eq([[1, "Ludlow Lager"], [2, "Urchin"], [3, "Tripel"], [4, "Winter"]])
+    end
+
+    it "leaves the house's own drinks where they are" do
+      lager = list("Ludlow Lager", 5, can)
+      list("Urchin", 6.1, can, st_mars)
+
+      lager.reload.move_brand(:down)
+
+      expect(side(Package.packaged)).to eq([[1, "Ludlow Lager"], [2, "Urchin"]])
+    end
   end
 
   it "shows the drink's image unless it's switched off for the event" do

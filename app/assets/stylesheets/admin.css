@@ -1,0 +1,229 @@
+/*
+ * The admin screens and login page in the board's colors, on top of Madmin's own styles.
+ * Madmin draws everything from these variables. Its primary buttons have white text, which
+ * doesn't show on coral, so they get the board's dark purple instead.
+ */
+
+@font-face {
+  font-family: "Bebas Neue";
+  src: url("BebasNeue-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+
+  --primary-color: #f99491;
+  --link-color: #f99491;
+  --text-color: #ece8f1;
+  --light-text-color: #a9a1ba;
+  --surface-color: #1e1a2b;
+  --background-color: #27223a;
+  --hover-color: #302a47;
+  --border-color: #3b3452;
+  --input-border-color: #6a6283;
+  --danger-color: #ff8f8a;
+}
+
+.btn.btn-primary {
+  color: #1e1a2b;
+}
+
+input[type="checkbox"] {
+  accent-color: #f99491;
+}
+
+input[type="file"]::file-selector-button {
+  margin-right: 0.75rem;
+  border: 1px solid var(--input-border-color);
+  border-radius: 0.375rem;
+  padding: 0.4rem 0.75rem;
+  background: var(--surface-color);
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+#navbar .nav-group > a,
+.login-title,
+.list-side-title {
+  color: #f99491;
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: normal;
+  letter-spacing: 0.08em;
+}
+
+#navbar .nav-group > a {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+#sidebar footer form {
+  margin-top: 0.5rem;
+}
+
+/* Login */
+
+.login {
+  width: min(22rem, 100% - 2rem);
+  margin: 15vh auto 0;
+}
+
+.login-title {
+  margin: 0 0 1.5rem;
+  font-size: 3rem;
+  line-height: 1;
+  text-align: center;
+}
+
+.login .btn {
+  width: 100%;
+}
+
+/* A package's size: the amount, then the measure */
+
+.size-field {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 20rem;
+}
+
+.size-field select {
+  width: 8rem;
+}
+
+/* An event's list, laid out like the board: draft on the left, bottles and cans on the right */
+
+.list-event {
+  margin: 0 0 1rem;
+  color: var(--light-text-color);
+}
+
+.list-badge {
+  margin-left: 0.5rem;
+  border-radius: 1rem;
+  padding: 0.1rem 0.6rem;
+  background: #f99491;
+  color: #1e1a2b;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.list-sides {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(24rem, 100%), 1fr));
+  gap: 1rem 2rem;
+}
+
+.list-side-title {
+  margin: 0 0 0.5rem;
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
+.list-empty {
+  color: var(--light-text-color);
+}
+
+.list-section {
+  margin-bottom: 1.25rem;
+}
+
+.list-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.25rem;
+}
+
+.list-section-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.list-items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.6rem 0;
+}
+
+.list-item-image {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
+}
+
+.list-item-text {
+  display: flex;
+  flex: 1 1 8rem;
+  flex-direction: column;
+}
+
+.list-item-name {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.list-item-details {
+  color: var(--light-text-color);
+}
+
+/* Big enough to tap on a phone in a dark bar */
+.list-buttons {
+  display: flex;
+  gap: 0.4rem;
+}
+
+/* Links and buttons alike, with their labels centered */
+.list-buttons .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+}
+
+.list-buttons .btn:disabled {
+  opacity: 30%;
+}
+
+.list-kick {
+  min-width: 5.5rem !important;
+}
+
+/* A kicked drink stays on the board crossed out, as it does here */
+.list-item--kicked .list-item-name,
+.list-item--kicked .list-item-details {
+  color: var(--light-text-color);
+  text-decoration-line: line-through;
+  text-decoration-color: #f99491;
+  text-decoration-thickness: 0.12em;
+}
+
+.list-item--kicked .list-item-image {
+  opacity: 0.35;
+}
+
+.list-add {
+  max-width: 36rem;
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+}
+
+.list-emoji {
+  display: block;
+  max-width: 8rem;
+}
