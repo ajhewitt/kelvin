@@ -63,9 +63,11 @@ input[type="file"]::file-selector-button {
 
 /* Login */
 
+/* Madmin pads every main element to clear its sidebar, which the login page doesn't have */
 .login {
   width: min(22rem, 100% - 2rem);
   margin: 15vh auto 0;
+  padding: 0;
 }
 
 .login-title {
@@ -73,6 +75,10 @@ input[type="file"]::file-selector-button {
   font-size: 3rem;
   line-height: 1;
   text-align: center;
+}
+
+.login .alert {
+  margin-bottom: 1rem;
 }
 
 .login .btn {
