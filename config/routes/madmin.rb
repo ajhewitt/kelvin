@@ -6,8 +6,13 @@ namespace :madmin do
     member do
       get :themes
       patch :theme
-      # Starting its serving session from its list, adding the session the first time
-      post :serve
+    end
+    # Its serving session, run from its list: started (and added, the first time), stopped, and its
+    # draft temperature turned up and down
+    resource :serving, only: :create do
+      patch :start
+      patch :stop
+      patch :draft_temp
     end
 
     # An event's list, as it'll show on the board
@@ -26,17 +31,7 @@ namespace :madmin do
 
   # Refrigeration
   resources :configurations
-  resources :sessions do
-    # The start and stop buttons
-    member do
-      patch :start
-      patch :stop
-    end
-  end
-  # A session's settings, which the list's buttons nudge
-  resources :settings do
-    patch :nudge, on: :member
-  end
+  resources :sessions
   resources :sensors
   resources :actuators
 

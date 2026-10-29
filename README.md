@@ -115,9 +115,9 @@ The board at `/` is public, for the TV. Everything else is behind a login at `/l
 
 **Refrigeration:** the configurations, sessions, sensors and actuators the hardware runs on. A sensor or actuator's type is the class that drives it, one to a file in `app/models` (`one_wire_sensor.rb`, `pwm_actuator.rb` and so on).
 
-Sessions are created pending and run with **Start** and **Stop**. Start runs a pending or stopped session; Stop stops a running one, and stopping a stopped session completes it, after which it can't be started again. A session's start time is stamped when it leaves pending and its end time when it completes. A serving session (the configuration with the slug `service`) can be for an event, one to an event, and the event's list starts and stops it, adding it the first time.
+Sessions are edited like the other records: configuration, status and times. A blank start time fills in when a session leaves pending, and a blank end time when it completes. The serving session (the configuration with the slug `service`) is the one kind that's for an event, one to an event, so only its form offers an event. The event's **Current list** runs it with **Start** and **Stop**: Start runs a pending or stopped session, Stop stops a running one, and stopping a stopped session completes it, after which it can't be started again. Starting, stopping and setting up the other kinds of session are still to come.
 
-A session holds **settings**, each a key and a number. A serving session gets `draft_temp`, 38°F to start, and its reading comes from the sensor with the same slug, `draft_temp`: the latest reading that sensor recorded in the session. What the actuators do when the reading and the setting differ is still to come.
+A session holds **settings**, each a key and a number. A serving session gets `draft_temp`, 38°F to start, which the list turns up and down. Its reading comes from the sensor with the same slug, `draft_temp`: the latest reading that sensor recorded in the session. What the actuators do when the reading and the setting differ is still to come.
 
 **Logs:** the sensor readings and control actions the hardware writes, newest first and read-only. Filter them by time, value, sensor or session; a sensor, actuator or session links to its own.
 

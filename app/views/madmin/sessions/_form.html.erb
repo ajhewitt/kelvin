@@ -1,0 +1,27 @@
+<%# Madmin's form, offering an event only to a serving session, the one kind of session that's for
+    an event. A new session gets one once it's saved as a serving session. %>
+<%= form_with model: [:madmin, record], url: (record.persisted? ? resource.show_path(record) : resource.index_path), local: true do |form| %>
+  <% if form.object.errors.any? %>
+    <div class="alert alert-danger">
+      <div class=""><%= t("madmin.form.errors", count: form.object.errors.full_messages.count) %>:</div>
+
+      <ul>
+        <% form.object.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% resource.attributes.values.select{ _1.field.present? && _1.field.visible?(action_name) }.each do |attribute| %>
+    <% next if attribute.name == :event && !record.serving? %>
+    <div class="form-group">
+      <%= render "madmin/shared/label", form: form, field: attribute.field %>
+      <%= render partial: attribute.field.to_partial_path("form"), locals: { field: attribute.field, record: record, form: form, resource: resource } %>
+      <%= tag.div attribute.field.options.description, class: "form-description" if attribute.field.options.description.present? %>
+    </div>
+  <% end %>
+
+  <%= form.submit class: "btn btn-primary" %>
+  <%= link_to t("madmin.actions.cancel"), (record.persisted? ? resource.show_path(record) : resource.index_path), class: "btn" %>
+<% end %>

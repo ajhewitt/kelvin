@@ -15,11 +15,10 @@ class Session < ApplicationRecord
 
   validates :event_id, uniqueness: {message: "already has a serving session"}, allow_nil: true
   validate :event_only_when_serving
-  validate :created_pending, on: :create
   validate :ensure_lifecycle_integrity, on: :update
 
-  # A session can't go back to pending or change once complete, so this stamps the start time as
-  # it leaves pending, whatever for, and the end time as it completes
+  # The start time as a session leaves pending, whatever for, and the end time as it completes,
+  # unless they're set already
   before_save :stamp_times
   after_create :add_draft_temp, if: :serving?
 
@@ -27,8 +26,9 @@ class Session < ApplicationRecord
 
   def draft_temp = settings.find_by(key: DRAFT_TEMP)
 
-  # The start and stop buttons: start runs a pending or stopped session, and stop stops a running
-  # session or completes a stopped one, which can't be started again
+  # The serving session's start and stop buttons on the event's list: start runs a pending or
+  # stopped session, and stop stops a running session or completes a stopped one, which can't be
+  # started again
   def can_start? = pending? || inactive?
 
   def can_stop? = active? || inactive?
@@ -51,10 +51,6 @@ class Session < ApplicationRecord
     self.ended_at ||= Time.current if complete?
   end
 
-  def created_pending
-    errors.add(:status, "must be pending when a session is created") unless pending?
-  end
-
   def event_only_when_serving
     errors.add(:event, "is only for serving sessions") if event && !serving?
   end
@@ -64,8 +60,8 @@ class Session < ApplicationRecord
     if status_was.to_sym == :complete
       errors.add(:status, "cannot be altered after session completion")
     end
-    if pending?
-      errors.add(:status, "cannot transition backward to pending once started")
+    if status_was.to_sym == :inactive && status.to_sym == :pending
+      errors.add(:status, "cannot transition backward from paused to pending")
     end
   end
 end

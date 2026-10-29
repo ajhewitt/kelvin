@@ -1,14 +1,22 @@
-<%# The event's serving session, run from here along with the drinks: its start and stop buttons,
-    the draft temperature it serves at and the latest reading of it %>
+<%# The event's serving session, run from here along with the drinks: its start and stop buttons, the
+    draft temperature it serves at and the latest reading of it. Start and stop send the status they
+    were pressed at, so a double click or a page left open can't stop the session twice. %>
 <section class="list-serving">
   <div class="list-serving-row">
     <span class="list-serving-label">Serving</span>
     <% if (serving = @event.serving_session) %>
-      <%= render "madmin/sessions/controls", record: serving %>
+      <span><%= serving.status.humanize %></span>
+      <% if serving.can_start? %>
+        <%= button_to "Start", start_madmin_event_serving_path(@event), method: :patch, params: {from: serving.status}, class: "btn btn-primary" %>
+      <% end %>
+      <% if serving.can_stop? %>
+        <%= button_to "Stop", stop_madmin_event_serving_path(@event), method: :patch, params: {from: serving.status}, class: "btn btn-secondary",
+              form: {data: {turbo_confirm: ("Complete this session? It can't be started again." if serving.inactive?)}} %>
+      <% end %>
       <%= link_to SessionResource.display_name(serving), madmin_session_path(serving), class: "list-serving-session" %>
     <% elsif Configuration.serving %>
       <span>Not started</span>
-      <%= button_to "Start", serve_madmin_event_path(@event), class: "btn btn-primary" %>
+      <%= button_to "Start", madmin_event_serving_path(@event), class: "btn btn-primary" %>
     <% else %>
       <span>Add a configuration with the slug "<%= Configuration::SERVING %>" to serve from</span>
     <% end %>
@@ -18,11 +26,11 @@
     <div class="list-serving-row">
       <span class="list-serving-label">Draft temp</span>
       <% unless serving.complete? %>
-        <%= button_to "−", nudge_madmin_setting_path(draft_temp, direction: "down"), method: :patch, class: "btn btn-secondary list-serving-nudge", title: "Colder", "aria-label": "Colder" %>
+        <%= button_to "−", draft_temp_madmin_event_serving_path(@event, direction: "down"), method: :patch, class: "btn btn-secondary list-serving-nudge", title: "Colder", "aria-label": "Colder" %>
       <% end %>
       <strong class="list-serving-temp"><%= degrees(draft_temp.value) %></strong>
       <% unless serving.complete? %>
-        <%= button_to "+", nudge_madmin_setting_path(draft_temp, direction: "up"), method: :patch, class: "btn btn-secondary list-serving-nudge", title: "Warmer", "aria-label": "Warmer" %>
+        <%= button_to "+", draft_temp_madmin_event_serving_path(@event, direction: "up"), method: :patch, class: "btn btn-secondary list-serving-nudge", title: "Warmer", "aria-label": "Warmer" %>
       <% end %>
       <span class="list-serving-reading">
         <% if (reading = draft_temp.reading) %>

@@ -1,9 +1,0 @@
-<%# A session's status and its start and stop buttons, each sent with the status it was pressed at %>
-<span><%= record.status.humanize %></span>
-<% if record.can_start? %>
-  <%= button_to "Start", start_madmin_session_path(record), method: :patch, params: {from: record.status}, class: "btn btn-primary" %>
-<% end %>
-<% if record.can_stop? %>
-  <%= button_to "Stop", stop_madmin_session_path(record), method: :patch, params: {from: record.status}, class: "btn btn-secondary",
-        form: {data: {turbo_confirm: ("Complete this session? It can't be started again." if record.inactive?)}} %>
-<% end %>
