@@ -74,4 +74,14 @@ RSpec.describe Event, type: :model do
     event_on(Date.new(2026, 12, 24))
     expect(only.destroy).to be_truthy
   end
+
+  it "unlinks its serving session when deleted, keeping the session and its logs" do
+    event_on(Date.new(2026, 12, 24))
+    event = event_on(Date.new(2026, 11, 27))
+    serving = Session.create!(configuration: Configuration.create!(name: "Service Mode", slug: "service"), event: event)
+
+    event.destroy!
+
+    expect(serving.reload.event).to be_nil
+  end
 end

@@ -108,12 +108,16 @@ The board at `/` is public, for the TV. Everything else is behind a login at `/l
 
 **Tap list**
 
-* **Current list:** the event's drinks laid out like the board. Kick a drink (it stays on the board, crossed out), move drinks up and down within their brand, move whole brands, set an emoji or hide a drink's image, and add or take off drinks. The board picks up changes within a minute.
+* **Current list:** everything for the night in one place. Start and stop the event's serving session, and turn its draft temperature up or down a degree at a time, with the latest reading beside it. Below that are the event's drinks, laid out like the board. Kick a drink (it stays on the board, crossed out), move drinks up and down within their brand, move whole brands, set an emoji or hide a drink's image, and add or take off drinks. The board picks up changes within a minute.
 * **Events:** date, name, tagline, which stats the board shows (SRM, IBU, ABV) and the board's theme. **Themes** previews all 18 on the event's board, from Classic (the original look) to Public House, Racing Green, Tudor and the rest. Each is a stylesheet in `app/assets/stylesheets/themes`, with its fonts bundled so the kiosk needs no internet.
 * **Drinks:** name, brand (blank for the house's own), ABV, IBU, SRM, description and image. When a beer comes back with different numbers, use **Copy as new brew** so earlier events keep theirs.
 * **Brands and Packages:** package sizes are typed as printed (12 oz, 660 ml, 5 gal, 4.5 imp gal).
 
 **Refrigeration:** the configurations, sessions, sensors and actuators the hardware runs on. A sensor or actuator's type is the class that drives it, one to a file in `app/models` (`one_wire_sensor.rb`, `pwm_actuator.rb` and so on).
+
+Sessions are created pending and run with **Start** and **Stop**. Start runs a pending or stopped session; Stop stops a running one, and stopping a stopped session completes it, after which it can't be started again. A session's start time is stamped when it leaves pending and its end time when it completes. A serving session (the configuration with the slug `service`) can be for an event, one to an event, and the event's list starts and stops it, adding it the first time.
+
+A session holds **settings**, each a key and a number. A serving session gets `draft_temp`, 38°F to start, and its reading comes from the sensor with the same slug, `draft_temp`: the latest reading that sensor recorded in the session. What the actuators do when the reading and the setting differ is still to come.
 
 **Logs:** the sensor readings and control actions the hardware writes, newest first and read-only. Filter them by time, value, sensor or session; a sensor, actuator or session links to its own.
 

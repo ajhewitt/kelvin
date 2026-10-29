@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_28_131649) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_29_200228) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -153,8 +153,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_28_131649) do
     t.datetime "ended_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "event_id"
     t.index ["configuration_id"], name: "index_sessions_on_configuration_id"
+    t.index ["event_id"], name: "index_sessions_on_event_id", unique: true
     t.index ["status"], name: "index_sessions_on_status"
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.integer "session_id", null: false
+    t.string "key", null: false
+    t.float "value", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["session_id", "key"], name: "index_settings_on_session_id_and_key", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -176,4 +187,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_28_131649) do
   add_foreign_key "sensor_readings", "sensors"
   add_foreign_key "sensor_readings", "sessions"
   add_foreign_key "sessions", "configurations"
+  add_foreign_key "sessions", "events"
+  add_foreign_key "settings", "sessions"
 end

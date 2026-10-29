@@ -8,9 +8,6 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-require_dependency "actuator"
-require_dependency "sensor"
-
 # Configurations
 Configuration.find_or_create_by!(slug: "service") { |c| c.name = "Service Mode" }
 Configuration.find_or_create_by!(slug: "brew_prep") { |c| c.name = "Brewing: Pre-Cool Reservoir" }
@@ -24,6 +21,7 @@ LogicLevelActuator.find_or_create_by!(slug: "cask_on") { |a| a.name = "Cask Loop
 
 # Sensors (Using specific STI Classes)
 OneWireSensor.find_or_create_by!(slug: "glycol_temp") { |s| s.name = "Glycol Reservoir Temp" }
+OneWireSensor.find_or_create_by!(slug: "draft_temp") { |s| s.name = "Draft Temp" }
 ModbusReadSensor.find_or_create_by!(slug: "compressor_rpm") { |s| s.name = "Compressor Tachometer" }
 VirtualSensor.find_or_create_by!(slug: "wort_temp") { |s| s.assign_attributes(name: "Calculated Output Wort Temp", is_virtual: true) }
 
