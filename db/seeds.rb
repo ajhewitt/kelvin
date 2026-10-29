@@ -8,9 +8,6 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-require_dependency "actuator"
-require_dependency "sensor"
-
 # Configurations
 Configuration.find_or_create_by!(slug: "service") { |c| c.name = "Service Mode" }
 Configuration.find_or_create_by!(slug: "brew_prep") { |c| c.name = "Brewing: Pre-Cool Reservoir" }
