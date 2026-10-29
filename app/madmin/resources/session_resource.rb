@@ -5,10 +5,14 @@ class SessionResource < Madmin::Resource
   attribute :configuration, index: true
   # Only a serving session is for an event, so only its form offers one (madmin/sessions/_form)
   attribute :event, index: true
-  attribute :status, index: true
-  attribute :started_at, index: true
-  attribute :ended_at, index: true
+  # Changed only by the start and stop buttons, which stamp the start and end times
+  attribute :status, field: SessionStatusField, index: true, form: false
+  attribute :started_at, index: true, form: false
+  attribute :ended_at, index: true, form: false
   attribute :created_at, form: false, index: false
+
+  # Associations
+  attribute :settings, field: SessionSettingsField, form: false, index: false
 
   # A session's readings and actions run to thousands, so they're in the logs, filtered
   member_action do |session|

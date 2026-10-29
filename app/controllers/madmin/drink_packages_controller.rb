@@ -5,7 +5,7 @@ module Madmin
     before_action :set_event, except: :current
     before_action :set_item, except: [:current, :index, :create]
 
-    helper BoardsHelper
+    helper BoardsHelper, SettingsHelper
     helper_method :drink_choices, :package_choices
 
     def current

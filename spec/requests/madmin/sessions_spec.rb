@@ -15,50 +15,121 @@ RSpec.describe "Sessions in the admin", type: :request do
     page.css("form [name^='session[']").map { |field| field["name"] }
   end
 
-  it "edits a session's status and times on its form" do
-    get new_madmin_session_path
-    expect(form_fields).to eq(["session[configuration_id]", "session[status]", "session[started_at]", "session[ended_at]"])
-
-    post madmin_sessions_path, params: {session: {configuration_id: ferment.id, status: "active", started_at: "2026-11-27T18:00"}}
-    expect([Session.last.status, Session.last.started_at]).to eq(["active", Time.zone.parse("2026-11-27 18:00")])
+  # A row of a session's page as a line of text, buttons included
+  def row(label)
+    page.css("tr").find { |tr| tr.at_css("th").text.strip == label }.at_css("td").text.squish
   end
 
-  it "offers an event only to a serving session" do
-    serving = Session.create!(configuration: service)
+  describe "a session's page" do
+    it "runs the session with start and stop, which stamp its times" do
+      session = Session.create!(configuration: ferment)
+      started = Time.utc(2026, 11, 27, 18)
 
-    get edit_madmin_session_path(serving)
-    expect(form_fields).to include("session[event_id]")
+      get madmin_session_path(session)
+      expect(row("Status")).to eq("Pending Start")
 
-    patch madmin_session_path(serving), params: {session: {event_id: event.id}}
-    expect(serving.reload.event).to eq(event)
+      [[:start, "pending", "Active Stop", 0], [:stop, "active", "Inactive Start Stop", 3], [:stop, "inactive", "Complete", 4]].each do |button, from, status, hours|
+        travel_to(started + hours.hours) { patch public_send(:"#{button}_madmin_session_path", session), params: {from: from} }
+        expect(response).to redirect_to(madmin_session_path(session))
+        follow_redirect!
+        expect(row("Status")).to eq(status)
+      end
+      expect([session.reload.started_at, session.ended_at]).to eq([started, started + 4.hours])
+    end
 
-    get edit_madmin_session_path(Session.create!(configuration: ferment))
-    expect(form_fields).not_to include("session[event_id]")
+    it "asks before the stop that completes a session" do
+      session = Session.create!(configuration: ferment)
+      session.start
+
+      get madmin_session_path(session)
+      expect(page.at_css("form[action$='/stop']")["data-turbo-confirm"]).to be_nil
+
+      session.stop
+      get madmin_session_path(session)
+      expect(page.at_css("form[action$='/stop']")["data-turbo-confirm"]).to eq("Complete this session? It can't be started again.")
+    end
+
+    it "won't complete a session on a double click of stop" do
+      session = Session.create!(configuration: ferment)
+      session.start
+
+      2.times { patch stop_madmin_session_path(session), params: {from: "active"} }
+
+      expect(session.reload).to be_inactive
+      follow_redirect!
+      expect(page.at_css(".alert").text).to include("Fermentation Guard ##{session.id} is already inactive.")
+    end
+
+    it "shows the settings its configuration gives it, with their buttons" do
+      get madmin_session_path(Session.create!(configuration: service))
+      expect(row("Settings")).to eq("Draft temp − 38°F + No reading yet")
+
+      get madmin_session_path(Session.create!(configuration: ferment))
+      expect(row("Settings")).to eq("None")
+    end
+
+    it "turns a setting up and down, coming back to the page" do
+      session = Session.create!(configuration: service)
+
+      %w[up up down up].each do |direction|
+        patch nudge_madmin_session_path(session, key: "draft_temp", direction: direction), headers: {"HTTP_REFERER" => madmin_session_url(session)}
+      end
+
+      expect(response).to redirect_to(madmin_session_url(session))
+      follow_redirect!
+      expect(row("Settings")).to eq("Draft temp − 40°F + No reading yet")
+    end
+
+    it "leaves a complete session's settings as they ended" do
+      session = Session.create!(configuration: service)
+      session.start
+      2.times { session.stop }
+
+      patch nudge_madmin_session_path(session, key: "draft_temp", direction: "up")
+
+      expect(session.draft_temp.value).to eq(38.0)
+      follow_redirect!
+      expect(page.at_css(".alert").text).to include("Service Mode ##{session.id} is complete.")
+    end
   end
 
-  it "leaves starting, stopping and settings off a session's page" do
-    session = Session.create!(configuration: service)
+  describe "the session form" do
+    it "leaves the status and times to the buttons" do
+      get new_madmin_session_path
+      expect(form_fields).to eq(["session[configuration_id]"])
 
-    get madmin_session_path(session)
+      post madmin_sessions_path, params: {session: {configuration_id: ferment.id, status: "complete", started_at: "2026-11-27T18:00"}}
+      expect([Session.last.status, Session.last.started_at]).to eq(["pending", nil])
+    end
 
-    expect(page.css("main > div button").map { |button| button.text.strip }).to eq(["Delete"])
-    expect(page.css("th").map { |label| label.text.strip }).not_to include("Settings")
+    it "offers an event only to a serving session" do
+      serving = Session.create!(configuration: service)
+
+      get edit_madmin_session_path(serving)
+      expect(form_fields).to eq(["session[configuration_id]", "session[event_id]"])
+
+      patch madmin_session_path(serving), params: {session: {event_id: event.id}}
+      expect(serving.reload.event).to eq(event)
+
+      get edit_madmin_session_path(Session.create!(configuration: ferment))
+      expect(form_fields).to eq(["session[configuration_id]"])
+    end
   end
 
-  it "shows each session's event in the list" do
-    Session.create!(configuration: service, event: event)
+  it "shows each session's event and status in the list" do
+    Session.create!(configuration: service, event: event).start
 
     get madmin_sessions_path
 
-    expect(page.css("tbody tr td").map { |cell| cell.text.strip }.first(3)).to eq(["Service Mode", "Black Friday", "pending"])
+    expect(page.css("tbody tr td").map { |cell| cell.text.strip }.first(3)).to eq(["Service Mode", "Black Friday", "Active"])
   end
 
   describe "serving, from the event's list" do
-    let(:list) { madmin_event_drink_packages_path(event) }
+    let(:list) { madmin_event_drink_packages_url(event) }
 
     # The list's serving panel, a line of text to a row, buttons included
     def serving_panel
-      page.css(".list-serving-row").map { |row| row.text.squish }
+      page.css(".list-serving .session-controls").map { |row| row.text.squish }
     end
 
     it "starts serving, adding the event's serving session at 38°F" do
@@ -74,14 +145,14 @@ RSpec.describe "Sessions in the admin", type: :request do
       expect(serving_panel).to eq(["Serving Active Stop Service Mode ##{serving.id}", "Draft temp − 38°F + No reading yet"])
     end
 
-    it "runs the session with start and stop, until it's complete" do
+    it "runs serving with the session's own buttons, coming back to the list" do
       serving = Session.create!(configuration: service, event: event)
 
       get list
       expect(serving_panel.first).to eq("Serving Pending Start Service Mode ##{serving.id}")
 
       [[:start, "pending", "Active Stop"], [:stop, "active", "Inactive Start Stop"], [:stop, "inactive", "Complete"]].each do |button, from, panel|
-        patch public_send(:"#{button}_madmin_event_serving_path", event), params: {from: from}
+        patch public_send(:"#{button}_madmin_session_path", serving), params: {from: from}, headers: {"HTTP_REFERER" => list}
         expect(response).to redirect_to(list)
         follow_redirect!
         expect(serving_panel.first).to eq("Serving #{panel} Service Mode ##{serving.id}")
@@ -89,33 +160,12 @@ RSpec.describe "Sessions in the admin", type: :request do
       expect(serving_panel.last).to eq("Draft temp 38°F No reading yet")
     end
 
-    it "asks before the stop that completes the session" do
+    it "turns the draft temperature up and down, coming back to the list" do
       serving = Session.create!(configuration: service, event: event)
-      serving.start
 
-      get list
-      expect(page.at_css("form[action$='/serving/stop']")["data-turbo-confirm"]).to be_nil
-
-      serving.stop
-      get list
-      expect(page.at_css("form[action$='/serving/stop']")["data-turbo-confirm"]).to eq("Complete this session? It can't be started again.")
-    end
-
-    it "won't complete the session on a double click of stop" do
-      serving = Session.create!(configuration: service, event: event)
-      serving.start
-
-      2.times { patch stop_madmin_event_serving_path(event), params: {from: "active"} }
-
-      expect(serving.reload).to be_inactive
-      follow_redirect!
-      expect(page.at_css(".alert").text).to include("Serving is already inactive.")
-    end
-
-    it "turns the draft temperature up and down" do
-      Session.create!(configuration: service, event: event)
-
-      %w[up up down up].each { |direction| patch draft_temp_madmin_event_serving_path(event, direction: direction) }
+      %w[up up down up].each do |direction|
+        patch nudge_madmin_session_path(serving, key: "draft_temp", direction: direction), headers: {"HTTP_REFERER" => list}
+      end
 
       expect(response).to redirect_to(list)
       follow_redirect!

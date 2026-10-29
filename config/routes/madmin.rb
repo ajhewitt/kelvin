@@ -7,13 +7,8 @@ namespace :madmin do
       get :themes
       patch :theme
     end
-    # Its serving session, run from its list: started (and added, the first time), stopped, and its
-    # draft temperature turned up and down
-    resource :serving, only: :create do
-      patch :start
-      patch :stop
-      patch :draft_temp
-    end
+    # Starting its serving from its list the first time, adding its serving session
+    resource :serving, only: :create
 
     # An event's list, as it'll show on the board
     resources :drink_packages, path: "list", only: [:index, :create, :edit, :update, :destroy] do
@@ -31,7 +26,14 @@ namespace :madmin do
 
   # Refrigeration
   resources :configurations
-  resources :sessions
+  resources :sessions do
+    # Its start and stop buttons and its settings' down and up buttons, on its page and its event's list
+    member do
+      patch :start
+      patch :stop
+      patch :nudge
+    end
+  end
   resources :sensors
   resources :actuators
 

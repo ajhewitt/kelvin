@@ -1,0 +1,11 @@
+<%# A session's status with its start and stop buttons, on its page and on its event's list. Each
+    button sends the status it was pressed at, so a double click or a page left open can't stop a
+    session twice and complete it. %>
+<span><%= record.status.humanize %></span>
+<% if record.can_start? %>
+  <%= button_to "Start", start_madmin_session_path(record), method: :patch, params: {from: record.status}, class: "btn btn-primary" %>
+<% end %>
+<% if record.can_stop? %>
+  <%= button_to "Stop", stop_madmin_session_path(record), method: :patch, params: {from: record.status}, class: "btn btn-secondary",
+        form: {data: {turbo_confirm: ("Complete this session? It can't be started again." if record.inactive?)}} %>
+<% end %>

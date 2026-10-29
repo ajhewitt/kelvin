@@ -1,0 +1,7 @@
+<% settings = record.settings.order(:id).to_a %>
+<% settings.each do |setting| %>
+  <div class="session-controls">
+    <%= render "madmin/sessions/setting", setting: setting %>
+  </div>
+<% end %>
+<% if settings.empty? %>None<% end %>
