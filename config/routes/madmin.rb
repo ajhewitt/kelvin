@@ -6,9 +6,9 @@ namespace :madmin do
     member do
       get :themes
       patch :theme
-      # Starting its serving session from its list, adding the session the first time
-      post :serve
     end
+    # Starting its serving from its list the first time, adding its serving session
+    resource :serving, only: :create
 
     # An event's list, as it'll show on the board
     resources :drink_packages, path: "list", only: [:index, :create, :edit, :update, :destroy] do
@@ -27,15 +27,12 @@ namespace :madmin do
   # Refrigeration
   resources :configurations
   resources :sessions do
-    # The start and stop buttons
+    # Its start and stop buttons and its settings' down and up buttons, on its page and its event's list
     member do
       patch :start
       patch :stop
+      patch :nudge
     end
-  end
-  # A session's settings, which the list's buttons nudge
-  resources :settings do
-    patch :nudge, on: :member
   end
   resources :sensors
   resources :actuators

@@ -1,0 +1,20 @@
+<%# A session's setting with its down and up buttons, until the session is complete, and the latest
+    reading from the sensor of the same name %>
+<% name = setting.key.humanize %>
+<span class="session-label"><%= name %></span>
+<% unless setting.session.complete? %>
+  <%= button_to "−", nudge_madmin_session_path(setting.session, key: setting.key, direction: "down"), method: :patch,
+        class: "btn btn-secondary session-nudge", title: "#{name} down", "aria-label": "#{name} down" %>
+<% end %>
+<strong class="session-value"><%= setting_value(setting) %></strong>
+<% unless setting.session.complete? %>
+  <%= button_to "+", nudge_madmin_session_path(setting.session, key: setting.key, direction: "up"), method: :patch,
+        class: "btn btn-secondary session-nudge", title: "#{name} up", "aria-label": "#{name} up" %>
+<% end %>
+<span class="session-reading">
+  <% if (reading = setting.reading) %>
+    Reading <%= setting_value(setting, reading.reading_value) %> at <%= l(reading.recorded_at, format: :short) %>
+  <% else %>
+    No reading yet
+  <% end %>
+</span>

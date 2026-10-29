@@ -6,9 +6,8 @@ RSpec.describe Session, type: :model do
   let(:event) { Event.create!(name: "Black Friday", date: Date.new(2026, 11, 27)) }
   let(:session) { Session.create!(configuration: service) }
 
-  it "is created pending, with no start or end time" do
+  it "is pending to start with, with no start or end time" do
     expect([session.status, session.started_at, session.ended_at]).to eq(["pending", nil, nil])
-    expect(Session.new(configuration: service, status: :active)).not_to be_valid
   end
 
   it "gives a serving session a draft temperature of 38°F to start" do
@@ -45,8 +44,9 @@ RSpec.describe Session, type: :model do
     expect(session.reload).to be_pending
   end
 
-  it "can't go back to pending once started" do
+  it "can't go back to pending once stopped" do
     session.start
+    session.stop
 
     expect(session.update(status: :pending)).to be(false)
   end

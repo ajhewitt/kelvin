@@ -1,4 +1,6 @@
-<%# A session's status and its start and stop buttons, each sent with the status it was pressed at %>
+<%# A session's status with its start and stop buttons, on its page and on its event's list. Each
+    button sends the status it was pressed at, so a double click or a page left open can't stop a
+    session twice and complete it. %>
 <span><%= record.status.humanize %></span>
 <% if record.can_start? %>
   <%= button_to "Start", start_madmin_session_path(record), method: :patch, params: {from: record.status}, class: "btn btn-primary" %>
