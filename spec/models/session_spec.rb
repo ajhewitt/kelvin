@@ -11,6 +11,11 @@ RSpec.describe Session, type: :model do
     expect(Session.new(configuration: service, status: :active)).not_to be_valid
   end
 
+  it "gives a serving session a draft temperature of 38°F to start" do
+    expect(session.settings.pluck(:key, :value)).to eq([["draft_temp", 38.0]])
+    expect(Session.create!(configuration: ferment).settings).to be_empty
+  end
+
   it "goes active on start and inactive on stop, and completes when stopped while inactive" do
     statuses = %i[start stop start stop stop].map { |button| session.public_send(button) && session.reload.status }
 

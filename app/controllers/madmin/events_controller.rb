@@ -13,8 +13,8 @@ module Madmin
       end
     end
 
-    # Starts serving from the event's page the first time, with a new serving session, created
-    # pending and then started. After that the page has the session's own start and stop buttons.
+    # Starts serving from the event's list the first time, with a new serving session, created
+    # pending and then started. After that the list has the session's own start and stop buttons.
     def serve
       if @record.serving_session
         flash[:alert] = "#{@record.name} already has a serving session."
@@ -22,7 +22,7 @@ module Madmin
         serving = @record.build_serving_session(configuration: Configuration.serving)
         flash[:alert] = serving.errors.full_messages.to_sentence unless serving.save && serving.start
       end
-      redirect_to resource.show_path(@record)
+      redirect_to madmin_event_drink_packages_path(@record)
     end
   end
 end

@@ -10,6 +10,9 @@ class SessionResource < Madmin::Resource
   attribute :ended_at, index: true, form: false
   attribute :created_at, form: false, index: false
 
+  # Associations
+  attribute :settings, form: false
+
   # A session's readings and actions run to thousands, so they're in the logs, filtered
   member_action do |session|
     link_to "Sensor readings", madmin_sensor_readings_path(filters: [{column: "session_id", operator: "eq", value: session.id}]), class: "btn btn-secondary"

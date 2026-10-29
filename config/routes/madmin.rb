@@ -6,7 +6,7 @@ namespace :madmin do
     member do
       get :themes
       patch :theme
-      # Starting its serving session from its page, adding the session the first time
+      # Starting its serving session from its list, adding the session the first time
       post :serve
     end
 
@@ -32,6 +32,10 @@ namespace :madmin do
       patch :start
       patch :stop
     end
+  end
+  # A session's settings, which the list's buttons nudge
+  resources :settings do
+    patch :nudge, on: :member
   end
   resources :sensors
   resources :actuators

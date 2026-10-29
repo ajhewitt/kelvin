@@ -7,4 +7,9 @@ module BoardsHelper
     number = number_with_precision(value, precision: 2, strip_insignificant_zeros: true)
     (stat == :abv) ? "#{number}%" : "#{number} #{stat.upcase}"
   end
+
+  # "38°F" or "39.2°F", as the list shows a temperature
+  def degrees(value)
+    "#{number_with_precision(value, precision: 1, strip_insignificant_zeros: true)}°F"
+  end
 end

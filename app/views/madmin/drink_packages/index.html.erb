@@ -20,6 +20,8 @@
   <% if @event == Event.current %><span class="list-badge">On the TV</span><% end %>
 </p>
 
+<%= render "serving" %>
+
 <div class="list-sides">
   <% {"Draft" => @board.left, "Bottles and cans" => @board.right}.each do |side_title, side| %>
     <section class="list-side">
