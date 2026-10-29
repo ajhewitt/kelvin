@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Refrigeration in the admin", type: :request do
   let(:service) { Configuration.create!(name: "Service Mode", slug: "service") }
-  let(:session) { Session.create!(configuration: service, status: :active, started_at: Time.utc(2026, 11, 27, 18)) }
+  let(:session) { Session.create!(configuration: service).tap(&:start) }
   let(:glycol) { OneWireSensor.create!(name: "Glycol Reservoir Temp", slug: "glycol_temp") }
   let(:wort) { VirtualSensor.create!(name: "Calculated Output Wort Temp", slug: "wort_temp", is_virtual: true) }
   let(:pump) { PwmActuator.create!(name: "Coolant Pump Duty", slug: "pump_speed") }

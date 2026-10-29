@@ -22,6 +22,8 @@ class Event < ApplicationRecord
   }.freeze
 
   has_many :drink_packages, dependent: :destroy
+  # Started and stopped from the event's page; its logs stay if the event is deleted
+  has_one :serving_session, class_name: "Session", dependent: :nullify
 
   before_destroy :keep_last_event, prepend: true
 

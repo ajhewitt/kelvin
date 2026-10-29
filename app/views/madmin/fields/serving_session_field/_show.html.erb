@@ -1,0 +1,11 @@
+<div class="session-controls">
+  <% if (serving = field.value(record)) %>
+    <%= link_to SessionResource.display_name(serving), madmin_session_path(serving) %>
+    <%= render "madmin/sessions/controls", record: serving %>
+  <% elsif Configuration.serving %>
+    <span>Not started</span>
+    <%= button_to "Start", serve_madmin_event_path(record), class: "btn btn-primary" %>
+  <% else %>
+    <span>Add a configuration with the slug "<%= Configuration::SERVING %>" to serve from</span>
+  <% end %>
+</div>

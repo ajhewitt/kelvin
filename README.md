@@ -115,6 +115,8 @@ The board at `/` is public, for the TV. Everything else is behind a login at `/l
 
 **Refrigeration:** the configurations, sessions, sensors and actuators the hardware runs on. A sensor or actuator's type is the class that drives it, one to a file in `app/models` (`one_wire_sensor.rb`, `pwm_actuator.rb` and so on).
 
+Sessions are created pending and run with **Start** and **Stop**. Start runs a pending or stopped session; Stop stops a running one, and stopping a stopped session completes it, after which it can't be started again. A session's start time is stamped when it leaves pending and its end time when it completes. A serving session (the configuration with the slug `service`) can be for an event, one to an event, and the event's page starts and stops it, adding it the first time.
+
 **Logs:** the sensor readings and control actions the hardware writes, newest first and read-only. Filter them by time, value, sensor or session; a sensor, actuator or session links to its own.
 
 Times show in the Pi's time zone (`sudo raspi-config`, then restart the server), and are stored in UTC.

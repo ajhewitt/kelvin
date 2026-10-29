@@ -291,3 +291,11 @@ input[type="file"]::file-selector-button {
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+
+/* A session's status with its start and stop buttons, on its page and its event's */
+.session-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+}

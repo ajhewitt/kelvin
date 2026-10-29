@@ -10,6 +10,8 @@ class EventResource < Madmin::Resource
   attribute :show_ibu, index: false
   attribute :show_srm, index: false, description: "The board shows them in the order SRM, IBU, ABV, skipping drinks without a value"
   attribute :theme, field: ThemeField, index: true
+  # Started and stopped here as well as on the session's own page
+  attribute :serving_session, field: ServingSessionField, form: false, index: false
 
   # The drinks on the list have their own page
   member_action collection: true do |event|
