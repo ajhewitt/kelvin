@@ -121,7 +121,7 @@ RAILS_ENV=production bin/rails db:prepare
 RAILS_ENV=production bin/rails assets:precompile
 RAILS_ENV=production bin/rails users:create
 ```
-`db:prepare` creates `storage/production.sqlite3` and fills a new one from `db/seeds.rb`: the hardware's configurations and sensors, and last year's board to start from.
+`db:prepare` creates `storage/production.sqlite3` and fills a new one from `db/seeds.rb`: the hardware's configurations and sensors, and last year's board to start from. Next to it go three empty databases Rails sets up for its cache, job queue and Action Cable, which the app doesn't use.
 
 **Every `bin/rails` command for the Pi needs `RAILS_ENV=production`.** Without it, a command like `bin/rails console` opens the development database, `storage/development.sqlite3`, not the one the board uses.
 
