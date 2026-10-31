@@ -28,7 +28,7 @@ Vibe-coded by Gemini (for free) using the Google search prompt in _AI Mode_
 * **Operating System:** Raspberry Pi OS Lite (64-bit, headless Debian base)
 * **Compositor & Browser (Kiosk Mode):** Cage (Wayland kiosk compositor) + Cog (WPE WebKit browser engine)
 * **Language Runtime:** Ruby 3.4.9 (Compiled single-threaded via RVM)
-* **Web Framework:** Rails 8.1.3 (Configured for strict memory optimization)
+* **Web Framework:** Rails 8.1 (Configured for strict memory optimization)
 * **Web Server:** Puma (Strict single-process, single-thread worker mode)
 * **Database:** SQLite3
 
@@ -52,7 +52,7 @@ workers 0
 ```
 
 ### 3. Garbage Collection Tuning
-The Rails application is executed with strict environment heap throttles to force Ruby to aggressively release unreferenced memory pages back to the Linux OS:
+The Rails application is executed with strict environment heap throttles to force Ruby to aggressively release unreferenced memory pages back to the Linux OS. The `kelvin-backend` service sets both (step 5 of Deployment):
 ```bash
 export MALLOC_ARENA_MAX=2
 export RAILS_ENV=production
@@ -76,32 +76,115 @@ The task reads the physical system pins, interfaces with the Modbus communicatio
 
 ## 🚀 Deployment & Installation
 
-### Local Repository Preparation
-1. Initialize the system package lists and ensure core compilation utilities are ready, along with libvips (resizes drink images for the board) and a color emoji font (so the kiosk browser can draw emoji):
-   ```bash
-   sudo apt update && sudo apt install git curl gpg build-essential libvips-tools fonts-noto-color-emoji -y
-   ```
-2. Disable local documentation downloads to save disk space and write I/O:
-   ```bash
-   echo "gem: --no-document" >> ~/.gemrc
-   ```
-3. Install dependencies and initialize the database:
-   ```bash
-   bundle install --deployment
-   RAILS_ENV=production bin/rails db:prepare
-   RAILS_ENV=production bin/rails assets:precompile
-   ```
+A fresh Pi, from the SD card to the board on the TV. The commands run as the Pi's own user, with the app checked out in `~/kelvin`.
 
-4. Add a login for the admin screens (it asks for a username and password):
-   ```bash
-   RAILS_ENV=production bin/rails users:create
-   ```
+### 1. Raspberry Pi OS
+Flash **Raspberry Pi OS Lite (64-bit)** with Raspberry Pi Imager, setting the user, Wi-Fi and SSH there. Then in `sudo raspi-config`:
+* **Localisation Options → Timezone:** the board and admin show times in the Pi's time zone.
+* **System Options → Boot / Auto Login → Console Autologin:** logs in on the Pi's screen at boot, which starts the kiosk (step 6).
 
-### Running the Server
-Launch the production instances explicitly bound to all network interfaces to allow external administrative oversight over your local network:
+And give the GPU as little memory as it will take, with `gpu_mem=16` in `/boot/firmware/config.txt` (see Memory Throttling above).
+
+### 2. Packages
 ```bash
-RAILS_ENV=production MALLOC_ARENA_MAX=2 bin/rails s -b 0.0.0.0
+sudo apt update
+sudo apt install -y git curl gpg build-essential libvips-tools fonts-noto-color-emoji cage cog
 ```
+* `build-essential`: compiles Ruby, and the gems that need it, like bcrypt for the admin logins.
+* `libvips-tools`: libvips, which resizes drink images.
+* `fonts-noto-color-emoji`: so the kiosk can draw the drinks' emoji.
+* `cage` and `cog`: the kiosk. Cage is a Wayland compositor that shows a single app full screen, and Cog is the WPE WebKit browser it shows.
+
+### 3. Ruby
+Ruby 3.4.9 through RVM, compiled one job at a time so it fits in 512MB, which takes a while:
+```bash
+gpg --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+curl -sSL https://get.rvm.io | bash -s stable
+source ~/.rvm/scripts/rvm
+rvm install 3.4.9 -j 1
+echo "gem: --no-document" >> ~/.gemrc
+```
+The last line skips installing gem documentation, saving disk space and writes to the SD card.
+
+### 4. The app
+```bash
+git clone https://github.com/ajhewitt/kelvin.git ~/kelvin
+cd ~/kelvin
+bundle install
+```
+
+Copy `config/master.key` into `~/kelvin/config/`. It isn't in git: it unlocks `config/credentials.yml.enc`, which holds the key the app signs its logins with, so keep a copy somewhere safe. Without it, the server stops at boot with `` Missing `secret_key_base` ``.
+
+Then set up the production database, build the assets, and add a login for the admin (it asks for a username and password):
+```bash
+RAILS_ENV=production bin/rails db:prepare
+RAILS_ENV=production bin/rails assets:precompile
+RAILS_ENV=production bin/rails users:create
+```
+`db:prepare` creates `storage/production.sqlite3` and fills a new one from `db/seeds.rb`: the hardware's configurations and sensors, and last year's board to start from. Next to it go three empty databases Rails sets up for its cache, job queue and Action Cable, which the app doesn't use.
+
+**Every `bin/rails` command for the Pi needs `RAILS_ENV=production`.** Without it, a command like `bin/rails console` opens the development database, `storage/development.sqlite3`, not the one the board uses.
+
+### 5. Starting the server at boot
+A systemd service, `kelvin-backend`, runs the server. Before each start it runs `db:prepare`, which creates or migrates the database, so a fresh install or an update can't leave the server without its tables. This writes the service with your user and paths filled in, then starts it and has it start at every boot:
+```bash
+sudo tee /etc/systemd/system/kelvin-backend.service > /dev/null <<EOF
+[Unit]
+Description=Kelvin tap list board and admin
+After=network.target
+
+[Service]
+User=$USER
+WorkingDirectory=$HOME/kelvin
+Environment=RAILS_ENV=production MALLOC_ARENA_MAX=2
+ExecStartPre=$HOME/.rvm/wrappers/ruby-3.4.9/bundle exec rails db:prepare
+ExecStart=$HOME/.rvm/wrappers/ruby-3.4.9/bundle exec rails server -b 0.0.0.0
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+sudo systemctl daemon-reload
+sudo systemctl enable --now kelvin-backend
+```
+RVM's wrapper sets up Ruby the way a login shell would; `ls ~/.rvm/wrappers/ruby-3.4.9/bundle` shows it's there. Rails takes a minute or so to start on the Pi. Then `curl -s -o /dev/null -w "%{http_code}\n" http://localhost:3000/up` prints `200`, and the board is at `http://<Pi's address>:3000` (`hostname -I` shows the address).
+
+### 6. The kiosk
+Console autologin (step 1) logs in on the Pi's screen at boot. These lines at the end of `~/.bashrc` turn that login into the board: they wait for the server, then open the board full screen in Cog.
+```bash
+# The kiosk: on the Pi's own screen (tty1) only, not over SSH, show the board once the server answers
+if [ "$(tty)" = "/dev/tty1" ] && [ -z "$WAYLAND_DISPLAY" ]; then
+  until curl -sf -o /dev/null http://localhost:3000/up; do sleep 2; done
+  # Let Cage start without a keyboard or mouse plugged in
+  export WLR_LIBINPUT_NO_DEVICES=1
+  # -s lets Ctrl+Alt+F2 switch to a login prompt
+  cage -s -- cog http://localhost:3000
+fi
+```
+
+### Updating
+```bash
+cd ~/kelvin
+git pull
+bundle install
+RAILS_ENV=production bin/rails assets:precompile
+sudo systemctl restart kelvin-backend
+```
+Restarting the service migrates the database. If an update brings a new system package, step 2's `apt install` is safe to re-run.
+
+### Troubleshooting
+* **Is the server answering?** `curl -s -o /dev/null -w "%{http_code}\n" http://localhost:3000/up` prints `200` when it is. The kiosk waits for it, so a blank screen at boot usually means the server hasn't started.
+* **Why didn't it start?** `systemctl status kelvin-backend`, and `journalctl -u kelvin-backend -b --no-pager | tail -50` for its output. Or stop the service and run the server by hand, which prints why it stops:
+  ```bash
+  sudo systemctl stop kelvin-backend
+  cd ~/kelvin && RAILS_ENV=production MALLOC_ARENA_MAX=2 bin/rails s -b 0.0.0.0
+  ```
+* **What its errors mean:**
+  * `Could not find table …`: the production database isn't set up or migrated. Run `RAILS_ENV=production bin/rails db:prepare`.
+  * `Could not find … in locally installed gems`: run `bundle install`.
+  * `` Missing `secret_key_base` ``: `config/master.key` is missing (step 4).
+  * Drink images missing, or `Could not open library 'vips.so.42'` in the log: run `sudo apt install libvips-tools`.
 
 ### 🍺 Admin
 The board at `/` is public, for the TV. Everything else is behind a login at `/login`, which opens on the list for the event the board is showing. The sidebar has three sections, with **Users** at the bottom by logging out.
