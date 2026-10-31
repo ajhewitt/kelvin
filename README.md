@@ -103,6 +103,17 @@ Launch the production instances explicitly bound to all network interfaces to al
 RAILS_ENV=production MALLOC_ARENA_MAX=2 bin/rails s -b 0.0.0.0
 ```
 
+### Updating
+After pulling new code, install what it needs, then update the database and rebuild the assets before restarting the server. Step 1's `apt install` is safe to re-run, and picks up packages added since (libvips came with drink images):
+```bash
+sudo apt install git curl gpg build-essential libvips-tools fonts-noto-color-emoji -y
+bundle install
+RAILS_ENV=production bin/rails db:migrate
+RAILS_ENV=production bin/rails assets:precompile
+```
+
+If the server doesn't come up, start it by hand with the command above: it prints why it stopped, such as a gem that isn't installed yet (`bundle install`) or a missing library.
+
 ### 🍺 Admin
 The board at `/` is public, for the TV. Everything else is behind a login at `/login`, which opens on the list for the event the board is showing. The sidebar has three sections, with **Users** at the bottom by logging out.
 

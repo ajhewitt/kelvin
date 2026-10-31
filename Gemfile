@@ -42,8 +42,9 @@ gem "madmin", "~> 3.3"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 2.0"
-# image_processing 2 no longer brings a processor, and Active Storage resizes with libvips
-gem "ruby-vips"
+# image_processing 2 no longer brings a processor, and Active Storage resizes with libvips. It loads
+# ruby-vips only to resize, so a Pi without libvips still boots and shows the board, minus images.
+gem "ruby-vips", require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
