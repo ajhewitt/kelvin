@@ -1,0 +1,81 @@
+/* Industrial: stencilled safety yellow on brushed steel, the name on a riveted plate in hazard stripes */
+@import url("/fonts/big-shoulders-stencil-display.css");
+@import url("/fonts/barlow-semi-condensed.css");
+
+.board {
+  --board-background: #1b1e21;
+  --board-accent: #ebe5d5;
+  --board-accent-faded: rgb(235 229 213 / 30%);
+  --board-rule: #737b84;
+  --board-heading: #16181b;
+  --board-text: #a4acb4;
+  --board-display-font: "Big Shoulders Stencil Display", sans-serif;
+  --board-font: "Barlow Semi Condensed", sans-serif;
+  --board-item-spacing: 0.06em;
+  --board-hazard: #ffc20e;
+  --board-rivet: radial-gradient(circle, #a9b0b7 0 0.38rem, #50565c 0.43rem 0.55rem, transparent 0.6rem);
+
+  background:
+    repeating-linear-gradient(90deg, rgb(255 255 255 / 1.6%) 0 0.08rem, transparent 0.08rem 0.3rem),
+    linear-gradient(180deg, #262a2e 0%, #1b1e21 45%, #151719 100%);
+}
+
+/* A steel plate with a rivet in each corner, framed in hazard stripes that show through its border */
+.board-title {
+  border: 1rem solid transparent;
+  padding: 1rem 0 0.6rem;
+  background:
+    var(--board-rivet) 0.9rem 0.9rem / 1.2rem 1.2rem no-repeat padding-box,
+    var(--board-rivet) calc(100% - 0.9rem) 0.9rem / 1.2rem 1.2rem no-repeat padding-box,
+    var(--board-rivet) 0.9rem calc(100% - 0.9rem) / 1.2rem 1.2rem no-repeat padding-box,
+    var(--board-rivet) calc(100% - 0.9rem) calc(100% - 0.9rem) / 1.2rem 1.2rem no-repeat padding-box,
+    linear-gradient(180deg, #30353a, #23272b) padding-box,
+    repeating-linear-gradient(-45deg, var(--board-hazard) 0 1.25rem, #16181b 1.25rem 2.5rem) border-box;
+  color: var(--board-hazard);
+  font-size: 9.5rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.board-tagline {
+  color: var(--board-hazard);
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: 0.4em;
+}
+
+.board-tagline::before,
+.board-tagline::after {
+  border-top-width: 0.35rem;
+}
+
+/* Section headings on yellow warning plates */
+.board-section-title {
+  border: 0;
+  padding: 0.35em 0 0.2em 0.3em;
+  background: var(--board-hazard);
+  font-size: 2.6em;
+  font-weight: 900;
+  letter-spacing: 0.3em;
+  box-shadow: 0 0.12em 0 #a67c00;
+}
+
+.board-item-name,
+.board-item-stat {
+  font-size: 1.45em;
+  font-weight: 700;
+}
+
+.board-item-stat {
+  color: var(--board-hazard);
+}
+
+.board-item-description {
+  font-size: 1.25em;
+  font-weight: 500;
+}
+
+.board-item--kicked .board-item-name,
+.board-item--kicked .board-item-stat {
+  text-decoration-color: #ff6a13;
+}

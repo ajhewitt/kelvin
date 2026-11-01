@@ -192,7 +192,7 @@ The board at `/` is public, for the TV. Everything else is behind a login at `/l
 **Tap list**
 
 * **Current list:** everything for the night in one place. Start and stop the event's serving session, and turn its draft temperature up or down a degree at a time, with the latest reading beside it. Below that are the event's drinks, laid out like the board. Kick a drink (it stays on the board, crossed out), move drinks up and down within their brand, move whole brands, set an emoji or hide a drink's image, and add or take off drinks. The board picks up changes within a minute.
-* **Events:** date, name, tagline, which stats the board shows (SRM, IBU, ABV) and the board's theme. **Themes** previews all 18 on the event's board, from Classic (the original look) to Public House, Racing Green, Tudor and the rest. Each is a stylesheet in `app/assets/stylesheets/themes`, with its fonts bundled so the kiosk needs no internet.
+* **Events:** date, name, tagline, which stats the board shows (SRM, IBU, ABV) and the board's theme. **Themes** previews all 24 on the event's board: Classic (the original look), pub looks like Public House, Racing Green and Tudor, and bolder ones like Neon, Cyberpunk, Synthwave, Arcade, Disco, Mall Chic and Industrial. Each is a stylesheet in `app/assets/stylesheets/themes`, with its fonts bundled so the kiosk needs no internet.
 * **Drinks:** name, brand (blank for the house's own), ABV, IBU, SRM, description and image. When a beer comes back with different numbers, use **Copy as new brew** so earlier events keep theirs.
 * **Brands and Packages:** package sizes are typed as printed (12 oz, 660 ml, 5 gal, 4.5 imp gal).
 

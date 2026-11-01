@@ -1,0 +1,78 @@
+/* Cyberpunk: hot pink and acid cyan on a black grid, the name on a yellow panel with its corners cut */
+@import url("/fonts/tektur.css");
+
+.board {
+  --board-background: #07070f;
+  --board-accent: #ff2a6d;
+  --board-accent-faded: rgb(255 42 109 / 35%);
+  --board-rule: #05d9e8;
+  --board-text: #b4c0d6;
+  --board-display-font: "Tektur", sans-serif;
+  --board-font: "Tektur", sans-serif;
+  --board-item-spacing: 0.08em;
+  --board-signal: #fcee0a;
+
+  background:
+    linear-gradient(rgb(5 217 232 / 7%) 0.1rem, transparent 0.1rem) 0 0 / 4rem 4rem,
+    linear-gradient(90deg, rgb(5 217 232 / 7%) 0.1rem, transparent 0.1rem) 0 0 / 4rem 4rem,
+    radial-gradient(ellipse at 12% 0%, rgb(255 42 109 / 22%) 0%, transparent 45%),
+    radial-gradient(ellipse at 88% 100%, rgb(5 217 232 / 16%) 0%, transparent 50%),
+    var(--board-background);
+}
+
+/* The name glitches in pink and cyan on its yellow panel */
+.board-title {
+  width: 92rem;
+  border: 0;
+  padding: 1.5rem 0 1.1rem;
+  background: var(--board-signal);
+  color: var(--board-background);
+  font-size: 8rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-shadow: -0.045em 0 rgb(255 42 109 / 90%), 0.045em 0 rgb(5 217 232 / 90%);
+  clip-path: polygon(0 0, calc(100% - 3rem) 0, 100% 3rem, 100% 100%, 3rem 100%, 0 calc(100% - 3rem));
+}
+
+.board-tagline {
+  color: var(--board-rule);
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  text-shadow: 0 0 0.3em rgb(5 217 232 / 60%);
+}
+
+.board-tagline::before,
+.board-tagline::after {
+  border-top: 0.25rem solid var(--board-accent);
+  box-shadow: 0 0 0.6rem var(--board-accent);
+}
+
+/* Section headings like a heads-up display: a yellow bar, a cyan wash and a cut corner */
+.board-section-title {
+  border: 0;
+  border-left: 0.35em solid var(--board-signal);
+  background: linear-gradient(90deg, rgb(5 217 232 / 24%), rgb(5 217 232 / 4%));
+  font-size: 2.2em;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-shadow: 0 0 0.25em rgb(5 217 232 / 70%);
+  clip-path: polygon(0 0, calc(100% - 0.8em) 0, 100% 0.8em, 100% 100%, 0 100%);
+}
+
+.board-item-name {
+  font-weight: 700;
+}
+
+.board-item-stat {
+  color: var(--board-rule);
+  font-weight: 700;
+}
+
+.board-item-description {
+  font-weight: 500;
+}
+
+.board-item--kicked .board-item-name,
+.board-item--kicked .board-item-stat {
+  text-decoration-color: var(--board-signal);
+}

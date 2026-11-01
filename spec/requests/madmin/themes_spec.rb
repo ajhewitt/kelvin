@@ -24,7 +24,7 @@ RSpec.describe "Picking an event's theme in the admin", type: :request do
   end
 
   it "turns down a theme the board doesn't have" do
-    patch theme_madmin_event_path(event), params: {theme: "disco"}
+    patch theme_madmin_event_path(event), params: {theme: "no_such_theme"}
 
     expect(event.reload.theme).to eq("classic")
     expect(flash[:alert]).to be_present
