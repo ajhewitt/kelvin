@@ -1,0 +1,96 @@
+/* Synthwave: chrome lettering over a striped sunset, a neon script tagline on a glowing horizon */
+@import url("/fonts/kanit.css");
+@import url("/fonts/mr-dafoe.css");
+
+.board {
+  --board-background: #12052a;
+  --board-accent: #ff5fd2;
+  --board-accent-faded: rgb(255 95 210 / 30%);
+  --board-rule: #5ff4ff;
+  --board-text: #d9cbf2;
+  --board-display-font: "Kanit", sans-serif;
+  --board-font: "Kanit", sans-serif;
+  --board-item-spacing: 0.06em;
+
+  background: linear-gradient(180deg, #0b0320 0%, #1c0740 40%, #2d0a4e 100%);
+}
+
+/* The sun behind the name, banded across its lower half, setting on the tagline's horizon */
+.board::before {
+  content: "";
+  position: absolute;
+  top: 0.6rem;
+  left: calc(50% - 7rem);
+  width: 14rem;
+  height: 14rem;
+  border-radius: 50%;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 1.1rem, #1a0640 1.1rem 1.5rem) 0 100% / 100% 50% no-repeat,
+    linear-gradient(180deg, #fff17a 0%, #ffb347 35%, #ff5f8f 70%, #d9207e 100%);
+}
+
+/* In front of the sun */
+.board-title,
+.board-tagline {
+  position: relative;
+}
+
+/* Chrome: the gradient fills the letters, with a dark edge to hold them against the sun */
+.board-title {
+  width: 92rem;
+  border: 0;
+  padding: 1.6rem 0 0;
+  background: linear-gradient(180deg, #fff 0%, #c5e8ff 40%, #3b2470 50%, #ff9ee8 58%, #fff 100%) content-box;
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-size: 9rem;
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.015em #2a0b4f;
+}
+
+.board-tagline {
+  margin-top: 1.5rem;
+  color: var(--board-accent);
+  font-family: "Mr Dafoe", cursive;
+  font-size: 5rem;
+  letter-spacing: 0;
+  text-transform: none;
+  text-shadow: 0 0 0.1em #fff, 0 0 0.25em var(--board-accent), 0 0 0.6em var(--board-accent);
+}
+
+.board-tagline span {
+  padding: 0 0.4em;
+}
+
+.board-tagline::before,
+.board-tagline::after {
+  border-top-width: 0.25rem;
+  box-shadow: 0 0 0.8rem var(--board-rule);
+}
+
+.board-section-title {
+  border: 0.12em solid var(--board-accent);
+  background: linear-gradient(180deg, rgb(255 95 210 / 22%), rgb(95 244 255 / 6%));
+  font-size: 2.2em;
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  box-shadow: 0 0 0.4em rgb(255 95 210 / 60%), inset 0 0 0.4em rgb(255 95 210 / 30%);
+}
+
+.board-item-name {
+  font-weight: 600;
+  text-shadow: 0 0 0.3em rgb(255 95 210 / 45%);
+}
+
+.board-item-stat {
+  color: var(--board-rule);
+  font-weight: 600;
+}
+
+.board-item-description {
+  font-size: 1.15em;
+}

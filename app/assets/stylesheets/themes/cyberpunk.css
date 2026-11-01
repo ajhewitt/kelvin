@@ -1,0 +1,114 @@
+/* Cyberpunk: tech-noir neon in a dystopian future, the name a red sign in the corners of a heads-up display */
+@import url("/fonts/audiowide.css");
+@import url("/fonts/rajdhani.css");
+@import url("/fonts/share-tech-mono.css");
+
+.board {
+  --board-background: #07040b;
+  --board-accent: #ffe1e7;
+  --board-accent-faded: rgb(255 225 231 / 28%);
+  --board-rule: #2ad4ff;
+  --board-heading: #ffe1e7;
+  --board-text: #aaa4bb;
+  --board-display-font: "Audiowide", sans-serif;
+  --board-font: "Rajdhani", sans-serif;
+  --board-item-spacing: 0.08em;
+  --board-neon: #ff2a55;
+  --board-hud: var(--board-rule);
+
+  /* Scanlines, a red vignette like a machine's vision, crimson rising from below and cold blue from above */
+  background:
+    repeating-linear-gradient(180deg, rgb(255 255 255 / 2.5%) 0 0.1rem, transparent 0.1rem 0.3rem),
+    radial-gradient(ellipse at 50% 50%, transparent 55%, rgb(120 0 25 / 38%) 100%),
+    radial-gradient(ellipse 90% 60% at 50% 115%, rgb(255 30 70 / 24%) 0%, transparent 70%),
+    radial-gradient(ellipse 70% 40% at 50% -15%, rgb(42 120 255 / 18%) 0%, transparent 70%),
+    var(--board-background);
+}
+
+/* The name in red neon with a white-hot core, framed by the corners of a heads-up display */
+.board-title {
+  width: 92rem;
+  border: 0;
+  padding: 2.2rem 0 1.6rem;
+  background:
+    linear-gradient(var(--board-hud), var(--board-hud)) 0 0 / 3.5rem 0.3rem no-repeat,
+    linear-gradient(var(--board-hud), var(--board-hud)) 0 0 / 0.3rem 3.5rem no-repeat,
+    linear-gradient(var(--board-hud), var(--board-hud)) 100% 0 / 3.5rem 0.3rem no-repeat,
+    linear-gradient(var(--board-hud), var(--board-hud)) 100% 0 / 0.3rem 3.5rem no-repeat,
+    linear-gradient(var(--board-hud), var(--board-hud)) 0 100% / 3.5rem 0.3rem no-repeat,
+    linear-gradient(var(--board-hud), var(--board-hud)) 0 100% / 0.3rem 3.5rem no-repeat,
+    linear-gradient(var(--board-hud), var(--board-hud)) 100% 100% / 3.5rem 0.3rem no-repeat,
+    linear-gradient(var(--board-hud), var(--board-hud)) 100% 100% / 0.3rem 3.5rem no-repeat;
+  color: #ffe1e7;
+  font-size: 6.6rem;
+  letter-spacing: 0.06em;
+  text-shadow: 0 0 0.04em #fff, 0 0 0.14em var(--board-neon), 0 0 0.4em var(--board-neon), 0 0 0.9em rgb(255 42 85 / 55%);
+}
+
+/* The tagline as a readout between two scan lines */
+.board-tagline {
+  color: var(--board-hud);
+  font-family: "Share Tech Mono", monospace;
+  font-size: 2.4rem;
+  letter-spacing: 0.4em;
+  text-shadow: 0 0 0.3em rgb(42 212 255 / 60%);
+}
+
+.board-tagline span::before,
+.board-tagline span::after {
+  color: var(--board-neon);
+  content: "// ";
+}
+
+.board-tagline span::after {
+  content: " //";
+}
+
+/* Scan lines marked off in ticks, like a display's scale */
+.board-tagline::before,
+.board-tagline::after {
+  height: 0.7rem;
+  border-top-width: 0.15rem;
+  background: repeating-linear-gradient(90deg, rgb(42 212 255 / 70%) 0 0.15rem, transparent 0.15rem 1.5rem) 0 0 / 100% 0.45rem no-repeat;
+  box-shadow: 0 -0.3rem 0.5rem -0.3rem var(--board-hud);
+}
+
+.board-tagline::after {
+  background-position: 100% 0;
+}
+
+/* Section headings as glowing target labels between red lines */
+.board-section-title {
+  border: 0.06em solid rgb(255 42 85 / 75%);
+  border-width: 0.06em 0;
+  padding: 0.45em 0 0.35em 0.25em;
+  background: linear-gradient(90deg, rgb(255 42 85 / 20%), transparent 30%, transparent 70%, rgb(255 42 85 / 20%));
+  font-size: 2em;
+  letter-spacing: 0.17em;
+  text-shadow: 0 0 0.3em rgb(255 42 85 / 85%);
+}
+
+.board-item-name,
+.board-item-stat {
+  font-size: 1.45em;
+  font-weight: 700;
+}
+
+.board-item-name {
+  text-shadow: 0 0 0.3em rgb(255 42 85 / 45%);
+}
+
+.board-item-stat {
+  color: var(--board-hud);
+}
+
+.board-item-description {
+  font-size: 1.25em;
+  font-weight: 500;
+}
+
+.board-item--kicked .board-item-name,
+.board-item--kicked .board-item-stat {
+  text-shadow: none;
+  text-decoration-color: var(--board-neon);
+}

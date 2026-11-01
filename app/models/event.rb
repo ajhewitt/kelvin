@@ -14,11 +14,18 @@ class Event < ApplicationRecord
     "frost" => "Ice and silver on winter slate",
     "hop_garden" => "Hop green on deep forest, with gold rules",
     "chalkboard" => "Chalk on slate in a wooden frame",
-    "neon" => "Neon signs behind the bar",
     "letterpress" => "Red and black type on warm paper",
     "broadsheet" => "Black on newsprint, like a newspaper masthead",
     "cotswold" => "Slate and moss on honey stone",
-    "wedgwood" => "White on jasperware blue"
+    "wedgwood" => "White on jasperware blue",
+    # Bolder looks, from neon signs to a brewpub
+    "neon" => "Neon signs behind the bar",
+    "cyberpunk" => "Tech-noir neon in a red heads-up display, from a dystopian future",
+    "synthwave" => "Chrome and a striped sunset over neon, straight out of 1985",
+    "arcade" => "Pixel type in a blue maze, like a 1982 high-score table",
+    "disco" => "Gold and tangerine stripes under a seventies sunburst",
+    "matrix" => "Green code raining down a black terminal, like The Matrix",
+    "industrial" => "Diamond plate and brushed steel, like an early-nineties brewpub"
   }.freeze
 
   has_many :drink_packages, dependent: :destroy

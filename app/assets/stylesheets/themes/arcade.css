@@ -1,0 +1,73 @@
+/* Arcade: pixel type in a blue maze on black, with pellets for rules, like a 1982 high-score table */
+@import url("/fonts/press-start-2p.css");
+@import url("/fonts/vt323.css");
+
+.board {
+  --board-background: #000;
+  --board-accent: #fff;
+  --board-accent-faded: rgb(255 255 255 / 30%);
+  --board-rule: #2b3bff;
+  --board-heading: #00f0ff;
+  --board-text: #a9b6ff;
+  --board-display-font: "Press Start 2P", monospace;
+  --board-font: "VT323", monospace;
+  --board-item-spacing: 0.04em;
+  --board-score: #ffe600;
+
+  background: repeating-linear-gradient(180deg, rgb(255 255 255 / 3%) 0 0.1rem, transparent 0.1rem 0.35rem), var(--board-background);
+}
+
+/* The maze's double walls around the name */
+.board-title {
+  border: 0.75rem double var(--board-rule);
+  border-radius: 2rem;
+  padding: 2.2rem 0 1.8rem;
+  color: var(--board-score);
+  font-size: 4.6rem;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  text-shadow: 0.1em 0.1em 0 #ff2020;
+}
+
+.board-tagline {
+  color: var(--board-heading);
+  font-size: 1.9rem;
+  letter-spacing: 0.15em;
+}
+
+/* Rows of pellets */
+.board-tagline::before,
+.board-tagline::after {
+  border-top: 0.7rem dotted #ffb8a0;
+}
+
+.board-section-title {
+  border: 0.3em double var(--board-rule);
+  border-radius: 0.5em;
+  padding: 0.6em 0 0.5em 0.1em;
+  font-size: 1.4em;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+}
+
+/* VT323 is small for its size, so it's set larger */
+.board-item-name,
+.board-item-stat {
+  font-size: 1.8em;
+  font-weight: normal;
+  line-height: 1.1;
+}
+
+.board-item-stat {
+  color: var(--board-score);
+}
+
+.board-item-description {
+  font-size: 1.45em;
+  line-height: 1.1;
+}
+
+.board-item--kicked .board-item-name,
+.board-item--kicked .board-item-stat {
+  text-decoration-color: #ff2020;
+}

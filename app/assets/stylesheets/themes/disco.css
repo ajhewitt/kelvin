@@ -1,0 +1,76 @@
+/* Disco: gold and tangerine in seventies stripes, under a sunburst with a mirror ball's sparkle */
+@import url("/fonts/shrikhand.css");
+@import url("/fonts/fraunces.css");
+
+.board {
+  --board-background: #2a1206;
+  --board-accent: #ffd36b;
+  --board-accent-faded: rgb(255 211 107 / 30%);
+  --board-rule: #ff8a3d;
+  --board-heading: var(--board-accent);
+  --board-text: #f2dcc0;
+  --board-display-font: "Shrikhand", serif;
+  --board-font: "Fraunces", serif;
+  --board-item-spacing: 0.05em;
+  --board-stripes: linear-gradient(180deg, #ffb53d 0 33.3%, #ff6b2c 33.3% 66.6%, #c63c5e 66.6%);
+
+  /* Sparkles over the header and down the margins beside the lists, clear of the drinks */
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E %3Cpath d='M30 34 L31.3 38.7 L36 40 L31.3 41.3 L30 46 L28.7 41.3 L24 40 L28.7 38.7 Z M150 22 L150.9 25.1 L154 26 L150.9 26.9 L150 30 L149.1 26.9 L146 26 L149.1 25.1 Z M212 105 L213.5 110.5 L219 112 L213.5 113.5 L212 119 L210.5 113.5 L205 112 L210.5 110.5 Z M90 128.5 L90.8 131.2 L93.5 132 L90.8 132.8 L90 135.5 L89.2 132.8 L86.5 132 L89.2 131.2 Z M40 197 L41.1 200.9 L45 202 L41.1 203.1 L40 207 L38.9 203.1 L35 202 L38.9 200.9 Z M172 187.5 L173.0 191.0 L176.5 192 L173.0 193.0 L172 196.5 L171.0 193.0 L167.5 192 L171.0 191.0 Z M122 75.5 L122.5 77.5 L124.5 78 L122.5 78.5 L122 80.5 L121.5 78.5 L119.5 78 L121.5 77.5 Z M226 217 L226.7 219.3 L229 220 L226.7 220.7 L226 223 L225.3 220.7 L223 220 L225.3 219.3 Z' fill='%23fff4d6' opacity='0.55'/%3E %3C/svg%3E") 0 0 / 24rem 14rem repeat-x,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E %3Cpath d='M30 34 L31.3 38.7 L36 40 L31.3 41.3 L30 46 L28.7 41.3 L24 40 L28.7 38.7 Z M150 22 L150.9 25.1 L154 26 L150.9 26.9 L150 30 L149.1 26.9 L146 26 L149.1 25.1 Z M212 105 L213.5 110.5 L219 112 L213.5 113.5 L212 119 L210.5 113.5 L205 112 L210.5 110.5 Z M90 128.5 L90.8 131.2 L93.5 132 L90.8 132.8 L90 135.5 L89.2 132.8 L86.5 132 L89.2 131.2 Z M40 197 L41.1 200.9 L45 202 L41.1 203.1 L40 207 L38.9 203.1 L35 202 L38.9 200.9 Z M172 187.5 L173.0 191.0 L176.5 192 L173.0 193.0 L172 196.5 L171.0 193.0 L167.5 192 L171.0 191.0 Z M122 75.5 L122.5 77.5 L124.5 78 L122.5 78.5 L122 80.5 L121.5 78.5 L119.5 78 L121.5 77.5 Z M226 217 L226.7 219.3 L229 220 L226.7 220.7 L226 223 L225.3 220.7 L223 220 L225.3 219.3 Z' fill='%23fff4d6' opacity='0.55'/%3E %3C/svg%3E") 0 14rem / 13rem 24rem repeat-y,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E %3Cpath d='M30 34 L31.3 38.7 L36 40 L31.3 41.3 L30 46 L28.7 41.3 L24 40 L28.7 38.7 Z M150 22 L150.9 25.1 L154 26 L150.9 26.9 L150 30 L149.1 26.9 L146 26 L149.1 25.1 Z M212 105 L213.5 110.5 L219 112 L213.5 113.5 L212 119 L210.5 113.5 L205 112 L210.5 110.5 Z M90 128.5 L90.8 131.2 L93.5 132 L90.8 132.8 L90 135.5 L89.2 132.8 L86.5 132 L89.2 131.2 Z M40 197 L41.1 200.9 L45 202 L41.1 203.1 L40 207 L38.9 203.1 L35 202 L38.9 200.9 Z M172 187.5 L173.0 191.0 L176.5 192 L173.0 193.0 L172 196.5 L171.0 193.0 L167.5 192 L171.0 191.0 Z M122 75.5 L122.5 77.5 L124.5 78 L122.5 78.5 L122 80.5 L121.5 78.5 L119.5 78 L121.5 77.5 Z M226 217 L226.7 219.3 L229 220 L226.7 220.7 L226 223 L225.3 220.7 L223 220 L225.3 219.3 Z' fill='%23fff4d6' opacity='0.55'/%3E %3C/svg%3E") 100% 14rem / 13rem 24rem repeat-y,
+    radial-gradient(ellipse at 50% 0%, rgb(255 190 90 / 22%) 0%, transparent 55%),
+    repeating-conic-gradient(from 0deg at 50% -10%, #331707 0deg 5deg, var(--board-background) 5deg 10deg);
+}
+
+/* The name with its shadow in three stripes */
+.board-title {
+  width: 92rem;
+  border: 0;
+  padding: 0.6rem 0 0;
+  color: var(--board-accent);
+  font-size: 9.2rem;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  text-shadow: 0.035em 0.035em 0 #ff8a3d, 0.07em 0.07em 0 #e2452b, 0.105em 0.105em 0 #8f2a5a;
+}
+
+.board-tagline {
+  color: var(--board-rule);
+  font-family: "Fraunces", serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+}
+
+/* Rules in the same three stripes */
+.board-tagline::before,
+.board-tagline::after {
+  height: 0.9rem;
+  border: 0;
+  background: var(--board-stripes);
+}
+
+/* Section headings over a band of stripes */
+.board-section-title {
+  border: 0;
+  padding: 0 0 0.35em;
+  background: var(--board-stripes) 50% 100% / 100% 0.36em no-repeat;
+  font-size: 3em;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  text-shadow: 0.05em 0.05em 0 #8f2a5a;
+}
+
+.board-item-name,
+.board-item-stat {
+  font-weight: 700;
+}
+
+.board-item-stat {
+  color: var(--board-rule);
+}
+
+.board-item-description {
+  font-size: 1.15em;
+}

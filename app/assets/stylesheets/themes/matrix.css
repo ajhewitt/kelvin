@@ -1,0 +1,110 @@
+/* Matrix: green code raining down a black terminal, the name glowing at a cursor */
+@import url("/fonts/share-tech-mono.css");
+
+.board {
+  --board-background: #000;
+  --board-accent: #4dff7c;
+  --board-accent-faded: rgb(77 255 124 / 28%);
+  --board-rule: #00ff41;
+  --board-heading: var(--board-background);
+  --board-text: #2fbf5e;
+  --board-display-font: "Share Tech Mono", monospace;
+  --board-font: "Share Tech Mono", monospace;
+  --board-item-spacing: 0.04em;
+
+  background: radial-gradient(ellipse at 50% 40%, #021a09 0%, var(--board-background) 70%);
+}
+
+/* The code raining down each margin, clear of the drinks. matrix-rain.png is mirrored half-width katakana,
+   rendered as an image since the Pi has no Japanese font */
+.board::before,
+.board::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 13rem;
+  height: 100vh;
+  background: url("/matrix-rain.png") 0 0 / 39rem 39rem;
+}
+
+.board::before {
+  left: 0;
+}
+
+.board::after {
+  right: 0;
+  background-position: -21rem -14rem;
+}
+
+.board-title {
+  border: 0;
+  padding: 1.6rem 0 1rem;
+  color: var(--board-rule);
+  font-size: 7.4rem;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 0.12em var(--board-rule), 0 0 0.4em rgb(0 255 65 / 55%);
+}
+
+/* A block cursor after the name */
+.board-title::after {
+  content: "";
+  display: inline-block;
+  width: 0.5em;
+  height: 0.8em;
+  margin-left: 0.1em;
+  background: var(--board-rule);
+  box-shadow: 0 0 0.3em rgb(0 255 65 / 70%);
+  vertical-align: -0.05em;
+}
+
+.board-tagline {
+  color: #b6ffc8;
+  font-size: 2.4rem;
+  letter-spacing: 0.3em;
+  text-shadow: 0 0 0.3em rgb(0 255 65 / 50%);
+}
+
+/* A prompt before the tagline */
+.board-tagline span::before {
+  content: "> ";
+  color: var(--board-rule);
+}
+
+.board-tagline::before,
+.board-tagline::after {
+  border-top: 0.2rem dashed rgb(0 255 65 / 55%);
+}
+
+/* Section headings in reverse video */
+.board-section-title {
+  border: 0;
+  padding: 0.35em 0 0.25em 0.3em;
+  background: var(--board-rule);
+  font-size: 2.2em;
+  letter-spacing: 0.22em;
+  box-shadow: 0 0 0.6em rgb(0 255 65 / 45%);
+}
+
+/* Share Tech Mono has one weight */
+.board-item-name,
+.board-item-stat {
+  font-size: 1.4em;
+  font-weight: normal;
+}
+
+.board-item-name {
+  text-shadow: 0 0 0.3em rgb(0 255 65 / 40%);
+}
+
+.board-item-stat {
+  color: #c8ffd6;
+}
+
+.board-item-description {
+  font-size: 1.15em;
+}
+
+.board-item--kicked .board-item-name,
+.board-item--kicked .board-item-stat {
+  text-decoration-color: var(--board-rule);
+}
