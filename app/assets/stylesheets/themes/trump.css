@@ -1,5 +1,5 @@
 /* Trump: twenty-four carat gold on black marble, as gilded as Trump Tower. An easter egg (Event::EASTER_EGGS) */
-@import url("/fonts/coustard.css");
+@import url("/fonts/zilla-slab.css");
 @import url("/fonts/playfair-display-sc.css");
 @import url("/fonts/libre-baskerville.css");
 
@@ -10,7 +10,7 @@
   --board-rule: #d4af37;
   --board-heading: #3d2905;
   --board-text: #c9b98f;
-  --board-display-font: "Coustard", serif;
+  --board-display-font: "Zilla Slab", serif;
   --board-font: "Libre Baskerville", serif;
   --board-item-spacing: 0.05em;
   --board-stat: #e2b552;
@@ -37,8 +37,8 @@
   border: 0;
   padding: 1rem 0 0.6rem;
   color: #e8bf5c;
-  font-size: 7rem;
-  font-weight: 900;
+  font-size: 8.4rem;
+  font-weight: 700;
   letter-spacing: 0.02em;
   text-shadow:
     0 -0.012em 0 #fff1bd,
@@ -106,12 +106,12 @@
 /* Section headings stamped into gold bars */
 .board-section-title {
   border: 0;
-  padding: 0.4em 0 0.3em 0.1em;
+  padding: 0.4em 0 0.3em 0.14em;
   background: var(--board-gold);
   clip-path: polygon(0.4em 0, calc(100% - 0.4em) 0, 100% 100%, 0 100%);
   font-size: 2em;
-  font-weight: 900;
-  letter-spacing: 0.1em;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-shadow: 0 0.04em 0 rgb(255 247 214 / 70%);
 }
 
