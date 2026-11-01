@@ -20,7 +20,7 @@ RSpec.describe "Picking an event's theme in the admin", type: :request do
     expect(previews(hidden: false)).to eq(Event::THEMES.keys)
     expect(previews(hidden: true)).to eq(Event::EASTER_EGGS.keys)
     expect(page.at_css(".theme-card--current strong").text).to eq("Classic")
-    expect(page.css("script").map(&:text).join).to include("arrowup arrowup arrowdown arrowdown", "[data-egg-taps]")
+    expect(page.css("script").map(&:text).join).to include("arrowup arrowup arrowdown arrowdown", "[data-egg-taps]", "turbo:before-cache")
   end
 
   it "picks an easter egg once it's found, and shows it from then on" do

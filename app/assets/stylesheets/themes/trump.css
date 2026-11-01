@@ -1,4 +1,5 @@
 /* Trump: twenty-four carat gold on black marble, as gilded as Trump Tower. An easter egg (Event::EASTER_EGGS) */
+@import url("/fonts/coustard.css");
 @import url("/fonts/playfair-display-sc.css");
 @import url("/fonts/libre-baskerville.css");
 
@@ -9,7 +10,7 @@
   --board-rule: #d4af37;
   --board-heading: #3d2905;
   --board-text: #c9b98f;
-  --board-display-font: "Playfair Display SC", serif;
+  --board-display-font: "Coustard", serif;
   --board-font: "Libre Baskerville", serif;
   --board-item-spacing: 0.05em;
   --board-stat: #e2b552;
@@ -28,46 +29,29 @@
   font-variant-numeric: lining-nums;
 }
 
-/* The name in solid gold, with light glinting off its first and last letters */
+/* The name in gold letters standing off the wall, like the Trump Tower sign: light catching their top
+   edges, their returns stepping down into bronze, then their shadow. A solid face, as shadows can spoil
+   gradient-filled text in some browsers */
 .board-title {
-  position: relative;
   width: 92rem;
   border: 0;
-  padding: 1rem 0 0.4rem;
-  background: var(--board-gold) content-box;
-  -webkit-background-clip: text;
-  background-clip: text;
-  font-size: 8rem;
+  padding: 1rem 0 0.6rem;
+  color: #e8bf5c;
+  font-size: 7rem;
   font-weight: 900;
-  letter-spacing: 0.04em;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 0.008em #6b4a12;
-}
-
-.board-title::before,
-.board-title::after {
-  content: "";
-  position: absolute;
-  width: 3.4rem;
-  height: 3.4rem;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E %3Cdefs%3E%3CradialGradient id='glow'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='0.9'/%3E%3Cstop offset='1' stop-color='%23ffe9a8' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E %3Ccircle cx='32' cy='32' r='14' fill='url(%23glow)'/%3E %3Cpath d='M32 2 Q34 30 62 32 Q34 34 32 62 Q30 34 2 32 Q30 30 32 2 Z' fill='%23fffbea'/%3E %3C/svg%3E") center / contain no-repeat;
-}
-
-/* On the top of the T and the tip of the K, which sit about 4rem in from the ends of the box */
-.board-title::before {
-  top: 0.9rem;
-  left: 2.2rem;
-}
-
-.board-title::after {
-  top: 1.4rem;
-  right: 2.9rem;
-  width: 2.6rem;
-  height: 2.6rem;
+  letter-spacing: 0.02em;
+  text-shadow:
+    0 -0.012em 0 #fff1bd,
+    0.008em 0.012em 0 #a8761f,
+    0.016em 0.024em 0 #8f6419,
+    0.024em 0.036em 0 #765113,
+    0.032em 0.048em 0 #5e400e,
+    0.06em 0.1em 0.1em rgb(0 0 0 / 80%);
 }
 
 .board-tagline {
   color: #ecca70;
+  font-family: "Playfair Display SC", serif;
   font-size: 2.6rem;
   font-weight: 700;
   letter-spacing: 0.3em;
@@ -122,12 +106,12 @@
 /* Section headings stamped into gold bars */
 .board-section-title {
   border: 0;
-  padding: 0.4em 0 0.3em 0.16em;
+  padding: 0.4em 0 0.3em 0.1em;
   background: var(--board-gold);
   clip-path: polygon(0.4em 0, calc(100% - 0.4em) 0, 100% 100%, 0 100%);
-  font-size: 2.1em;
+  font-size: 2em;
   font-weight: 900;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.1em;
   text-shadow: 0 0.04em 0 rgb(255 247 214 / 70%);
 }
 

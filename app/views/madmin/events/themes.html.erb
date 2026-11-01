@@ -39,16 +39,21 @@
 </div>
 
 <%# The easter eggs come out with the Konami code on a keyboard, or five quick taps on the page's title.
-    The listeners go on the document once, as Turbo keeps it from page to page %>
+    The listeners go on the document once, as Turbo keeps it from page to page, and found eggs hide again
+    before Turbo keeps a copy of the page to show on the way back %>
 <script>
   if (!window.themeEggListeners) {
     window.themeEggListeners = true
 
     const reveal = () => {
       const eggs = document.querySelectorAll(".theme-card--egg[hidden]")
-      eggs.forEach((card) => { card.hidden = false })
+      eggs.forEach((card) => { card.hidden = false; card.dataset.found = "" })
       eggs[0]?.scrollIntoView({ behavior: "smooth", block: "center" })
     }
+
+    document.addEventListener("turbo:before-cache", () => {
+      document.querySelectorAll(".theme-card--egg[data-found]").forEach((card) => { card.hidden = true; delete card.dataset.found })
+    })
 
     const konami = "arrowup arrowup arrowdown arrowdown arrowleft arrowright arrowleft arrowright b a"
     let keys = []
