@@ -12,7 +12,7 @@ class Event < ApplicationRecord
     "tweed" => "Mustard and oatmeal on country tweed",
     "pewter" => "Quiet greys, like a pewter tankard",
     "frost" => "Ice and silver on winter slate",
-    "hop_garden" => "Hop green on deep forest, with gold rules",
+    "grand_place" => "Gold leaf and verdigris on Brussels stone, under striped awnings",
     "chalkboard" => "Chalk on slate in a wooden frame",
     "letterpress" => "Red and black type on warm paper",
     "broadsheet" => "Black on newsprint, like a newspaper masthead",
