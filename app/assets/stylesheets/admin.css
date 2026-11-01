@@ -247,7 +247,16 @@ input[type="file"]::file-selector-button {
   max-width: 8rem;
 }
 
-/* Every theme previewed on an event's board, each a live, scaled-down board */
+/* Every theme previewed on an event's board, each a live, scaled-down board, in the model's groups */
+
+.theme-group {
+  margin: 2rem 0 0.75rem;
+  color: var(--light-text-color);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
 
 .theme-gallery {
   display: grid;

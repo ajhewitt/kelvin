@@ -1,0 +1,92 @@
+/* Trappist: an abbey's manuscript on vellum, the name in uncials behind a gilded initial, in rubric red and lapis */
+@import url("/fonts/uncial-antiqua.css");
+@import url("/fonts/cardo.css");
+
+.board {
+  --board-background: #f1e6cb;
+  --board-accent: #a8361f;
+  --board-accent-faded: rgb(43 33 24 / 30%);
+  --board-rule: #a8361f;
+  --board-heading: #2a4a85;
+  --board-text: #5c4a36;
+  --board-display-font: "Uncial Antiqua", serif;
+  --board-font: "Cardo", serif;
+  --board-item-spacing: 0.06em;
+  --board-ink: #2b2118;
+  --board-gold: #c79a2e;
+
+  /* Vellum, mottled and darkening toward its edges */
+  background:
+    radial-gradient(ellipse 30% 25% at 15% 80%, rgb(160 120 60 / 8%), transparent 70%),
+    radial-gradient(ellipse 25% 20% at 85% 25%, rgb(160 120 60 / 7%), transparent 70%),
+    radial-gradient(ellipse at 50% 45%, #f6edd6 0%, var(--board-background) 55%, #e0cda2 100%);
+}
+
+/* The name in uncials, in upper and lower case as the scribes wrote them */
+.board-title {
+  width: 92rem;
+  border: 0;
+  padding: 1.2rem 0 0.6rem;
+  color: var(--board-ink);
+  font-size: 7.6rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+/* Its first letter gilded on lapis, like an illuminated initial */
+.board-title::first-letter {
+  margin-right: 0.06em;
+  border: 0.035em solid var(--board-gold);
+  padding: 0 0.1em;
+  background: var(--board-heading);
+  color: #f0c95c;
+  box-shadow: inset 0 0 0 0.03em #f1e6cb;
+}
+
+.board-tagline {
+  color: var(--board-accent);
+  font-family: var(--board-font);
+  font-size: 3rem;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  text-transform: none;
+}
+
+/* Ruled in red over gold, like a manuscript's margins */
+.board-tagline::before,
+.board-tagline::after {
+  height: 0.55rem;
+  border-top: 0.15rem solid var(--board-rule);
+  border-bottom: 0.12rem solid var(--board-gold);
+}
+
+/* Section headings in lapis uncials, between red rules */
+.board-section-title {
+  border: 0.06em solid var(--board-rule);
+  border-width: 0.06em 0;
+  padding: 0.35em 0 0.25em;
+  color: var(--board-heading);
+  font-size: 2.3em;
+  letter-spacing: 0.08em;
+  text-transform: none;
+}
+
+.board-item-name,
+.board-item-stat {
+  font-size: 1.4em;
+  font-weight: 700;
+}
+
+.board-item-name {
+  color: var(--board-ink);
+}
+
+.board-item-description {
+  font-size: 1.25em;
+  font-style: italic;
+}
+
+.board-item--kicked .board-item-name,
+.board-item--kicked .board-item-stat {
+  text-decoration-color: var(--board-rule);
+}

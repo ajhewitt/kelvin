@@ -1,0 +1,18 @@
+<%# One theme previewed on the event's board, with its Use button, hidden if it's an easter egg not yet in use %>
+<% egg = Event::EASTER_EGGS.key?(theme) %>
+<%= tag.figure class: class_names("theme-card", "theme-card--current": theme == @record.theme, "theme-card--egg": egg),
+      hidden: egg && theme != @record.theme do %>
+  <iframe src="<%= event_board_path(@record, theme: theme) %>" title="<%= theme.titleize %> preview" loading="lazy" tabindex="-1"></iframe>
+  <figcaption>
+    <div>
+      <strong><%= theme.titleize %></strong>
+      <span><%= description %></span>
+    </div>
+    <% if theme == @record.theme %>
+      <span class="list-badge">In use</span>
+    <% else %>
+      <%= button_to "Use", theme_madmin_event_path(@record), method: :patch, params: {theme: theme},
+            class: "btn btn-secondary", "aria-label": "Use #{theme.titleize}" %>
+    <% end %>
+  </figcaption>
+<% end %>

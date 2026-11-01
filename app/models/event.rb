@@ -1,32 +1,42 @@
 class Event < ApplicationRecord
-  # The board's looks, each but Classic restyling the board with app/assets/stylesheets/themes/<name>.css
-  THEMES = {
-    "classic" => "Coral on deep purple, the original board",
-    "public_house" => "Gold leaf on oxblood, like a pub sign",
-    "racing_green" => "Cream and brass on British racing green",
-    "stout" => "Cream and gold on black, like a pint of stout",
-    "admiralty" => "Brass on navy in a double frame",
-    "mahogany" => "Amber and copper on dark wood",
-    "tudor" => "Cream and oxblood on black, like timber framing",
-    "gin_palace" => "Silver and sage on Victorian teal",
-    "tweed" => "Mustard and oatmeal on country tweed",
-    "pewter" => "Quiet greys, like a pewter tankard",
-    "frost" => "Ice and silver on winter slate",
-    "grand_place" => "Gold leaf on limestone in royal capitals, like the Grand-Place in Brussels",
-    "chalkboard" => "Chalk on slate in a wooden frame",
-    "letterpress" => "Red and black type on warm paper",
-    "broadsheet" => "Black on newsprint, like a newspaper masthead",
-    "cotswold" => "Slate and moss on honey stone",
-    "wedgwood" => "White on jasperware blue",
-    # Bolder looks, from neon signs to a brewpub
-    "neon" => "Neon signs behind the bar",
-    "cyberpunk" => "Tech-noir neon in a red heads-up display, from a dystopian future",
-    "synthwave" => "Chrome and a striped sunset over neon, straight out of 1985",
-    "arcade" => "Pixel type in a blue maze, like a 1982 high-score table",
-    "disco" => "Gold and tangerine stripes under a seventies sunburst",
-    "matrix" => "Green code raining down a black terminal, like The Matrix",
-    "industrial" => "Diamond plate and brushed steel, like an early-nineties brewpub"
+  # The board's looks, in the groups the admin shows them in. Each but Classic restyles the board with
+  # app/assets/stylesheets/themes/<name>.css
+  THEME_GROUPS = {
+    "Pub classics" => {
+      "classic" => "Coral on deep purple, the original board",
+      "public_house" => "Gold leaf on oxblood, like a pub sign",
+      "racing_green" => "Cream and brass on British racing green",
+      "stout" => "Cream and gold on black, like a pint of stout",
+      "admiralty" => "Brass on navy in a double frame",
+      "mahogany" => "Amber and copper on dark wood",
+      "tudor" => "Cream and oxblood on black, like timber framing",
+      "gin_palace" => "Silver and sage on Victorian teal",
+      "tweed" => "Mustard and oatmeal on country tweed",
+      "pewter" => "Quiet greys, like a pewter tankard",
+      "frost" => "Ice and silver on winter slate",
+      "chalkboard" => "Chalk on slate in a wooden frame",
+      "letterpress" => "Red and black type on warm paper",
+      "broadsheet" => "Black on newsprint, like a newspaper masthead",
+      "cotswold" => "Slate and moss on honey stone",
+      "wedgwood" => "White on jasperware blue"
+    },
+    "Around the world" => {
+      "grand_place" => "Gold leaf on limestone in royal capitals, like the Grand-Place in Brussels",
+      "trappist" => "Rubric red and lapis on vellum, like an abbey's manuscripts",
+      "beer_hall" => "Blackletter and Bavarian blue diamonds, like a Munich beer hall"
+    },
+    "Bold and retro" => {
+      "neon" => "Neon signs behind the bar",
+      "cyberpunk" => "Tech-noir neon in a red heads-up display, from a dystopian future",
+      "synthwave" => "Chrome and a striped sunset over neon, straight out of 1985",
+      "arcade" => "Pixel type in a blue maze, like a 1982 high-score table",
+      "disco" => "Gold and tangerine stripes under a seventies sunburst",
+      "matrix" => "Green code raining down a black terminal, like The Matrix",
+      "industrial" => "Diamond plate and brushed steel, like an early-nineties brewpub"
+    }
   }.freeze
+
+  THEMES = THEME_GROUPS.values.reduce(:merge).freeze
 
   # Hidden themes, left out of the admin's lists until found: the Themes page shows them after the
   # Konami code on a keyboard, or five quick taps on its title. An event using one shows it as usual

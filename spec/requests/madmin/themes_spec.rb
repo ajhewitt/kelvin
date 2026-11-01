@@ -14,9 +14,10 @@ RSpec.describe "Picking an event's theme in the admin", type: :request do
     page.css(".theme-card").select { |card| card.key?("hidden") == hidden }.map { |card| Rack::Utils.parse_query(URI(card.at_css("iframe")["src"]).query)["theme"] }
   end
 
-  it "previews every theme on the event's board, with the easter eggs hidden" do
+  it "previews every theme on the event's board in its group, with the easter eggs hidden" do
     get themes_madmin_event_path(event)
 
+    expect(page.css(".theme-group").map(&:text)).to eq(Event::THEME_GROUPS.keys)
     expect(previews(hidden: false)).to eq(Event::THEMES.keys)
     expect(previews(hidden: true)).to eq(Event::EASTER_EGGS.keys)
     expect(page.at_css(".theme-card--current strong").text).to eq("Classic")
@@ -46,9 +47,10 @@ RSpec.describe "Picking an event's theme in the admin", type: :request do
     expect(flash[:alert]).to be_present
   end
 
-  it "offers every theme on the event's form" do
+  it "offers every theme on the event's form, in the gallery's groups" do
     get edit_madmin_event_path(event)
 
+    expect(page.css("select#event_theme optgroup").map { |group| group["label"] }).to eq(Event::THEME_GROUPS.keys)
     expect(page.css("select#event_theme option").map { |option| option["value"] }).to eq(Event::THEMES.keys)
   end
 
