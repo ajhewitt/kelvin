@@ -6,7 +6,7 @@
     /
     <%= link_to @record.name, madmin_event_path(@record) %>
     /
-    Themes
+    <span data-egg-taps>Themes</span>
   </h1>
 
   <div class="actions">
@@ -17,8 +17,10 @@
 <p class="list-event">Each preview is this event's board. The TV picks up a new theme within a minute.</p>
 
 <div class="theme-gallery">
-  <% Event::THEMES.each do |theme, description| %>
-    <figure class="<%= class_names("theme-card", "theme-card--current": theme == @record.theme) %>">
+  <% Event::ALL_THEMES.each do |theme, description| %>
+    <% egg = Event::EASTER_EGGS.key?(theme) %>
+    <%= tag.figure class: class_names("theme-card", "theme-card--current": theme == @record.theme, "theme-card--egg": egg),
+          hidden: egg && theme != @record.theme do %>
       <iframe src="<%= event_board_path(@record, theme: theme) %>" title="<%= theme.titleize %> preview" loading="lazy" tabindex="-1"></iframe>
       <figcaption>
         <div>
@@ -32,6 +34,34 @@
                 class: "btn btn-secondary", "aria-label": "Use #{theme.titleize}" %>
         <% end %>
       </figcaption>
-    </figure>
+    <% end %>
   <% end %>
 </div>
+
+<%# The easter eggs come out with the Konami code on a keyboard, or five quick taps on the page's title.
+    The listeners go on the document once, as Turbo keeps it from page to page %>
+<script>
+  if (!window.themeEggListeners) {
+    window.themeEggListeners = true
+
+    const reveal = () => {
+      const eggs = document.querySelectorAll(".theme-card--egg[hidden]")
+      eggs.forEach((card) => { card.hidden = false })
+      eggs[0]?.scrollIntoView({ behavior: "smooth", block: "center" })
+    }
+
+    const konami = "arrowup arrowup arrowdown arrowdown arrowleft arrowright arrowleft arrowright b a"
+    let keys = []
+    document.addEventListener("keydown", (event) => {
+      keys = [...keys, event.key.toLowerCase()].slice(-10)
+      if (keys.join(" ") === konami) reveal()
+    })
+
+    let taps = []
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest("[data-egg-taps]")) return
+      taps = [...taps.filter((time) => event.timeStamp - time < 2000), event.timeStamp]
+      if (taps.length === 5) reveal()
+    })
+  }
+</script>

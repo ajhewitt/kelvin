@@ -1,0 +1,152 @@
+/* Trump: twenty-four carat gold on black marble, as gilded as Trump Tower. An easter egg (Event::EASTER_EGGS) */
+@import url("/fonts/playfair-display-sc.css");
+@import url("/fonts/libre-baskerville.css");
+
+.board {
+  --board-background: #0a0907;
+  --board-accent: #f3dc9c;
+  --board-accent-faded: rgb(243 220 156 / 30%);
+  --board-rule: #d4af37;
+  --board-heading: #3d2905;
+  --board-text: #c9b98f;
+  --board-display-font: "Playfair Display SC", serif;
+  --board-font: "Libre Baskerville", serif;
+  --board-item-spacing: 0.05em;
+  --board-stat: #e2b552;
+  /* Polished gold, with a bright band across it like light on a gilded edge */
+  --board-gold: linear-gradient(180deg, #fff7d6 0%, #f4d47f 24%, #c8962f 48%, #f8e6a8 58%, #d9aa45 76%, #a8741d 100%);
+
+  /* Black marble veined in gold, darker behind the name, with a gloss across it */
+  background:
+    radial-gradient(ellipse 48% 20% at 50% 12%, rgb(0 0 0 / 70%), transparent 100%),
+    radial-gradient(ellipse 55% 40% at 22% 30%, rgb(255 255 255 / 4.5%), transparent 70%),
+    radial-gradient(ellipse 45% 38% at 82% 78%, rgb(255 255 255 / 3.5%), transparent 70%),
+    linear-gradient(125deg, transparent 32%, rgb(255 255 255 / 4%) 46%, transparent 60%),
+    url("/gold-marble.svg") center / cover no-repeat,
+    var(--board-background);
+  /* Playfair's old-style numerals make '20 read as '2o */
+  font-variant-numeric: lining-nums;
+}
+
+/* The name in solid gold, with light glinting off its first and last letters */
+.board-title {
+  position: relative;
+  width: 92rem;
+  border: 0;
+  padding: 1rem 0 0.4rem;
+  background: var(--board-gold) content-box;
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-size: 8rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.008em #6b4a12;
+}
+
+.board-title::before,
+.board-title::after {
+  content: "";
+  position: absolute;
+  width: 3.4rem;
+  height: 3.4rem;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E %3Cdefs%3E%3CradialGradient id='glow'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='0.9'/%3E%3Cstop offset='1' stop-color='%23ffe9a8' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E %3Ccircle cx='32' cy='32' r='14' fill='url(%23glow)'/%3E %3Cpath d='M32 2 Q34 30 62 32 Q34 34 32 62 Q30 34 2 32 Q30 30 32 2 Z' fill='%23fffbea'/%3E %3C/svg%3E") center / contain no-repeat;
+}
+
+/* On the top of the T and the tip of the K, which sit about 4rem in from the ends of the box */
+.board-title::before {
+  top: 0.9rem;
+  left: 2.2rem;
+}
+
+.board-title::after {
+  top: 1.4rem;
+  right: 2.9rem;
+  width: 2.6rem;
+  height: 2.6rem;
+}
+
+.board-tagline {
+  color: #ecca70;
+  font-size: 2.6rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+}
+
+/* The tagline between two gold stars. The star after it sits closer to make up for the letter spacing */
+.board-tagline span {
+  padding: 0.1em 0.5em 0;
+}
+
+.board-tagline span::before,
+.board-tagline span::after {
+  content: "";
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  margin-right: 0.55em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E %3Cdefs%3E%3ClinearGradient id='gold' x1='0' y1='0' x2='0' y2='1'%3E %3Cstop offset='0' stop-color='%23fff7d6'/%3E%3Cstop offset='0.45' stop-color='%23f1cf74'/%3E%3Cstop offset='1' stop-color='%23b07a1f'/%3E %3C/linearGradient%3E%3C/defs%3E %3Cpath d='M24.00 3.50 L29.29 18.22 L44.92 18.70 L32.56 28.28 L36.93 43.30 L24.00 34.50 L11.07 43.30 L15.44 28.28 L3.08 18.70 L18.71 18.22 Z' fill='url(%23gold)' stroke='%235a3d0c' stroke-width='1.2' stroke-linejoin='round'/%3E %3C/svg%3E") center / contain no-repeat;
+  vertical-align: -0.06em;
+}
+
+.board-tagline span::after {
+  margin: 0 0 0 0.25em;
+}
+
+/* Gold rules out to the edges, thin, thick and thin */
+.board-tagline::before,
+.board-tagline::after {
+  height: 0.9rem;
+  border: 0;
+  background:
+    linear-gradient(#d4af37, #d4af37) 0 0 / 100% 0.12rem no-repeat,
+    linear-gradient(180deg, #f8e6a8, #c8962f) 0 50% / 100% 0.32rem no-repeat,
+    linear-gradient(#d4af37, #d4af37) 0 100% / 100% 0.12rem no-repeat;
+}
+
+/* The drinks on black lacquer in a gilded frame, sized in em so it shrinks with long lists */
+.board-lists {
+  border: 0.7em solid transparent;
+  padding: 2.1em 2.6em 0.4em;
+  background:
+    linear-gradient(180deg, #14110c, #090806) padding-box,
+    linear-gradient(135deg, #fff1bf 0%, #d9aa45 22%, #8a5f17 48%, #e9c46a 70%, #9b6b1d 100%) border-box;
+  box-shadow:
+    inset 0 0 0 0.12em #3d2905,
+    inset 0 0 0 0.24em #e2b552,
+    inset 0 0 0 0.3em #3d2905,
+    0 0 0 0.1em #3d2905,
+    0 0.8em 2em rgb(0 0 0 / 70%);
+}
+
+/* Section headings stamped into gold bars */
+.board-section-title {
+  border: 0;
+  padding: 0.4em 0 0.3em 0.16em;
+  background: var(--board-gold);
+  clip-path: polygon(0.4em 0, calc(100% - 0.4em) 0, 100% 100%, 0 100%);
+  font-size: 2.1em;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-shadow: 0 0.04em 0 rgb(255 247 214 / 70%);
+}
+
+.board-item-name,
+.board-item-stat {
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
+.board-item-stat {
+  color: var(--board-stat);
+}
+
+.board-item-description {
+  font-size: 1.05em;
+  font-style: italic;
+}
+
+.board-item--kicked .board-item-name,
+.board-item--kicked .board-item-stat {
+  text-decoration-color: var(--board-rule);
+}

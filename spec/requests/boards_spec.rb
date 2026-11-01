@@ -111,6 +111,9 @@ RSpec.describe "Board", type: :request do
     expect(stylesheets).to include(a_string_matching(%r{/themes/neon-\w+\.css}))
     expect(page.at_css("meta[http-equiv=refresh]")).to be_nil
 
+    get event_board_path(event, theme: "trump")
+    expect(stylesheets).to include(a_string_matching(%r{/themes/trump-\w+\.css}))
+
     get event_board_path(event, theme: "../board")
     expect(stylesheets.size).to eq(1)
     expect(page.at_css("meta[http-equiv=refresh]")).to be_present

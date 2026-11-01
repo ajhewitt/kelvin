@@ -28,6 +28,14 @@ class Event < ApplicationRecord
     "industrial" => "Diamond plate and brushed steel, like an early-nineties brewpub"
   }.freeze
 
+  # Hidden themes, left out of the admin's lists until found: the Themes page shows them after the
+  # Konami code on a keyboard, or five quick taps on its title. An event using one shows it as usual
+  EASTER_EGGS = {
+    "trump" => "Gold on gold on black marble, as gilded as Trump Tower"
+  }.freeze
+
+  ALL_THEMES = THEMES.merge(EASTER_EGGS).freeze
+
   has_many :drink_packages, dependent: :destroy
   # Started and stopped from the event's page; its logs stay if the event is deleted
   has_one :serving_session, class_name: "Session", dependent: :nullify
@@ -36,7 +44,7 @@ class Event < ApplicationRecord
 
   validates :name, presence: true
   validates :date, presence: true, uniqueness: true
-  validates :theme, inclusion: {in: THEMES.keys}
+  validates :theme, inclusion: {in: ALL_THEMES.keys}
 
   # Event days run noon to noon UTC (8am to 8am EDT, 7am to 7am EST), so an event that
   # goes past midnight stays on its own date until the next morning
