@@ -1,38 +1,41 @@
-/* Grand Place: gold leaf on Brussels stone, with headings on verdigris signboards and rules in awning stripes */
+/* Grand Place: gold leaf on Brussels limestone, in royal capitals between fine classical rules */
+@import url("/fonts/cinzel-decorative.css");
 @import url("/fonts/cinzel.css");
 @import url("/fonts/eb-garamond.css");
 
 .board {
-  --board-background: #2a3139;
-  --board-accent: #e2b545;
-  --board-accent-faded: rgb(243 236 220 / 30%);
-  --board-rule: #d6a93a;
-  --board-heading: #f3ecdc;
-  --board-text: #cfc8b8;
+  --board-background: #ebe5d8;
+  --board-accent: #8c6a14;
+  --board-accent-faded: rgb(59 53 45 / 30%);
+  --board-rule: #b48f2c;
+  --board-heading: #3b352d;
+  --board-text: #6b6255;
   --board-display-font: "Cinzel", serif;
   --board-font: "EB Garamond", serif;
   --board-item-spacing: 0.08em;
-  --board-verdigris: #4f8c86;
-  --board-awning-red: #b3342c;
 
-  background: radial-gradient(ellipse at 50% 30%, #36404a 0%, var(--board-background) 55%, #20262c 100%);
+  /* Pale limestone, lit from above */
+  background: radial-gradient(ellipse at 50% 20%, #f4efe5 0%, var(--board-background) 55%, #ddd5c5 100%);
   /* EB Garamond's old-style numerals make 660 read as 66o */
   font-variant-numeric: lining-nums;
 }
 
-/* The name in gold leaf, in Roman capitals like the inscriptions across the guildhalls */
+/* The name in gold leaf, in the guildhalls' Roman capitals with royal flourishes, catching the light along
+   its lower edges */
 .board-title {
   width: 92rem;
   border: 0;
-  padding: 1rem 0 0.4rem 0.1em;
+  padding: 1rem 0 0.4rem 0.08em;
+  color: #a27c1c;
+  font-family: "Cinzel Decorative", serif;
   font-size: 7.4rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  text-shadow: 0 0.03em 0 #6e5212, 0 0.08em 0.2em rgb(0 0 0 / 45%);
+  letter-spacing: 0.08em;
+  text-shadow: 0 0.025em 0 rgb(255 255 255 / 75%), 0 -0.012em 0 rgb(90 64 10 / 35%);
 }
 
 .board-tagline {
-  color: var(--board-heading);
+  color: var(--board-accent);
   font-family: var(--board-font);
   font-size: 3.2rem;
   font-style: italic;
@@ -41,27 +44,22 @@
   text-transform: none;
 }
 
-/* Striped awnings, like those over the cafés, on a gold rail and shaded like canvas */
+/* A pair of fine gold lines out to the edges, like a moulding */
 .board-tagline::before,
 .board-tagline::after {
-  height: 1.5rem;
-  border-top: 0.25rem solid var(--board-rule);
-  background:
-    linear-gradient(180deg, rgb(255 255 255 / 12%), transparent 45%, rgb(0 0 0 / 28%)),
-    repeating-linear-gradient(90deg, var(--board-awning-red) 0 0.6rem, #1f6a4c 0.6rem 1.2rem);
+  height: 0.5rem;
+  border-top: 0.12rem solid var(--board-rule);
+  border-bottom: 0.12rem solid var(--board-rule);
 }
 
-/* Section headings on verdigris signboards framed in gold, like the guildhalls' painted signs */
+/* Section headings between double gold rules, like a classical frieze */
 .board-section-title {
-  border: 0.1em solid var(--board-rule);
-  border-radius: 0.2em;
-  padding: 0.4em 0 0.3em 0.2em;
-  background: var(--board-verdigris);
-  font-size: 2.2em;
+  border: 0.16em double var(--board-rule);
+  border-width: 0.16em 0;
+  padding: 0.4em 0 0.3em 0.25em;
+  font-size: 2.1em;
   font-weight: 700;
-  letter-spacing: 0.2em;
-  text-shadow: 0 0.05em 0 rgb(0 0 0 / 30%);
-  box-shadow: inset 0 0 0 0.08em #2a3139;
+  letter-spacing: 0.25em;
 }
 
 .board-item-name,
@@ -81,5 +79,5 @@
 
 .board-item--kicked .board-item-name,
 .board-item--kicked .board-item-stat {
-  text-decoration-color: var(--board-awning-red);
+  text-decoration-color: var(--board-rule);
 }
