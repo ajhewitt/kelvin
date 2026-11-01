@@ -20,7 +20,7 @@ class Event < ApplicationRecord
     "wedgwood" => "White on jasperware blue",
     # Bolder looks, from neon signs to a brewpub
     "neon" => "Neon signs behind the bar",
-    "cyberpunk" => "Rain and neon over a smoggy night city, like Blade Runner",
+    "cyberpunk" => "Tech-noir neon in a red heads-up display, from a dystopian future",
     "synthwave" => "Chrome and a striped sunset over neon, straight out of 1985",
     "arcade" => "Pixel type in a blue maze, like a 1982 high-score table",
     "disco" => "Gold and tangerine stripes under a seventies sunburst",
