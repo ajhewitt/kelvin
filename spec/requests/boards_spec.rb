@@ -104,16 +104,19 @@ RSpec.describe "Board", type: :request do
     expect(stylesheets).to contain_exactly(a_string_matching(%r{/board-\w+\.css}))
   end
 
-  it "previews any theme without reloading every minute" do
+  it "reloads every 15 seconds, but not when previewing a theme" do
     event = Event.create!(name: "Black Friday", date: Date.new(2026, 11, 27))
 
     get event_board_path(event, theme: "neon")
     expect(stylesheets).to include(a_string_matching(%r{/themes/neon-\w+\.css}))
     expect(page.at_css("meta[http-equiv=refresh]")).to be_nil
 
+    get event_board_path(event, theme: "trump")
+    expect(stylesheets).to include(a_string_matching(%r{/themes/trump-\w+\.css}))
+
     get event_board_path(event, theme: "../board")
     expect(stylesheets.size).to eq(1)
-    expect(page.at_css("meta[http-equiv=refresh]")).to be_present
+    expect(page.at_css("meta[http-equiv=refresh]")["content"]).to eq("15")
   end
 
   it "still renders before any event exists" do

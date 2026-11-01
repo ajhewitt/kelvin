@@ -262,6 +262,18 @@ input[type="file"]::file-selector-button {
   border-radius: 0.5rem;
 }
 
+/* An easter egg, in gold once found. Its page title takes quick taps without zooming or selecting */
+.theme-card--egg {
+  border-color: #d4af37;
+  box-shadow: 0 0 0 1px #d4af37, 0 0 1.25rem rgb(212 175 55 / 45%);
+}
+
+[data-egg-taps] {
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 .theme-card--current {
   border-color: #f99491;
   box-shadow: 0 0 0 1px #f99491;

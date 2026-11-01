@@ -47,9 +47,10 @@ RSpec.describe Event, type: :model do
     end
   end
 
-  it "starts on the Classic theme and takes only the board's own themes" do
+  it "starts on the Classic theme and takes only the board's own themes, easter eggs included" do
     expect(Event.new.theme).to eq("classic")
     expect(Event.new(name: "Party", date: Date.new(2026, 11, 14), theme: "public_house")).to be_valid
+    expect(Event.new(name: "Party", date: Date.new(2026, 11, 14), theme: "trump")).to be_valid
     expect(Event.new(name: "Party", date: Date.new(2026, 11, 14), theme: "no_such_theme")).not_to be_valid
   end
 

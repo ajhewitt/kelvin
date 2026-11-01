@@ -12,13 +12,13 @@ RSpec.describe "Board themes" do
     css.read.scan(%r{url\("/([^"]+)"\)}).flatten
   end
 
-  it "has a stylesheet for each theme but Classic, and no others" do
+  it "has a stylesheet for each theme but Classic, easter eggs included, and no others" do
     stylesheets = assets.join("stylesheets/themes").children.map { |file| file.basename(".css").to_s }
 
-    expect(stylesheets).to match_array(Event::THEMES.keys.excluding("classic"))
+    expect(stylesheets).to match_array(Event::ALL_THEMES.keys.excluding("classic"))
   end
 
-  Event::THEMES.keys.excluding("classic").each do |theme|
+  Event::ALL_THEMES.keys.excluding("classic").each do |theme|
     it "finds every font and image the #{theme} theme uses" do
       theme_urls = urls(assets.join("stylesheets/themes/#{theme}.css"))
       font_stylesheets = theme_urls.select { |path| path.end_with?(".css") && asset?(path) }
