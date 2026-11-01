@@ -22,8 +22,8 @@ class Event < ApplicationRecord
     },
     "Around the world" => {
       "grand_place" => "Gold leaf on limestone in royal capitals, like the Grand-Place in Brussels",
-      "trappist" => "Rubric red and lapis on vellum, like an abbey's manuscripts",
-      "beer_hall" => "Blackletter and Bavarian blue diamonds, like a Munich beer hall"
+      "trappist" => "Brown and gold blackletter on a cream label, like an abbey's own beer",
+      "beer_hall" => "Fraktur and Bavarian blue diamonds, like a Munich beer hall"
     },
     "Bold and retro" => {
       "neon" => "Neon signs behind the bar",
