@@ -19,11 +19,12 @@ RSpec.describe "Board themes" do
   end
 
   Event::THEMES.keys.excluding("classic").each do |theme|
-    it "finds every font the #{theme} theme imports" do
-      font_stylesheets = urls(assets.join("stylesheets/themes/#{theme}.css"))
-      fonts = font_stylesheets.select { |path| asset?(path) }.flat_map { |path| urls(assets.join("stylesheets", path)) }
+    it "finds every font and image the #{theme} theme uses" do
+      theme_urls = urls(assets.join("stylesheets/themes/#{theme}.css"))
+      font_stylesheets = theme_urls.select { |path| path.end_with?(".css") && asset?(path) }
+      fonts = font_stylesheets.flat_map { |path| urls(assets.join("stylesheets", path)) }
 
-      expect(font_stylesheets).to all(satisfy { |path| asset?(path) })
+      expect(theme_urls).to all(satisfy { |path| asset?(path) })
       expect(fonts).to be_present.and all(satisfy { |path| asset?(path) })
     end
   end

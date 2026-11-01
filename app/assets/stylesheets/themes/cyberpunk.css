@@ -1,78 +1,114 @@
-/* Cyberpunk: hot pink and acid cyan on a black grid, the name on a yellow panel with its corners cut */
-@import url("/fonts/tektur.css");
+/* Cyberpunk: rain and neon over a smoggy night city, like Blade Runner, with street signs in the margins */
+@import url("/fonts/michroma.css");
+@import url("/fonts/rajdhani.css");
+@import url("/fonts/dela-gothic-one.css");
 
 .board {
-  --board-background: #07070f;
-  --board-accent: #ff2a6d;
-  --board-accent-faded: rgb(255 42 109 / 35%);
-  --board-rule: #05d9e8;
-  --board-text: #b4c0d6;
-  --board-display-font: "Tektur", sans-serif;
-  --board-font: "Tektur", sans-serif;
+  --board-background: #04070d;
+  --board-accent: #ffd2a1;
+  --board-accent-faded: rgb(255 210 161 / 30%);
+  --board-rule: #4fd6e8;
+  --board-text: #93a9bf;
+  --board-display-font: "Michroma", sans-serif;
+  --board-font: "Rajdhani", sans-serif;
   --board-item-spacing: 0.08em;
-  --board-signal: #fcee0a;
+  --board-amber: #ff9a3c;
 
   background:
-    linear-gradient(rgb(5 217 232 / 7%) 0.1rem, transparent 0.1rem) 0 0 / 4rem 4rem,
-    linear-gradient(90deg, rgb(5 217 232 / 7%) 0.1rem, transparent 0.1rem) 0 0 / 4rem 4rem,
-    radial-gradient(ellipse at 12% 0%, rgb(255 42 109 / 22%) 0%, transparent 45%),
-    radial-gradient(ellipse at 88% 100%, rgb(5 217 232 / 16%) 0%, transparent 50%),
-    var(--board-background);
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='320' viewBox='0 0 240 320'%3E %3Cg stroke='%23bcdcff' stroke-width='1.2' stroke-linecap='round'%3E%3Cline x1='190' y1='284' x2='185' y2='306' stroke-opacity='0.14'/%3E%3Cline x1='125' y1='80' x2='110' y2='136' stroke-opacity='0.13'/%3E%3Cline x1='222' y1='133' x2='214' y2='163' stroke-opacity='0.13'/%3E%3Cline x1='122' y1='314' x2='113' y2='349' stroke-opacity='0.07'/%3E%3Cline x1='201' y1='142' x2='194' y2='170' stroke-opacity='0.12'/%3E%3Cline x1='125' y1='94' x2='117' y2='125' stroke-opacity='0.09'/%3E%3Cline x1='207' y1='260' x2='195' y2='304' stroke-opacity='0.08'/%3E%3Cline x1='232' y1='178' x2='222' y2='216' stroke-opacity='0.06'/%3E%3Cline x1='237' y1='251' x2='223' y2='301' stroke-opacity='0.11'/%3E%3Cline x1='77' y1='241' x2='65' y2='284' stroke-opacity='0.09'/%3E%3Cline x1='117' y1='257' x2='103' y2='310' stroke-opacity='0.09'/%3E%3Cline x1='71' y1='40' x2='56' y2='96' stroke-opacity='0.09'/%3E%3Cline x1='162' y1='14' x2='152' y2='50' stroke-opacity='0.06'/%3E%3Cline x1='61' y1='279' x2='53' y2='310' stroke-opacity='0.11'/%3E%3Cline x1='146' y1='273' x2='130' y2='331' stroke-opacity='0.10'/%3E%3Cline x1='100' y1='172' x2='85' y2='227' stroke-opacity='0.09'/%3E%3Cline x1='222' y1='71' x2='209' y2='119' stroke-opacity='0.05'/%3E%3Cline x1='186' y1='162' x2='173' y2='208' stroke-opacity='0.08'/%3E%3Cline x1='201' y1='264' x2='189' y2='306' stroke-opacity='0.06'/%3E%3Cline x1='77' y1='276' x2='67' y2='314' stroke-opacity='0.13'/%3E%3Cline x1='28' y1='170' x2='16' y2='215' stroke-opacity='0.07'/%3E%3Cline x1='187' y1='303' x2='177' y2='343' stroke-opacity='0.07'/%3E%3Cline x1='97' y1='17' x2='84' y2='63' stroke-opacity='0.11'/%3E%3Cline x1='137' y1='125' x2='121' y2='184' stroke-opacity='0.11'/%3E%3Cline x1='180' y1='12' x2='168' y2='56' stroke-opacity='0.12'/%3E%3Cline x1='186' y1='99' x2='175' y2='139' stroke-opacity='0.12'/%3E%3Cline x1='167' y1='129' x2='159' y2='159' stroke-opacity='0.09'/%3E%3Cline x1='95' y1='4' x2='85' y2='40' stroke-opacity='0.05'/%3E%3Cline x1='24' y1='53' x2='14' y2='89' stroke-opacity='0.09'/%3E%3Cline x1='94' y1='248' x2='89' y2='267' stroke-opacity='0.12'/%3E%3Cline x1='44' y1='285' x2='37' y2='312' stroke-opacity='0.12'/%3E%3Cline x1='5' y1='290' x2='-2' y2='320' stroke-opacity='0.10'/%3E%3Cline x1='200' y1='286' x2='185' y2='340' stroke-opacity='0.06'/%3E%3Cline x1='130' y1='150' x2='120' y2='187' stroke-opacity='0.08'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 24rem 32rem,
+    radial-gradient(ellipse 80% 45% at 50% 0%, rgb(255 140 50 / 26%) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 50% 100%, rgb(40 160 190 / 16%) 0%, transparent 70%),
+    linear-gradient(180deg, #0a0f19 0%, var(--board-background) 55%, #03050a 100%);
 }
 
-/* The name glitches in pink and cyan on its yellow panel */
+/* Vertical neon street signs in the margins: an izakaya on the left, and cheers on the right */
+.board::before,
+.board::after {
+  position: absolute;
+  padding: 1.1rem 0.9rem;
+  border: 0.2rem solid;
+  border-radius: 0.6rem;
+  font-family: "Dela Gothic One", sans-serif;
+  font-size: 4.2rem;
+  line-height: 1.15;
+  text-align: center;
+  white-space: pre;
+}
+
+.board::before {
+  content: "居\A酒\A屋";
+  top: 17rem;
+  left: 3rem;
+  border-color: #ff3d7f;
+  color: #ffd9e6;
+  text-shadow: 0 0 0.15em #ff3d7f, 0 0 0.45em #ff3d7f;
+  box-shadow: 0 0 0.9rem #ff3d7f, inset 0 0 0.9rem rgb(255 61 127 / 35%);
+}
+
+.board::after {
+  content: "乾\A杯";
+  top: 31rem;
+  right: 3rem;
+  border-color: var(--board-rule);
+  color: #d8f8ff;
+  text-shadow: 0 0 0.15em var(--board-rule), 0 0 0.45em var(--board-rule);
+  box-shadow: 0 0 0.9rem var(--board-rule), inset 0 0 0.9rem rgb(79 214 232 / 30%);
+}
+
+/* The name wide and glowing through the smog. The left padding matches the letter spacing to keep it centered. */
 .board-title {
   width: 92rem;
   border: 0;
-  padding: 1.5rem 0 1.1rem;
-  background: var(--board-signal);
-  color: var(--board-background);
-  font-size: 8rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-shadow: -0.045em 0 rgb(255 42 109 / 90%), 0.045em 0 rgb(5 217 232 / 90%);
-  clip-path: polygon(0 0, calc(100% - 3rem) 0, 100% 3rem, 100% 100%, 3rem 100%, 0 calc(100% - 3rem));
+  padding: 1.8rem 0 0.6rem 0.22em;
+  color: #ffe7c7;
+  font-size: 5.2rem;
+  letter-spacing: 0.22em;
+  text-shadow: 0 0 0.12em rgb(255 154 60 / 90%), 0 0 0.45em rgb(255 120 30 / 55%);
 }
 
 .board-tagline {
   color: var(--board-rule);
+  font-family: "Rajdhani", sans-serif;
+  font-size: 2.6rem;
   font-weight: 700;
-  letter-spacing: 0.4em;
-  text-shadow: 0 0 0.3em rgb(5 217 232 / 60%);
+  letter-spacing: 0.5em;
+  text-shadow: 0 0 0.3em rgb(79 214 232 / 55%);
 }
 
 .board-tagline::before,
 .board-tagline::after {
-  border-top: 0.25rem solid var(--board-accent);
-  box-shadow: 0 0 0.6rem var(--board-accent);
+  border-top-width: 0.15rem;
+  box-shadow: 0 0 0.5rem var(--board-rule);
 }
 
-/* Section headings like a heads-up display: a yellow bar, a cyan wash and a cut corner */
 .board-section-title {
   border: 0;
-  border-left: 0.35em solid var(--board-signal);
-  background: linear-gradient(90deg, rgb(5 217 232 / 24%), rgb(5 217 232 / 4%));
-  font-size: 2.2em;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-shadow: 0 0 0.25em rgb(5 217 232 / 70%);
-  clip-path: polygon(0 0, calc(100% - 0.8em) 0, 100% 0.8em, 100% 100%, 0 100%);
+  border-bottom: 0.08em solid var(--board-amber);
+  padding: 0.4em 0 0.35em 0.2em;
+  background: linear-gradient(90deg, transparent, rgb(255 154 60 / 12%), transparent);
+  color: #ffb35c;
+  font-size: 1.5em;
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 0.3em rgb(255 154 60 / 60%);
+  box-shadow: 0 0.3em 0.4em -0.3em rgb(255 154 60 / 70%);
 }
 
-.board-item-name {
+.board-item-name,
+.board-item-stat {
+  font-size: 1.45em;
   font-weight: 700;
 }
 
 .board-item-stat {
   color: var(--board-rule);
-  font-weight: 700;
 }
 
 .board-item-description {
+  font-size: 1.25em;
   font-weight: 500;
 }
 
 .board-item--kicked .board-item-name,
 .board-item--kicked .board-item-stat {
-  text-decoration-color: var(--board-signal);
+  text-decoration-color: #ff3d7f;
 }

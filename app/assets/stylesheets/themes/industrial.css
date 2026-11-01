@@ -1,81 +1,107 @@
-/* Industrial: stencilled safety yellow on brushed steel, the name on a riveted plate in hazard stripes */
-@import url("/fonts/big-shoulders-stencil-display.css");
+/* Industrial: an early-nineties brewpub in diamond plate and brushed stainless, the name engraved in a nameplate */
+@import url("/fonts/big-shoulders-display.css");
 @import url("/fonts/barlow-semi-condensed.css");
 
 .board {
-  --board-background: #1b1e21;
-  --board-accent: #ebe5d5;
-  --board-accent-faded: rgb(235 229 213 / 30%);
-  --board-rule: #737b84;
-  --board-heading: #16181b;
-  --board-text: #a4acb4;
-  --board-display-font: "Big Shoulders Stencil Display", sans-serif;
+  --board-background: #464c52;
+  --board-accent: #f1ede4;
+  --board-accent-faded: rgb(241 237 228 / 30%);
+  --board-rule: #c9cfd4;
+  --board-heading: #2c3135;
+  --board-text: #b3bac1;
+  --board-display-font: "Big Shoulders Display", sans-serif;
   --board-font: "Barlow Semi Condensed", sans-serif;
   --board-item-spacing: 0.06em;
-  --board-hazard: #ffc20e;
-  --board-rivet: radial-gradient(circle, #a9b0b7 0 0.38rem, #50565c 0.43rem 0.55rem, transparent 0.6rem);
+  --board-copper: #e39a55;
+  /* Brushed stainless: fine horizontal grain over a polished sheen */
+  --board-steel:
+    repeating-linear-gradient(180deg, rgb(255 255 255 / 7%) 0 0.08rem, rgb(0 0 0 / 5%) 0.08rem 0.16rem),
+    linear-gradient(180deg, #eef1f3 0%, #c3c9ce 42%, #a2a9b0 58%, #dfe3e6 100%);
 
   background:
-    repeating-linear-gradient(90deg, rgb(255 255 255 / 1.6%) 0 0.08rem, transparent 0.08rem 0.3rem),
-    linear-gradient(180deg, #262a2e 0%, #1b1e21 45%, #151719 100%);
+    linear-gradient(135deg, rgb(255 255 255 / 12%) 0%, transparent 35%, transparent 65%, rgb(0 0 0 / 30%) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E %3Cdefs%3E%3ClinearGradient id='lit' x1='0' y1='0' x2='0' y2='1'%3E %3Cstop offset='0' stop-color='%23e6eaee'/%3E%3Cstop offset='0.5' stop-color='%23a3aab1'/%3E%3Cstop offset='1' stop-color='%235a6168'/%3E %3C/linearGradient%3E%3C/defs%3E %3Cg fill='%2323272b' fill-opacity='0.8'%3E%3Cpath d='M-10.5 0 Q0 -4.4 10.5 0 Q0 4.4 -10.5 0 Z' transform='translate(13.3 13.6) rotate(45)'/%3E%3Cpath d='M-10.5 0 Q0 -4.4 10.5 0 Q0 4.4 -10.5 0 Z' transform='translate(37.3 13.6) rotate(-45)'/%3E%3Cpath d='M-10.5 0 Q0 -4.4 10.5 0 Q0 4.4 -10.5 0 Z' transform='translate(13.3 37.6) rotate(-45)'/%3E%3Cpath d='M-10.5 0 Q0 -4.4 10.5 0 Q0 4.4 -10.5 0 Z' transform='translate(37.3 37.6) rotate(45)'/%3E%3C/g%3E%3Cg fill='url(%23lit)'%3E%3Cpath d='M-10.5 0 Q0 -4.4 10.5 0 Q0 4.4 -10.5 0 Z' transform='translate(12 12) rotate(45)'/%3E%3Cpath d='M-10.5 0 Q0 -4.4 10.5 0 Q0 4.4 -10.5 0 Z' transform='translate(36 12) rotate(-45)'/%3E%3Cpath d='M-10.5 0 Q0 -4.4 10.5 0 Q0 4.4 -10.5 0 Z' transform='translate(12 36) rotate(-45)'/%3E%3Cpath d='M-10.5 0 Q0 -4.4 10.5 0 Q0 4.4 -10.5 0 Z' transform='translate(36 36) rotate(45)'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 3.8rem 3.8rem,
+    var(--board-background);
 }
 
-/* A steel plate with a rivet in each corner, framed in hazard stripes that show through its border */
+/* A stainless nameplate, the name engraved: dark letters with light catching their lower edges */
 .board-title {
-  border: 1rem solid transparent;
-  padding: 1rem 0 0.6rem;
-  background:
-    var(--board-rivet) 0.9rem 0.9rem / 1.2rem 1.2rem no-repeat padding-box,
-    var(--board-rivet) calc(100% - 0.9rem) 0.9rem / 1.2rem 1.2rem no-repeat padding-box,
-    var(--board-rivet) 0.9rem calc(100% - 0.9rem) / 1.2rem 1.2rem no-repeat padding-box,
-    var(--board-rivet) calc(100% - 0.9rem) calc(100% - 0.9rem) / 1.2rem 1.2rem no-repeat padding-box,
-    linear-gradient(180deg, #30353a, #23272b) padding-box,
-    repeating-linear-gradient(-45deg, var(--board-hazard) 0 1.25rem, #16181b 1.25rem 2.5rem) border-box;
-  color: var(--board-hazard);
-  font-size: 9.5rem;
+  border: 0;
+  border-radius: 0.6rem;
+  padding: 1.3rem 0 0.9rem;
+  background: var(--board-steel);
+  color: #3a4046;
+  font-size: 8.6rem;
   font-weight: 900;
   letter-spacing: 0.08em;
+  text-shadow: 0 0.035em 0 rgb(255 255 255 / 75%), 0 -0.02em 0 rgb(0 0 0 / 35%);
+  box-shadow: inset 0 0.2rem 0 rgb(255 255 255 / 80%), inset 0 -0.25rem 0 rgb(0 0 0 / 30%), 0 0.6rem 1.4rem rgb(0 0 0 / 55%);
 }
 
 .board-tagline {
-  color: var(--board-hazard);
-  font-size: 3rem;
-  font-weight: 800;
+  color: var(--board-copper);
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 2.4rem;
+  font-weight: 700;
   letter-spacing: 0.4em;
+}
+
+/* The tagline on a dark inset plaque, between polished steel rails */
+.board-tagline span {
+  padding: 0.35em 0.6em 0.3em 1em;
+  border-radius: 0.3rem;
+  background: #1d2124;
+  box-shadow: inset 0 0.1rem 0.3rem rgb(0 0 0 / 70%), 0 0.08rem 0 rgb(255 255 255 / 25%);
 }
 
 .board-tagline::before,
 .board-tagline::after {
-  border-top-width: 0.35rem;
+  height: 0.7rem;
+  border: 0;
+  background: linear-gradient(180deg, #f2f4f6 0%, #b9bfc5 45%, #7f868d 100%);
+  box-shadow: 0 0.15rem 0.3rem rgb(0 0 0 / 45%);
 }
 
-/* Section headings on yellow warning plates */
+/* The drinks on a dark menu board framed in polished steel, sized in em so it shrinks with long lists */
+.board-lists {
+  border: 0.5em solid transparent;
+  border-radius: 0.6em;
+  padding: 2em 2.6em 0.4em;
+  background:
+    linear-gradient(180deg, #23272b, #1b1e21) padding-box,
+    linear-gradient(180deg, #eef1f3, #a2a9b0 50%, #d8dce0) border-box;
+  box-shadow: 0 0.6em 1.6em rgb(0 0 0 / 55%);
+}
+
+/* Section headings on small engraved nameplates */
 .board-section-title {
   border: 0;
-  padding: 0.35em 0 0.2em 0.3em;
-  background: var(--board-hazard);
-  font-size: 2.6em;
+  border-radius: 0.2em;
+  padding: 0.3em 0 0.2em 0.3em;
+  background: var(--board-steel);
+  font-size: 2.4em;
   font-weight: 900;
   letter-spacing: 0.3em;
-  box-shadow: 0 0.12em 0 #a67c00;
+  text-shadow: 0 0.04em 0 rgb(255 255 255 / 70%);
+  box-shadow: inset 0 0.08em 0 rgb(255 255 255 / 80%), inset 0 -0.08em 0 rgb(0 0 0 / 30%);
 }
 
 .board-item-name,
 .board-item-stat {
-  font-size: 1.45em;
+  font-size: 1.4em;
   font-weight: 700;
 }
 
 .board-item-stat {
-  color: var(--board-hazard);
+  color: var(--board-copper);
 }
 
 .board-item-description {
-  font-size: 1.25em;
+  font-size: 1.2em;
   font-weight: 500;
 }
 
 .board-item--kicked .board-item-name,
 .board-item--kicked .board-item-stat {
-  text-decoration-color: #ff6a13;
+  text-decoration-color: var(--board-copper);
 }
