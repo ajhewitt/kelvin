@@ -1,58 +1,76 @@
-/* CCCP: a Soviet constructivist poster in red and black on poster paper, with a red wedge and a black circle */
+/* CCCP: a Soviet constructivist beer poster, after Rodchenko's for Trekhgornoe: a black field in a cream border, the
+   name in red block capitals on a cream band, a yellow plaque for the tagline, and red angular bars up the sides */
 @import url("/fonts/russo-one.css");
 @import url("/fonts/oswald.css");
 
 .board {
-  --board-background: #ece3cf;
-  --board-accent: #c62828;
-  --board-accent-faded: rgb(20 20 20 / 28%);
-  --board-rule: #141414;
-  --board-heading: #f6efe0;
-  --board-text: #4a4540;
-  --board-display-font: "Oswald", sans-serif;
+  --board-background: #141414;
+  --board-accent: #f2c230;
+  --board-accent-faded: rgb(240 233 218 / 30%);
+  --board-rule: #d22a1e;
+  --board-heading: #f0e9da;
+  --board-text: #b5ae9f;
+  --board-display-font: "Russo One", sans-serif;
   --board-font: "Oswald", sans-serif;
   --board-item-spacing: 0.06em;
+  --board-red: #d22a1e;
+  --board-cream: #f0e9da;
 
-  /* A red wedge in the top left corner and a black circle off the top right, clear of the drinks */
   background:
-    radial-gradient(circle at 113rem 5rem, var(--board-rule) 0 9rem, transparent 9.05rem),
-    linear-gradient(to bottom right, var(--board-accent) 0 50%, transparent 50.1%) 0 0 / 34rem 22rem no-repeat,
-    radial-gradient(ellipse at 50% 40%, #f3ecdc 0%, var(--board-background) 60%, #ddd2b8 100%);
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='700' viewBox='0 0 200 700'%3E%3Cg%3E%3Cpolygon points='44,0 112,0 112,520 196,604 196,700 128,700 44,616' fill='%23d22a1e'/%3E%3Cpolygon points='126,90 140,90 140,514 196,570 196,590 126,520' fill='%23f2c230'/%3E%3C/g%3E%3C/svg%3E") 0.6rem bottom / 12.5rem 43.75rem no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='700' viewBox='0 0 200 700'%3E%3Cg transform='translate(200 0) scale(-1 1)'%3E%3Cpolygon points='44,0 112,0 112,520 196,604 196,700 128,700 44,616' fill='%23d22a1e'/%3E%3Cpolygon points='126,90 140,90 140,514 196,570 196,590 126,520' fill='%23f2c230'/%3E%3C/g%3E%3C/svg%3E") calc(100% - 0.6rem) bottom / 12.5rem 43.75rem no-repeat,
+    var(--board-background);
 }
 
-/* The name in heavy black capitals */
+/* The poster's cream border, over everything at the screen's edges */
+.board::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  border: 1rem solid var(--board-cream);
+  pointer-events: none;
+}
+
+/* The name in red block capitals on a cream band across the top, joined to the border */
 .board-title {
-  width: 92rem;
+  width: auto;
+  margin: 0;
   border: 0;
-  padding: 1.4rem 0 0.4rem 0.06em;
-  color: var(--board-rule);
-  font-family: "Russo One", sans-serif;
-  font-size: 8rem;
+  border-bottom: 0.5rem solid var(--board-red);
+  padding: 2.4rem 0 1.4rem 0.06em;
+  background: var(--board-cream);
+  color: var(--board-red);
+  font-size: 7.6rem;
   letter-spacing: 0.06em;
 }
 
+/* The tagline in dark block capitals on a yellow plaque, between heavy red bars */
 .board-tagline {
-  color: var(--board-accent);
-  font-size: 3rem;
-  font-weight: 700;
-  letter-spacing: 0.3em;
+  margin: 2.4rem 1rem 2.8rem;
+  color: #2a1f10;
+  font-size: 2.4rem;
+  letter-spacing: 0.25em;
 }
 
-/* Heavy black bars out to the edges */
+.board-tagline span {
+  padding: 0.45em 0.7em 0.35em 0.95em;
+  background: var(--board-accent);
+  box-shadow: 0 0 0 0.1em #141414, 0 0 0 0.2em var(--board-accent);
+}
+
 .board-tagline::before,
 .board-tagline::after {
-  border-top-width: 0.7rem;
+  border-top: 0.8rem solid var(--board-red);
 }
 
-/* Section headings in light capitals on slanted red bars */
+/* Section headings in cream block capitals on red bars, cut on the slant like the poster's blocks */
 .board-section-title {
   border: 0;
-  padding: 0.3em 0 0.2em 0.25em;
-  background: var(--board-accent);
-  clip-path: polygon(0.6em 0, 100% 0, calc(100% - 0.6em) 100%, 0 100%);
-  font-size: 2.3em;
-  font-weight: 700;
-  letter-spacing: 0.25em;
+  padding: 0.35em 0 0.25em 0.2em;
+  background: var(--board-red);
+  clip-path: polygon(0 0, calc(100% - 0.7em) 0, 100% 100%, 0.7em 100%);
+  font-size: 2.2em;
+  letter-spacing: 0.2em;
 }
 
 .board-item-name,
@@ -62,7 +80,7 @@
 }
 
 .board-item-name {
-  color: var(--board-rule);
+  color: var(--board-cream);
 }
 
 .board-item-description {
@@ -72,5 +90,5 @@
 
 .board-item--kicked .board-item-name,
 .board-item--kicked .board-item-stat {
-  text-decoration-color: var(--board-accent);
+  text-decoration-color: var(--board-red);
 }

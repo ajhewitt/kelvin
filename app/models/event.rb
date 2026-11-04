@@ -26,8 +26,8 @@ class Event < ApplicationRecord
       "beer_hall" => "White Fraktur on Bavarian blue under the diamonds, like an Oktoberfest hall",
       "berlin_deco" => "Stepped silhouettes in black, red and gold, like a thirties German beer poster",
       "absinthe" => "Cream Art Nouveau on absinthe green in a whiplash frame, like a Belle Époque poster",
-      "bohemia" => "Cream, gold and a red ribbon on Pilsner green, like a Czech lager label",
-      "cccp" => "Red and black on poster paper, like a Soviet constructivist poster"
+      "bohemia" => "A yellow script on a red label against cobalt, like a vintage Czech lager poster",
+      "cccp" => "Red block capitals and a yellow plaque on black, like Rodchenko's beer poster"
     },
     "Bold and retro" => {
       "neon" => "Neon signs behind the bar",
