@@ -29,7 +29,7 @@ class Event < ApplicationRecord
     },
     "Breweries" => {
       "pretty_things" => "Red hand-cut capitals on a label in a turquoise flower trim, like Pretty Things Beer & Ale Project's",
-      "smod" => "A light blue sky over a grey brick works, its windows holding the drinks, like Saint Mars of the Desert's mural"
+      "smod" => "A light blue sky over a grey brick works and smokestacks, its windows holding the drinks, like Saint Mars of the Desert's mural"
     },
     "Bold and retro" => {
       "neon" => "Neon signs behind the bar",
