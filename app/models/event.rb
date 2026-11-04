@@ -22,12 +22,10 @@ class Event < ApplicationRecord
     },
     "Around the world" => {
       "grand_place" => "Gold leaf on limestone in royal capitals, like the Grand-Place in Brussels",
-      "trappist" => "An abbey sign and a cream label on candlelit brick, like a Trappist cellar",
+      "trappist" => "Gothic letters carved in limestone and the drinks on sackcloth, like a Trappist abbey",
       "beer_hall" => "White Fraktur on Bavarian blue under the diamonds, like an Oktoberfest hall",
-      "berlin_deco" => "Stepped silhouettes in black, red and gold, like a thirties German beer poster",
       "absinthe" => "Cream Art Nouveau on absinthe green in a whiplash frame, like a Belle Époque poster",
-      "bohemia" => "A yellow script on a red label against cobalt, like a vintage Czech lager poster",
-      "cccp" => "Red block capitals and a yellow plaque on black, like Rodchenko's beer poster"
+      "art_deco" => "Gold on black in a frame of fans and stepped corners, like a twenties speakeasy"
     },
     "Bold and retro" => {
       "neon" => "Neon signs behind the bar",
