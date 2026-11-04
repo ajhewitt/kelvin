@@ -27,6 +27,9 @@ class Event < ApplicationRecord
       "art_deco" => "Gold on black in a frame of fans and stepped corners, like a twenties speakeasy",
       "dublin" => "Gilded uncials on a green fascia between gold shamrocks, like an Irish pub front"
     },
+    "Breweries" => {
+      "pretty_things" => "Green hand-cut capitals on a label in a turquoise flower trim, like Pretty Things Beer & Ale Project's"
+    },
     "Bold and retro" => {
       "neon" => "Neon signs behind the bar",
       "cyberpunk" => "Tech-noir neon in a red heads-up display, from a dystopian future",
