@@ -29,7 +29,7 @@ class Event < ApplicationRecord
     },
     "Breweries" => {
       "pretty_things" => "Red hand-cut capitals on a label in a turquoise flower trim, like Pretty Things Beer & Ale Project's",
-      "smod" => "A script sign over red barn doors with white folk borders, like Saint Mars of the Desert's"
+      "smod" => "White script, clouds and whimsical trees on the light blue of Saint Mars of the Desert's badge"
     },
     "Bold and retro" => {
       "neon" => "Neon signs behind the bar",
