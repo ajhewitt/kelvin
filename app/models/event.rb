@@ -22,7 +22,7 @@ class Event < ApplicationRecord
     },
     "Around the world" => {
       "grand_place" => "Gold leaf on limestone in royal capitals, like the Grand-Place in Brussels",
-      "trappist" => "Gothic letters in weathered limestone between lancet windows, like a Trappist abbey",
+      "trappist" => "Gothic letters in weathered limestone under a great stone arch, like a Trappist abbey",
       "beer_hall" => "White Fraktur on Bavarian blue under the diamonds, like an Oktoberfest hall",
       "absinthe" => "Cream Art Nouveau on absinthe green in a whiplash frame, like a Belle Époque poster",
       "art_deco" => "Gold on black in a frame of fans and stepped corners, like a twenties speakeasy"
