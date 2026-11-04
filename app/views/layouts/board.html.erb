@@ -18,10 +18,25 @@
     <%= yield %>
 
     <script>
-      // Shrinks the lists until they fit on screen, for events with long lists
+      // Shrinks the lists until they fit on screen, for events with long lists. Fitting has to wait for the fonts, so
+      // a load that fitted from scratch would show the lists at full size and then shrink them, a jump at every
+      // reload. Instead each load starts from the fit the last load of this page found, set before anything is
+      // painted, so the lists only move when what's on them changes. With no last fit, as on the first load, the
+      // lists stay hidden until they're fitted
       (function () {
         var lists = document.querySelector(".board-lists");
         if (!lists) return;
+        var key = "board-fit " + location.pathname + location.search;
+        var last = null;
+
+        try {
+          last = parseFloat(sessionStorage.getItem(key));
+        } catch (error) {}
+        if (last >= 0.5 && last <= 1) {
+          lists.style.setProperty("--fit", last);
+        } else {
+          lists.style.visibility = "hidden";
+        }
 
         function fit() {
           var bottomMargin = parseFloat(getComputedStyle(document.documentElement).fontSize) * 2;
@@ -31,6 +46,10 @@
             scale -= 0.02;
             lists.style.setProperty("--fit", scale);
           }
+          lists.style.visibility = "";
+          try {
+            sessionStorage.setItem(key, scale);
+          } catch (error) {}
         }
 
         (document.fonts ? document.fonts.ready : Promise.resolve()).then(fit);

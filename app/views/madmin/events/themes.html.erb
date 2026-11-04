@@ -16,27 +16,16 @@
 
 <p class="list-event">Each preview is this event's board. The TV picks up a new theme within 15 seconds.</p>
 
-<div class="theme-gallery">
-  <% Event::ALL_THEMES.each do |theme, description| %>
-    <% egg = Event::EASTER_EGGS.key?(theme) %>
-    <%= tag.figure class: class_names("theme-card", "theme-card--current": theme == @record.theme, "theme-card--egg": egg),
-          hidden: egg && theme != @record.theme do %>
-      <iframe src="<%= event_board_path(@record, theme: theme) %>" title="<%= theme.titleize %> preview" loading="lazy" tabindex="-1"></iframe>
-      <figcaption>
-        <div>
-          <strong><%= theme.titleize %></strong>
-          <span><%= description %></span>
-        </div>
-        <% if theme == @record.theme %>
-          <span class="list-badge">In use</span>
-        <% else %>
-          <%= button_to "Use", theme_madmin_event_path(@record), method: :patch, params: {theme: theme},
-                class: "btn btn-secondary", "aria-label": "Use #{theme.titleize}" %>
-        <% end %>
-      </figcaption>
+<%# The gallery's groups, the easter eggs hidden at the end of the last %>
+<% Event::THEME_GROUPS.each_with_index do |(group, themes), index| %>
+  <h2 class="theme-group"><%= group %></h2>
+  <div class="theme-gallery">
+    <% cards = (index == Event::THEME_GROUPS.size - 1) ? themes.merge(Event::EASTER_EGGS) : themes %>
+    <% cards.each do |theme, description| %>
+      <%= render "theme_card", theme: theme, description: description %>
     <% end %>
-  <% end %>
-</div>
+  </div>
+<% end %>
 
 <%# The easter eggs come out with the Konami code on a keyboard, or five quick taps on the page's title.
     The listeners go on the document once, as Turbo keeps it from page to page, and found eggs hide again

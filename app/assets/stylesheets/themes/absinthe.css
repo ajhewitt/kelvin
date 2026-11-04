@@ -1,0 +1,86 @@
+/* Absinthe: a Belle Époque absinthe poster, cream Art Nouveau lettering on deep absinthe green inside a sage frame of
+   whiplash curves and chrysanthemums, with figures in coral red */
+@import url("/fonts/amarante.css");
+@import url("/fonts/cormorant-garamond.css");
+
+.board {
+  --board-background: #18241c;
+  --board-accent: #e8694a;
+  --board-accent-faded: rgb(241 234 210 / 28%);
+  --board-rule: #9db58f;
+  --board-heading: #18241c;
+  --board-text: #b9c4a8;
+  --board-display-font: "Amarante", serif;
+  --board-font: "Cormorant Garamond", serif;
+  --board-item-spacing: 0.08em;
+  --board-cream: #f1ead2;
+  --board-gold: #d9a43a;
+
+  background: radial-gradient(ellipse at 50% 40%, #233428 0%, var(--board-background) 60%, #101912 100%);
+  /* Cormorant's old-style numerals make 660 read as 66o */
+  font-variant-numeric: lining-nums;
+}
+
+/* The frame, drawn over the whole screen and clear of the drinks */
+.board::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1080' viewBox='0 0 1920 1080' preserveAspectRatio='none'%3E %3Cg fill='none' stroke='%239db58f' stroke-linecap='round'%3E %3Cpath d='M34 1046 V200 C34 110 110 34 200 34 H1720 C1810 34 1886 110 1886 200 V880 C1886 970 1810 1046 1720 1046 H200 C110 1046 34 970 34 880 Z' stroke-width='2.6'/%3E %3Cpath d='M46 1034 V204 C46 118 118 46 204 46 H1716 C1802 46 1874 118 1874 204 V876 C1874 962 1802 1034 1716 1034 H204 C118 1034 46 962 46 876 Z' stroke-width='1.2'/%3E %3Cg stroke-width='2'%3E%3Cpath d='M52 340 C52 190 120 72 230 68 C290 66 300 112 262 118 C236 122 230 96 252 94' transform=''/%3E%3Cpath d='M52 340 C52 190 120 72 230 68 C290 66 300 112 262 118 C236 122 230 96 252 94' transform='translate(1920 0) scale(-1 1)'/%3E%3Cpath d='M52 300 C52 190 92 88 150 84 C188 82 196 110 172 115 C156 118 152 101 165 99' transform='translate(0 1080) scale(1 -1)'/%3E%3Cpath d='M52 300 C52 190 92 88 150 84 C188 82 196 110 172 115 C156 118 152 101 165 99' transform='translate(1920 1080) scale(-1 -1)'/%3E%3C/g%3E %3C/g%3E %3Cg fill='%23efd8d2' stroke='%23b88f8a' stroke-width='0.8'%3E%3Cellipse cx='83' cy='66.5' rx='6.0' ry='14.4' transform='rotate(0.0 83 83)'/%3E%3Cellipse cx='83' cy='66.5' rx='6.0' ry='14.4' transform='rotate(30.0 83 83)'/%3E%3Cellipse cx='83' cy='66.5' rx='6.0' ry='14.4' transform='rotate(60.0 83 83)'/%3E%3Cellipse cx='83' cy='66.5' rx='6.0' ry='14.4' transform='rotate(90.0 83 83)'/%3E%3Cellipse cx='83' cy='66.5' rx='6.0' ry='14.4' transform='rotate(120.0 83 83)'/%3E%3Cellipse cx='83' cy='66.5' rx='6.0' ry='14.4' transform='rotate(150.0 83 83)'/%3E%3Cellipse cx='83' cy='66.5' rx='6.0' ry='14.4' transform='rotate(180.0 83 83)'/%3E%3Cellipse cx='83' cy='66.5' rx='6.0' ry='14.4' transform='rotate(210.0 83 83)'/%3E%3Cellipse cx='83' cy='66.5' rx='6.0' ry='14.4' transform='rotate(240.0 83 83)'/%3E%3Cellipse cx='83' cy='66.5' rx='6.0' ry='14.4' transform='rotate(270.0 83 83)'/%3E%3Cellipse cx='83' cy='66.5' rx='6.0' ry='14.4' transform='rotate(300.0 83 83)'/%3E%3Cellipse cx='83' cy='66.5' rx='6.0' ry='14.4' transform='rotate(330.0 83 83)'/%3E%3C/g%3E%3Ccircle cx='83' cy='83' r='8.4' fill='%23d9a43a' stroke='%238a6420' stroke-width='0.8'/%3E%3Cg fill='%23efd8d2' stroke='%23b88f8a' stroke-width='0.8'%3E%3Cellipse cx='1837' cy='66.5' rx='6.0' ry='14.4' transform='rotate(0.0 1837 83)'/%3E%3Cellipse cx='1837' cy='66.5' rx='6.0' ry='14.4' transform='rotate(30.0 1837 83)'/%3E%3Cellipse cx='1837' cy='66.5' rx='6.0' ry='14.4' transform='rotate(60.0 1837 83)'/%3E%3Cellipse cx='1837' cy='66.5' rx='6.0' ry='14.4' transform='rotate(90.0 1837 83)'/%3E%3Cellipse cx='1837' cy='66.5' rx='6.0' ry='14.4' transform='rotate(120.0 1837 83)'/%3E%3Cellipse cx='1837' cy='66.5' rx='6.0' ry='14.4' transform='rotate(150.0 1837 83)'/%3E%3Cellipse cx='1837' cy='66.5' rx='6.0' ry='14.4' transform='rotate(180.0 1837 83)'/%3E%3Cellipse cx='1837' cy='66.5' rx='6.0' ry='14.4' transform='rotate(210.0 1837 83)'/%3E%3Cellipse cx='1837' cy='66.5' rx='6.0' ry='14.4' transform='rotate(240.0 1837 83)'/%3E%3Cellipse cx='1837' cy='66.5' rx='6.0' ry='14.4' transform='rotate(270.0 1837 83)'/%3E%3Cellipse cx='1837' cy='66.5' rx='6.0' ry='14.4' transform='rotate(300.0 1837 83)'/%3E%3Cellipse cx='1837' cy='66.5' rx='6.0' ry='14.4' transform='rotate(330.0 1837 83)'/%3E%3C/g%3E%3Ccircle cx='1837' cy='83' r='8.4' fill='%23d9a43a' stroke='%238a6420' stroke-width='0.8'/%3E%3Cg fill='%23efd8d2' stroke='%23b88f8a' stroke-width='0.8'%3E%3Cellipse cx='83' cy='980.5' rx='6.0' ry='14.4' transform='rotate(0.0 83 997)'/%3E%3Cellipse cx='83' cy='980.5' rx='6.0' ry='14.4' transform='rotate(30.0 83 997)'/%3E%3Cellipse cx='83' cy='980.5' rx='6.0' ry='14.4' transform='rotate(60.0 83 997)'/%3E%3Cellipse cx='83' cy='980.5' rx='6.0' ry='14.4' transform='rotate(90.0 83 997)'/%3E%3Cellipse cx='83' cy='980.5' rx='6.0' ry='14.4' transform='rotate(120.0 83 997)'/%3E%3Cellipse cx='83' cy='980.5' rx='6.0' ry='14.4' transform='rotate(150.0 83 997)'/%3E%3Cellipse cx='83' cy='980.5' rx='6.0' ry='14.4' transform='rotate(180.0 83 997)'/%3E%3Cellipse cx='83' cy='980.5' rx='6.0' ry='14.4' transform='rotate(210.0 83 997)'/%3E%3Cellipse cx='83' cy='980.5' rx='6.0' ry='14.4' transform='rotate(240.0 83 997)'/%3E%3Cellipse cx='83' cy='980.5' rx='6.0' ry='14.4' transform='rotate(270.0 83 997)'/%3E%3Cellipse cx='83' cy='980.5' rx='6.0' ry='14.4' transform='rotate(300.0 83 997)'/%3E%3Cellipse cx='83' cy='980.5' rx='6.0' ry='14.4' transform='rotate(330.0 83 997)'/%3E%3C/g%3E%3Ccircle cx='83' cy='997' r='8.4' fill='%23d9a43a' stroke='%238a6420' stroke-width='0.8'/%3E%3Cg fill='%23efd8d2' stroke='%23b88f8a' stroke-width='0.8'%3E%3Cellipse cx='1837' cy='980.5' rx='6.0' ry='14.4' transform='rotate(0.0 1837 997)'/%3E%3Cellipse cx='1837' cy='980.5' rx='6.0' ry='14.4' transform='rotate(30.0 1837 997)'/%3E%3Cellipse cx='1837' cy='980.5' rx='6.0' ry='14.4' transform='rotate(60.0 1837 997)'/%3E%3Cellipse cx='1837' cy='980.5' rx='6.0' ry='14.4' transform='rotate(90.0 1837 997)'/%3E%3Cellipse cx='1837' cy='980.5' rx='6.0' ry='14.4' transform='rotate(120.0 1837 997)'/%3E%3Cellipse cx='1837' cy='980.5' rx='6.0' ry='14.4' transform='rotate(150.0 1837 997)'/%3E%3Cellipse cx='1837' cy='980.5' rx='6.0' ry='14.4' transform='rotate(180.0 1837 997)'/%3E%3Cellipse cx='1837' cy='980.5' rx='6.0' ry='14.4' transform='rotate(210.0 1837 997)'/%3E%3Cellipse cx='1837' cy='980.5' rx='6.0' ry='14.4' transform='rotate(240.0 1837 997)'/%3E%3Cellipse cx='1837' cy='980.5' rx='6.0' ry='14.4' transform='rotate(270.0 1837 997)'/%3E%3Cellipse cx='1837' cy='980.5' rx='6.0' ry='14.4' transform='rotate(300.0 1837 997)'/%3E%3Cellipse cx='1837' cy='980.5' rx='6.0' ry='14.4' transform='rotate(330.0 1837 997)'/%3E%3C/g%3E%3Ccircle cx='1837' cy='997' r='8.4' fill='%23d9a43a' stroke='%238a6420' stroke-width='0.8'/%3E%3Cg fill='%23efd8d2' stroke='%23b88f8a' stroke-width='0.8'%3E%3Cellipse cx='40' cy='527.9' rx='4.4' ry='10.6' transform='rotate(0.0 40 540)'/%3E%3Cellipse cx='40' cy='527.9' rx='4.4' ry='10.6' transform='rotate(30.0 40 540)'/%3E%3Cellipse cx='40' cy='527.9' rx='4.4' ry='10.6' transform='rotate(60.0 40 540)'/%3E%3Cellipse cx='40' cy='527.9' rx='4.4' ry='10.6' transform='rotate(90.0 40 540)'/%3E%3Cellipse cx='40' cy='527.9' rx='4.4' ry='10.6' transform='rotate(120.0 40 540)'/%3E%3Cellipse cx='40' cy='527.9' rx='4.4' ry='10.6' transform='rotate(150.0 40 540)'/%3E%3Cellipse cx='40' cy='527.9' rx='4.4' ry='10.6' transform='rotate(180.0 40 540)'/%3E%3Cellipse cx='40' cy='527.9' rx='4.4' ry='10.6' transform='rotate(210.0 40 540)'/%3E%3Cellipse cx='40' cy='527.9' rx='4.4' ry='10.6' transform='rotate(240.0 40 540)'/%3E%3Cellipse cx='40' cy='527.9' rx='4.4' ry='10.6' transform='rotate(270.0 40 540)'/%3E%3Cellipse cx='40' cy='527.9' rx='4.4' ry='10.6' transform='rotate(300.0 40 540)'/%3E%3Cellipse cx='40' cy='527.9' rx='4.4' ry='10.6' transform='rotate(330.0 40 540)'/%3E%3C/g%3E%3Ccircle cx='40' cy='540' r='6.2' fill='%23d9a43a' stroke='%238a6420' stroke-width='0.8'/%3E%3Cg fill='%23efd8d2' stroke='%23b88f8a' stroke-width='0.8'%3E%3Cellipse cx='1880' cy='527.9' rx='4.4' ry='10.6' transform='rotate(0.0 1880 540)'/%3E%3Cellipse cx='1880' cy='527.9' rx='4.4' ry='10.6' transform='rotate(30.0 1880 540)'/%3E%3Cellipse cx='1880' cy='527.9' rx='4.4' ry='10.6' transform='rotate(60.0 1880 540)'/%3E%3Cellipse cx='1880' cy='527.9' rx='4.4' ry='10.6' transform='rotate(90.0 1880 540)'/%3E%3Cellipse cx='1880' cy='527.9' rx='4.4' ry='10.6' transform='rotate(120.0 1880 540)'/%3E%3Cellipse cx='1880' cy='527.9' rx='4.4' ry='10.6' transform='rotate(150.0 1880 540)'/%3E%3Cellipse cx='1880' cy='527.9' rx='4.4' ry='10.6' transform='rotate(180.0 1880 540)'/%3E%3Cellipse cx='1880' cy='527.9' rx='4.4' ry='10.6' transform='rotate(210.0 1880 540)'/%3E%3Cellipse cx='1880' cy='527.9' rx='4.4' ry='10.6' transform='rotate(240.0 1880 540)'/%3E%3Cellipse cx='1880' cy='527.9' rx='4.4' ry='10.6' transform='rotate(270.0 1880 540)'/%3E%3Cellipse cx='1880' cy='527.9' rx='4.4' ry='10.6' transform='rotate(300.0 1880 540)'/%3E%3Cellipse cx='1880' cy='527.9' rx='4.4' ry='10.6' transform='rotate(330.0 1880 540)'/%3E%3C/g%3E%3Ccircle cx='1880' cy='540' r='6.2' fill='%23d9a43a' stroke='%238a6420' stroke-width='0.8'/%3E %3C/svg%3E") 0 0 / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
+/* The name in cream Art Nouveau capitals, like the poster's own */
+.board-title {
+  width: 92rem;
+  border: 0;
+  padding: 1.6rem 0 0.4rem 0.06em;
+  color: var(--board-cream);
+  font-size: 8rem;
+  letter-spacing: 0.06em;
+  text-shadow: 0 0.04em 0.12em rgb(0 0 0 / 50%);
+}
+
+/* The tagline in coral capitals, like the poster's line along its foot, between whiplash vines */
+.board-tagline {
+  font-family: var(--board-display-font);
+  font-size: 2.6rem;
+  letter-spacing: 0.22em;
+}
+
+.board-tagline::before,
+.board-tagline::after {
+  height: 1.6rem;
+  border: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='28' viewBox='0 0 160 28'%3E %3Cg fill='none' stroke='%239db58f' stroke-linecap='round'%3E %3Cpath d='M0 15 C24 15 34 5 54 7 S84 24 108 19 S142 13 160 15' stroke-width='1.8'/%3E %3Cpath d='M54 7 C60 0 72 1 71 8 C70 12 64 12 64 8' stroke-width='1.2'/%3E %3C/g%3E %3Cg fill='%23efd8d2' stroke='%23b88f8a' stroke-width='0.5'%3E %3Ccircle cx='124' cy='17' r='3.2'/%3E%3Ccircle cx='130' cy='13' r='3.2'/%3E%3Ccircle cx='130' cy='21' r='3.2'/%3E%3Ccircle cx='136' cy='17' r='3.2'/%3E %3C/g%3E %3Ccircle cx='130' cy='17' r='2' fill='%23d9a43a'/%3E %3C/svg%3E") 0 50% / auto 100% repeat-x;
+}
+
+/* Section headings in deep green on cream panels inside a gold double line, like the Meuse poster's title box */
+.board-section-title {
+  border: 0.16em double var(--board-gold);
+  padding: 0.3em 0 0.2em 0.18em;
+  background: var(--board-cream);
+  font-size: 2.3em;
+  letter-spacing: 0.18em;
+}
+
+.board-item-name,
+.board-item-stat {
+  font-size: 1.45em;
+  font-weight: 700;
+}
+
+.board-item-name {
+  color: var(--board-cream);
+}
+
+.board-item-description {
+  font-size: 1.3em;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.board-item--kicked .board-item-name,
+.board-item--kicked .board-item-stat {
+  text-decoration-color: var(--board-accent);
+}

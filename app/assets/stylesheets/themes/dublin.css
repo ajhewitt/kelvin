@@ -1,0 +1,102 @@
+/* Dublin: a clean Irish pub front, the name in gilded uncials on a green fascia between two gold shamrocks, the rest in
+   Celtic lettering on black woodwork, and a gold line round the screen with its corners cut in like an old pub sign's */
+@import url("/fonts/uncial-antiqua.css");
+@import url("/fonts/macondo.css");
+
+.board {
+  --board-background: #0e100f;
+  --board-accent: #d4ab5c;
+  --board-accent-faded: rgb(241 230 203 / 28%);
+  --board-rule: #d4ab5c;
+  --board-heading: #e8c36a;
+  --board-text: #b3ad9c;
+  --board-display-font: "Macondo", serif;
+  --board-font: "Macondo", serif;
+  --board-item-spacing: 0.06em;
+  --board-green: #0f4a2f;
+  --board-cream: #f1e6cb;
+  /* Green paint, lighter toward the top */
+  --board-paint: linear-gradient(180deg, #17603e, var(--board-green));
+
+  background: radial-gradient(ellipse at 50% 40%, #181b19 0%, var(--board-background) 70%);
+}
+
+/* The gold line round the screen */
+.board::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1080' viewBox='0 0 1920 1080' preserveAspectRatio='none'%3E %3Cg fill='none' stroke='%23d4ab5c'%3E %3Cpath d='M66 22 H1854 A44 44 0 0 0 1898 66 V1014 A44 44 0 0 0 1854 1058 H66 A44 44 0 0 0 22 1014 V66 A44 44 0 0 0 66 22 Z' stroke-width='3'/%3E %3Cpath d='M76 32 H1844 A44 44 0 0 0 1888 76 V1004 A44 44 0 0 0 1844 1048 H76 A44 44 0 0 0 32 1004 V76 A44 44 0 0 0 76 32 Z' stroke-width='1.2' stroke-opacity='0.7'/%3E %3C/g%3E %3C/svg%3E") 0 0 / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
+/* The name in gilded uncials, the old Irish lettering, on the fascia in a gold moulding with a shamrock at each end,
+   with room above and below for the uncials' tall ascenders and long descenders. The gilding is light along the
+   letters' tops with a dark edge below */
+.board-title {
+  width: 100rem;
+  margin-top: 3.4rem;
+  border: 0;
+  padding: 2.3rem 0 2.2rem 0.03em;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E %3Cdefs%3E%3ClinearGradient id='gold' x1='0' y1='0' x2='0.4' y2='1'%3E %3Cstop offset='0' stop-color='%23fbe7a6'/%3E%3Cstop offset='0.45' stop-color='%23e2b752'/%3E%3Cstop offset='1' stop-color='%23a87a22'/%3E %3C/linearGradient%3E%3C/defs%3E %3Cg%3E %3Cpath d='M32 32 C33 44 30 52 22 59' fill='none' stroke='%235c4310' stroke-width='5' stroke-linecap='round'/%3E %3Cpath d='M32 32 C33 44 30 52 22 59' fill='none' stroke='url(%23gold)' stroke-width='3' stroke-linecap='round'/%3E %3Cg fill='url(%23gold)' stroke='%235c4310' stroke-width='1.2' stroke-linejoin='round'%3E%3Cpath d='M0 0 C-5 -5 -13 -9 -13 -17 C-13 -24 -5 -26 0 -20 C5 -26 13 -24 13 -17 C13 -9 5 -5 0 0 Z' transform='translate(32 30) rotate(0)'/%3E%3Cpath d='M0 0 C-5 -5 -13 -9 -13 -17 C-13 -24 -5 -26 0 -20 C5 -26 13 -24 13 -17 C13 -9 5 -5 0 0 Z' transform='translate(32 30) rotate(-108)'/%3E%3Cpath d='M0 0 C-5 -5 -13 -9 -13 -17 C-13 -24 -5 -26 0 -20 C5 -26 13 -24 13 -17 C13 -9 5 -5 0 0 Z' transform='translate(32 30) rotate(108)'/%3E%3C/g%3E %3Ccircle cx='32' cy='30' r='2.2' fill='%23c99a3a'/%3E %3C/g%3E %3C/svg%3E") left 2.6rem center / 6.6rem 6.6rem no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E %3Cdefs%3E%3ClinearGradient id='gold' x1='0' y1='0' x2='0.4' y2='1'%3E %3Cstop offset='0' stop-color='%23fbe7a6'/%3E%3Cstop offset='0.45' stop-color='%23e2b752'/%3E%3Cstop offset='1' stop-color='%23a87a22'/%3E %3C/linearGradient%3E%3C/defs%3E %3Cg transform='translate(64 0) scale(-1 1)'%3E %3Cpath d='M32 32 C33 44 30 52 22 59' fill='none' stroke='%235c4310' stroke-width='5' stroke-linecap='round'/%3E %3Cpath d='M32 32 C33 44 30 52 22 59' fill='none' stroke='url(%23gold)' stroke-width='3' stroke-linecap='round'/%3E %3Cg fill='url(%23gold)' stroke='%235c4310' stroke-width='1.2' stroke-linejoin='round'%3E%3Cpath d='M0 0 C-5 -5 -13 -9 -13 -17 C-13 -24 -5 -26 0 -20 C5 -26 13 -24 13 -17 C13 -9 5 -5 0 0 Z' transform='translate(32 30) rotate(0)'/%3E%3Cpath d='M0 0 C-5 -5 -13 -9 -13 -17 C-13 -24 -5 -26 0 -20 C5 -26 13 -24 13 -17 C13 -9 5 -5 0 0 Z' transform='translate(32 30) rotate(-108)'/%3E%3Cpath d='M0 0 C-5 -5 -13 -9 -13 -17 C-13 -24 -5 -26 0 -20 C5 -26 13 -24 13 -17 C13 -9 5 -5 0 0 Z' transform='translate(32 30) rotate(108)'/%3E%3C/g%3E %3Ccircle cx='32' cy='30' r='2.2' fill='%23c99a3a'/%3E %3C/g%3E %3C/svg%3E") right 2.6rem center / 6.6rem 6.6rem no-repeat,
+    var(--board-paint);
+  font-family: "Uncial Antiqua", serif;
+  font-size: 6.8rem;
+  letter-spacing: 0.03em;
+  text-shadow: 0 -0.015em 0 #fff1c2, 0 0.04em 0 #5c4310, 0 0.07em 0.12em rgb(0 0 0 / 50%);
+  box-shadow:
+    inset 0 0 0 0.3rem var(--board-rule),
+    inset 0 0 0 0.6rem var(--board-green),
+    inset 0 0 0 0.75rem var(--board-rule),
+    0 0 0 0.35rem #050605,
+    0 0.6rem 1.4rem rgb(0 0 0 / 60%);
+}
+
+/* The tagline in gold capitals between fine gold rules that stop inside the frame */
+.board-tagline {
+  margin: 2.6rem 3.4rem 2.8rem;
+  font-size: 2.6rem;
+  letter-spacing: 0.3em;
+}
+
+.board-tagline::before,
+.board-tagline::after {
+  border-top-width: 0.12rem;
+}
+
+/* Section headings in gilded capitals on small green signboards with the fascia's moulding */
+.board-section-title {
+  border: 0;
+  padding: 0.35em 0 0.3em 0.1em;
+  background: var(--board-paint);
+  font-size: 2.4em;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0.04em 0 #3a2a0a;
+  box-shadow:
+    inset 0 0 0 0.07em var(--board-rule),
+    inset 0 0 0 0.15em var(--board-green),
+    inset 0 0 0 0.19em var(--board-rule),
+    0 0 0 0.08em #050605;
+}
+
+.board-item-name,
+.board-item-stat {
+  font-size: 1.35em;
+  font-weight: normal;
+}
+
+.board-item-name {
+  color: var(--board-cream);
+}
+
+.board-item-description {
+  font-size: 1.15em;
+  letter-spacing: 0.02em;
+}
+
+.board-item--kicked .board-item-name,
+.board-item--kicked .board-item-stat {
+  text-decoration-color: var(--board-accent);
+}

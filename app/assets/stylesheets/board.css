@@ -40,6 +40,10 @@ html.board-page {
   /* Between the letters of drink names and stats */
   --board-item-spacing: 0.22em;
 
+  /* A block formatting context, so the title's top margin stays inside the board rather than collapsing through it
+     and making the page taller than the screen. The board's background, which the browser sizes and positions to the
+     page, then matches the screen, so a theme can anchor pictures to its bottom corners */
+  display: flow-root;
   margin: 0;
   min-height: 100vh;
   overflow: hidden;
