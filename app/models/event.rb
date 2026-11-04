@@ -24,8 +24,8 @@ class Event < ApplicationRecord
       "grand_place" => "Gold leaf on limestone in royal capitals, like the Grand-Place in Brussels",
       "trappist" => "An abbey sign and a cream label on candlelit brick, like a Trappist cellar",
       "beer_hall" => "White Fraktur on Bavarian blue under the diamonds, like an Oktoberfest hall",
-      "berlin_deco" => "Art Deco in black, red and gold, like Berlin in the twenties",
-      "absinthe" => "Art Nouveau in olive and ochre on absinthe green, like a Belle Époque poster",
+      "berlin_deco" => "Stepped silhouettes in black, red and gold, like a thirties German beer poster",
+      "absinthe" => "Cream Art Nouveau on absinthe green in a whiplash frame, like a Belle Époque poster",
       "bohemia" => "Cream, gold and a red ribbon on Pilsner green, like a Czech lager label",
       "cccp" => "Red and black on poster paper, like a Soviet constructivist poster"
     },
