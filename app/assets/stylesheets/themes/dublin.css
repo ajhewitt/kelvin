@@ -1,8 +1,7 @@
-/* Dublin: a clean Irish pub front, the name in gilded Celtic letters on a green fascia between two gold shamrocks, the
-   drinks on black woodwork, and a gold line round the screen with its corners cut in like an old pub sign's */
-@import url("/fonts/smythe.css");
-@import url("/fonts/cinzel.css");
-@import url("/fonts/libre-baskerville.css");
+/* Dublin: a clean Irish pub front, the name in gilded uncials on a green fascia between two gold shamrocks, the rest in
+   Celtic lettering on black woodwork, and a gold line round the screen with its corners cut in like an old pub sign's */
+@import url("/fonts/uncial-antiqua.css");
+@import url("/fonts/macondo.css");
 
 .board {
   --board-background: #0e100f;
@@ -11,8 +10,8 @@
   --board-rule: #d4ab5c;
   --board-heading: #e8c36a;
   --board-text: #b3ad9c;
-  --board-display-font: "Smythe", serif;
-  --board-font: "Libre Baskerville", serif;
+  --board-display-font: "Macondo", serif;
+  --board-font: "Macondo", serif;
   --board-item-spacing: 0.06em;
   --board-green: #0f4a2f;
   --board-cream: #f1e6cb;
@@ -31,19 +30,21 @@
   pointer-events: none;
 }
 
-/* The name in gilded Celtic letters on the fascia, in a gold moulding with a shamrock at each end. The gilding is
-   light along the letters' tops with a dark edge below */
+/* The name in gilded uncials, the old Irish lettering, on the fascia in a gold moulding with a shamrock at each end,
+   with room above and below for the uncials' tall ascenders and long descenders. The gilding is light along the
+   letters' tops with a dark edge below */
 .board-title {
   width: 100rem;
   margin-top: 3.4rem;
   border: 0;
-  padding: 1.5rem 0 1.1rem 0.06em;
+  padding: 2.3rem 0 2.2rem 0.03em;
   background:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E %3Cdefs%3E%3ClinearGradient id='gold' x1='0' y1='0' x2='0.4' y2='1'%3E %3Cstop offset='0' stop-color='%23fbe7a6'/%3E%3Cstop offset='0.45' stop-color='%23e2b752'/%3E%3Cstop offset='1' stop-color='%23a87a22'/%3E %3C/linearGradient%3E%3C/defs%3E %3Cg%3E %3Cpath d='M32 32 C33 44 30 52 22 59' fill='none' stroke='%235c4310' stroke-width='5' stroke-linecap='round'/%3E %3Cpath d='M32 32 C33 44 30 52 22 59' fill='none' stroke='url(%23gold)' stroke-width='3' stroke-linecap='round'/%3E %3Cg fill='url(%23gold)' stroke='%235c4310' stroke-width='1.2' stroke-linejoin='round'%3E%3Cpath d='M0 0 C-5 -5 -13 -9 -13 -17 C-13 -24 -5 -26 0 -20 C5 -26 13 -24 13 -17 C13 -9 5 -5 0 0 Z' transform='translate(32 30) rotate(0)'/%3E%3Cpath d='M0 0 C-5 -5 -13 -9 -13 -17 C-13 -24 -5 -26 0 -20 C5 -26 13 -24 13 -17 C13 -9 5 -5 0 0 Z' transform='translate(32 30) rotate(-108)'/%3E%3Cpath d='M0 0 C-5 -5 -13 -9 -13 -17 C-13 -24 -5 -26 0 -20 C5 -26 13 -24 13 -17 C13 -9 5 -5 0 0 Z' transform='translate(32 30) rotate(108)'/%3E%3C/g%3E %3Ccircle cx='32' cy='30' r='2.2' fill='%23c99a3a'/%3E %3C/g%3E %3C/svg%3E") left 2.6rem center / 6.6rem 6.6rem no-repeat,
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E %3Cdefs%3E%3ClinearGradient id='gold' x1='0' y1='0' x2='0.4' y2='1'%3E %3Cstop offset='0' stop-color='%23fbe7a6'/%3E%3Cstop offset='0.45' stop-color='%23e2b752'/%3E%3Cstop offset='1' stop-color='%23a87a22'/%3E %3C/linearGradient%3E%3C/defs%3E %3Cg transform='translate(64 0) scale(-1 1)'%3E %3Cpath d='M32 32 C33 44 30 52 22 59' fill='none' stroke='%235c4310' stroke-width='5' stroke-linecap='round'/%3E %3Cpath d='M32 32 C33 44 30 52 22 59' fill='none' stroke='url(%23gold)' stroke-width='3' stroke-linecap='round'/%3E %3Cg fill='url(%23gold)' stroke='%235c4310' stroke-width='1.2' stroke-linejoin='round'%3E%3Cpath d='M0 0 C-5 -5 -13 -9 -13 -17 C-13 -24 -5 -26 0 -20 C5 -26 13 -24 13 -17 C13 -9 5 -5 0 0 Z' transform='translate(32 30) rotate(0)'/%3E%3Cpath d='M0 0 C-5 -5 -13 -9 -13 -17 C-13 -24 -5 -26 0 -20 C5 -26 13 -24 13 -17 C13 -9 5 -5 0 0 Z' transform='translate(32 30) rotate(-108)'/%3E%3Cpath d='M0 0 C-5 -5 -13 -9 -13 -17 C-13 -24 -5 -26 0 -20 C5 -26 13 -24 13 -17 C13 -9 5 -5 0 0 Z' transform='translate(32 30) rotate(108)'/%3E%3C/g%3E %3Ccircle cx='32' cy='30' r='2.2' fill='%23c99a3a'/%3E %3C/g%3E %3C/svg%3E") right 2.6rem center / 6.6rem 6.6rem no-repeat,
     var(--board-paint);
-  font-size: 9.6rem;
-  letter-spacing: 0.06em;
+  font-family: "Uncial Antiqua", serif;
+  font-size: 6.8rem;
+  letter-spacing: 0.03em;
   text-shadow: 0 -0.015em 0 #fff1c2, 0 0.04em 0 #5c4310, 0 0.07em 0.12em rgb(0 0 0 / 50%);
   box-shadow:
     inset 0 0 0 0.3rem var(--board-rule),
@@ -53,12 +54,10 @@
     0 0.6rem 1.4rem rgb(0 0 0 / 60%);
 }
 
-/* The tagline in gold Roman capitals like an old sign's "Est.", between fine gold rules that stop inside the frame */
+/* The tagline in gold capitals between fine gold rules that stop inside the frame */
 .board-tagline {
   margin: 2.6rem 3.4rem 2.8rem;
-  font-family: "Cinzel", serif;
-  font-size: 2.4rem;
-  font-weight: 700;
+  font-size: 2.6rem;
   letter-spacing: 0.3em;
 }
 
@@ -67,7 +66,7 @@
   border-top-width: 0.12rem;
 }
 
-/* Section headings in the same gilded letters on small green signboards with the fascia's moulding */
+/* Section headings in gilded capitals on small green signboards with the fascia's moulding */
 .board-section-title {
   border: 0;
   padding: 0.35em 0 0.3em 0.1em;
@@ -84,8 +83,8 @@
 
 .board-item-name,
 .board-item-stat {
-  font-size: 1.3em;
-  font-weight: 700;
+  font-size: 1.35em;
+  font-weight: normal;
 }
 
 .board-item-name {
@@ -94,7 +93,7 @@
 
 .board-item-description {
   font-size: 1.15em;
-  font-style: italic;
+  letter-spacing: 0.02em;
 }
 
 .board-item--kicked .board-item-name,
