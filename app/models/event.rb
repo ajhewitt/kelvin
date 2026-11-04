@@ -28,7 +28,7 @@ class Event < ApplicationRecord
       "dublin" => "Gilded uncials on a green fascia between gold shamrocks, like an Irish pub front"
     },
     "Breweries" => {
-      "pretty_things" => "Green hand-cut capitals on a label in a turquoise flower trim, like Pretty Things Beer & Ale Project's",
+      "pretty_things" => "Red hand-cut capitals on a label in a turquoise flower trim, like Pretty Things Beer & Ale Project's",
       "smod" => "A script sign over red barn doors with white folk borders, like Saint Mars of the Desert's"
     },
     "Bold and retro" => {

@@ -1,20 +1,21 @@
 /* Pretty Things: a Pretty Things Beer & Ale Project label in its whimsical, hand-drawn style, cream paper inside a
-   turquoise border printed with little red flowers, the name in green hand-cut capitals, rows of red flowers, and
-   meadows growing up the bottom corners */
+   turquoise border printed with little red flowers, the name in red hand-cut capitals, the rest in green and black ink,
+   rows of red flowers, and meadows growing up the bottom corners */
 @import url("/fonts/germania-one.css");
 @import url("/fonts/zilla-slab.css");
 
 .board {
   --board-background: #f4ebd3;
-  --board-accent: #d9302b;
+  --board-accent: #3f8f30;
   --board-accent-faded: rgb(46 36 24 / 30%);
-  --board-rule: #d9302b;
-  --board-heading: #d9302b;
-  --board-text: #5b4a33;
+  --board-rule: #3f8f30;
+  --board-heading: #3f8f30;
+  --board-text: #3d3122;
   --board-display-font: "Germania One", sans-serif;
   --board-font: "Zilla Slab", serif;
   --board-item-spacing: 0.05em;
-  --board-green: #5cb246;
+  --board-green: #4fa23e;
+  --board-red: #d9302b;
   --board-ink: #2e2418;
 
   /* The meadows sit just inside the border at the bottom corners, beside the drinks */
@@ -34,13 +35,13 @@
   pointer-events: none;
 }
 
-/* The name in green hand-cut capitals, like the brewery's own */
+/* The name in red hand-cut capitals, the red of the brewery's shield */
 .board-title {
   width: 92rem;
   margin-top: 4.2rem;
   border: 0;
   padding: 0;
-  color: var(--board-green);
+  color: var(--board-red);
   font-size: 9rem;
   letter-spacing: 0.04em;
 }
@@ -62,7 +63,7 @@
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='28' viewBox='0 0 44 28'%3E%3Cg fill='%23f2a3a0' stroke='%23d9302b' stroke-width='1.4'%3E%3Ccircle cx='22.00' cy='7.40' r='5.76'/%3E%3Ccircle cx='28.28' cy='11.96' r='5.76'/%3E%3Ccircle cx='25.88' cy='19.34' r='5.76'/%3E%3Ccircle cx='18.12' cy='19.34' r='5.76'/%3E%3Ccircle cx='15.72' cy='11.96' r='5.76'/%3E%3C/g%3E%3Ccircle cx='22' cy='14' r='3.60' fill='%23fff3d0'/%3E%3C/svg%3E") 0 50% / auto 100% space no-repeat;
 }
 
-/* Section headings in red capitals with a red flower at each end, over an inked line. The flower after sits closer to
+/* Section headings in green capitals with a red flower at each end, over an inked line. The flower after sits closer to
    make up for the letter spacing */
 .board-section-title {
   border: 0;
