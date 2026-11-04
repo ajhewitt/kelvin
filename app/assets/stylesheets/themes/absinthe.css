@@ -1,0 +1,79 @@
+/* Absinthe: Art Nouveau in olive and ochre on the milky green of absinthe with water, like a Belle Époque poster */
+@import url("/fonts/federant.css");
+@import url("/fonts/cormorant-garamond.css");
+
+.board {
+  --board-background: #dfe6c4;
+  --board-accent: #9a6420;
+  --board-accent-faded: rgb(47 59 29 / 30%);
+  --board-rule: #a8702a;
+  --board-heading: #f6f1df;
+  --board-text: #56603f;
+  --board-display-font: "Federant", serif;
+  --board-font: "Cormorant Garamond", serif;
+  --board-item-spacing: 0.08em;
+  --board-olive: #2f3b1d;
+  --board-sage: #6f8a55;
+
+  background: radial-gradient(ellipse at 50% 35%, #ebf0d6 0%, var(--board-background) 55%, #cbd5a8 100%);
+  /* Cormorant's old-style numerals make 660 read as 66o */
+  font-variant-numeric: lining-nums;
+}
+
+/* The name in Art Nouveau capitals, in deep olive */
+.board-title {
+  width: 92rem;
+  border: 0;
+  padding: 1.2rem 0 0.4rem 0.06em;
+  color: var(--board-olive);
+  font-size: 8rem;
+  letter-spacing: 0.06em;
+}
+
+.board-tagline {
+  font-family: var(--board-font);
+  font-size: 3.2rem;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: none;
+}
+
+/* Whiplash lines, the Art Nouveau curve */
+.board-tagline::before,
+.board-tagline::after {
+  height: 1.6rem;
+  border: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='28' viewBox='0 0 160 28'%3E %3Cg fill='none' stroke='%23a8702a' stroke-linecap='round'%3E %3Cpath d='M0 15 C24 15 34 5 54 7 S84 24 108 19 S142 13 160 15' stroke-width='1.8'/%3E %3Cpath d='M54 7 C60 0 72 1 71 8 C70 12 64 12 64 8' stroke-width='1.2'/%3E %3Cpath d='M118 18 C124 24 134 24 136 18' stroke-width='1.1'/%3E %3C/g%3E %3Cpath d='M86 21 C90 12 100 10 104 13 C100 20 92 23 86 21 Z' fill='%2386a83f'/%3E %3Cpath d='M86 21 C92 17 97 15 104 13' fill='none' stroke='%235f7a2c' stroke-width='0.7'/%3E %3C/svg%3E") 0 50% / auto 100% repeat-x;
+}
+
+/* Section headings in cream on sage panels with arched tops, edged in ochre */
+.board-section-title {
+  border: 0.06em solid var(--board-rule);
+  border-radius: 1.2em 1.2em 0.25em 0.25em;
+  padding: 0.35em 0 0.25em 0.2em;
+  background: var(--board-sage);
+  font-size: 2.3em;
+  letter-spacing: 0.2em;
+}
+
+.board-item-name,
+.board-item-stat {
+  font-size: 1.45em;
+  font-weight: 700;
+}
+
+.board-item-name {
+  color: var(--board-olive);
+}
+
+.board-item-description {
+  font-size: 1.3em;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.board-item--kicked .board-item-name,
+.board-item--kicked .board-item-stat {
+  text-decoration-color: var(--board-rule);
+}

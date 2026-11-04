@@ -1,0 +1,73 @@
+/* Berlin Deco: Art Deco in black, red and gold, the German flag's colours, like Berlin in the twenties */
+@import url("/fonts/limelight.css");
+@import url("/fonts/federo.css");
+@import url("/fonts/jost.css");
+
+.board {
+  --board-background: #0e0d0c;
+  --board-accent: #e0b143;
+  --board-accent-faded: rgb(242 237 225 / 30%);
+  --board-rule: #e0b143;
+  --board-heading: #0e0d0c;
+  --board-text: #a7a196;
+  --board-display-font: "Federo", sans-serif;
+  --board-font: "Jost", sans-serif;
+  --board-item-spacing: 0.1em;
+  --board-red: #c8261e;
+
+  background: radial-gradient(ellipse at 50% 30%, #1a1816 0%, var(--board-background) 60%, #050505 100%);
+}
+
+/* The name in Limelight, Art Deco's thick and thin, in gold */
+.board-title {
+  width: 92rem;
+  border: 0;
+  padding: 1.2rem 0 0.6rem 0.1em;
+  font-family: "Limelight", sans-serif;
+  font-size: 7.6rem;
+  letter-spacing: 0.1em;
+}
+
+.board-tagline {
+  color: #f2ede1;
+  font-size: 2.6rem;
+  letter-spacing: 0.35em;
+}
+
+/* Red over gold, the flag's lower stripes, with the black above them */
+.board-tagline::before,
+.board-tagline::after {
+  height: 0.7rem;
+  border: 0;
+  background: linear-gradient(180deg, var(--board-red) 0 50%, var(--board-rule) 50% 100%);
+}
+
+/* Section headings in black on gold, underlined in red */
+.board-section-title {
+  border: 0;
+  border-bottom: 0.14em solid var(--board-red);
+  padding: 0.35em 0 0.25em 0.3em;
+  background: var(--board-rule);
+  font-size: 2.2em;
+  letter-spacing: 0.3em;
+}
+
+.board-item-name,
+.board-item-stat {
+  font-size: 1.35em;
+  font-weight: 500;
+}
+
+.board-item-name {
+  color: #f2ede1;
+}
+
+.board-item-description {
+  font-size: 1.15em;
+  font-weight: 300;
+}
+
+.board-item--kicked .board-item-name,
+.board-item--kicked .board-item-stat {
+  text-decoration-color: var(--board-red);
+}
