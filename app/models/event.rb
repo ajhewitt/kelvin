@@ -6,7 +6,6 @@ class Event < ApplicationRecord
       "classic" => "Coral on deep purple, the original board",
       "public_house" => "Gold leaf on oxblood, like a pub sign",
       "racing_green" => "Cream and brass on British racing green",
-      "stout" => "Cream and gold on black, like a pint of stout",
       "admiralty" => "Brass on navy in a double frame",
       "mahogany" => "Amber and copper on dark wood",
       "tudor" => "Cream and oxblood on black, like timber framing",
@@ -25,7 +24,8 @@ class Event < ApplicationRecord
       "trappist" => "Gothic letters in weathered limestone under a great stone arch, like a Trappist abbey",
       "beer_hall" => "White Fraktur on Bavarian blue under the diamonds, like an Oktoberfest hall",
       "absinthe" => "Cream Art Nouveau on absinthe green in a whiplash frame, like a Belle Époque poster",
-      "art_deco" => "Gold on black in a frame of fans and stepped corners, like a twenties speakeasy"
+      "art_deco" => "Gold on black in a frame of fans and stepped corners, like a twenties speakeasy",
+      "dublin" => "The name in a creamy head over black stout, like a pint in a Dublin pub"
     },
     "Bold and retro" => {
       "neon" => "Neon signs behind the bar",
