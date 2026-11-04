@@ -1,47 +1,71 @@
-/* Trappist: an abbey beer's label, the name in brown blackletter with a gold shadow over gold Roman capitals */
+/* Trappist: an abbey's brick-vaulted cellar by candlelight, the name on an oval sign and the drinks on a cream label */
 @import url("/fonts/unifrakturcook.css");
 @import url("/fonts/cinzel.css");
 @import url("/fonts/cardo.css");
 
 .board {
-  --board-background: #f1e9d3;
+  --board-background: #24150e;
   --board-accent: #9a7219;
   --board-accent-faded: rgb(59 36 18 / 30%);
-  --board-rule: #b88a2a;
+  --board-rule: #c79a3a;
   --board-heading: #3b2412;
   --board-text: #6b5a45;
   --board-display-font: "UnifrakturCook", serif;
   --board-font: "Cardo", serif;
   --board-item-spacing: 0.06em;
+  --board-burgundy: #6e1b2a;
+  --board-cream: #efe3c6;
 
-  /* A cream label, aged toward its edges */
-  background: radial-gradient(ellipse at 50% 40%, #f7f1e1 0%, var(--board-background) 55%, #e2d4b1 100%);
+  /* Brick vaults lit by candles: a warm glow from above, the corners falling into shadow */
+  background:
+    radial-gradient(ellipse 45% 32% at 50% 6%, rgb(255 186 100 / 32%), transparent 70%),
+    radial-gradient(ellipse at 50% 45%, transparent 35%, rgb(0 0 0 / 62%) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='96' viewBox='0 0 192 96'%3E %3Crect width='192' height='96' fill='%2324150e'/%3E%3Crect x='1' y='1' width='46' height='22' rx='1.5' fill='%236e3626'/%3E%3Crect x='1' y='1' width='46' height='2.5' rx='1.2' fill='%23fff' fill-opacity='0.08'/%3E%3Crect x='1' y='20' width='46' height='3' rx='1.2' fill='%23000' fill-opacity='0.18'/%3E%3Crect x='49' y='1' width='46' height='22' rx='1.5' fill='%237d4029'/%3E%3Crect x='49' y='1' width='46' height='2.5' rx='1.2' fill='%23fff' fill-opacity='0.08'/%3E%3Crect x='49' y='20' width='46' height='3' rx='1.2' fill='%23000' fill-opacity='0.18'/%3E%3Crect x='97' y='1' width='46' height='22' rx='1.5' fill='%235f2d1f'/%3E%3Crect x='97' y='1' width='46' height='2.5' rx='1.2' fill='%23fff' fill-opacity='0.08'/%3E%3Crect x='97' y='20' width='46' height='3' rx='1.2' fill='%23000' fill-opacity='0.18'/%3E%3Crect x='145' y='1' width='46' height='22' rx='1.5' fill='%2386472e'/%3E%3Crect x='145' y='1' width='46' height='2.5' rx='1.2' fill='%23fff' fill-opacity='0.08'/%3E%3Crect x='145' y='20' width='46' height='3' rx='1.2' fill='%23000' fill-opacity='0.18'/%3E%3Crect x='25' y='25' width='46' height='22' rx='1.5' fill='%2373382a'/%3E%3Crect x='25' y='25' width='46' height='2.5' rx='1.2' fill='%23fff' fill-opacity='0.08'/%3E%3Crect x='25' y='44' width='46' height='3' rx='1.2' fill='%23000' fill-opacity='0.18'/%3E%3Crect x='73' y='25' width='46' height='22' rx='1.5' fill='%238f5034'/%3E%3Crect x='73' y='25' width='46' height='2.5' rx='1.2' fill='%23fff' fill-opacity='0.08'/%3E%3Crect x='73' y='44' width='46' height='3' rx='1.2' fill='%23000' fill-opacity='0.18'/%3E%3Crect x='121' y='25' width='46' height='22' rx='1.5' fill='%23663022'/%3E%3Crect x='121' y='25' width='46' height='2.5' rx='1.2' fill='%23fff' fill-opacity='0.08'/%3E%3Crect x='121' y='44' width='46' height='3' rx='1.2' fill='%23000' fill-opacity='0.18'/%3E%3Crect x='169' y='25' width='46' height='22' rx='1.5' fill='%237a3b2b'/%3E%3Crect x='169' y='25' width='46' height='2.5' rx='1.2' fill='%23fff' fill-opacity='0.08'/%3E%3Crect x='169' y='44' width='46' height='3' rx='1.2' fill='%23000' fill-opacity='0.18'/%3E%3Crect x='-23' y='25' width='46' height='22' rx='1.5' fill='%237a3b2b'/%3E%3Crect x='-23' y='25' width='46' height='2.5' rx='1.2' fill='%23fff' fill-opacity='0.08'/%3E%3Crect x='-23' y='44' width='46' height='3' rx='1.2' fill='%23000' fill-opacity='0.18'/%3E%3Crect x='1' y='49' width='46' height='22' rx='1.5' fill='%2357291c'/%3E%3Crect x='1' y='49' width='46' height='2.5' rx='1.2' fill='%23fff' fill-opacity='0.08'/%3E%3Crect x='1' y='68' width='46' height='3' rx='1.2' fill='%23000' fill-opacity='0.18'/%3E%3Crect x='49' y='49' width='46' height='22' rx='1.5' fill='%2394573a'/%3E%3Crect x='49' y='49' width='46' height='2.5' rx='1.2' fill='%23fff' fill-opacity='0.08'/%3E%3Crect x='49' y='68' width='46' height='3' rx='1.2' fill='%23000' fill-opacity='0.18'/%3E%3Crect x='97' y='49' width='46' height='22' rx='1.5' fill='%2381432c'/%3E%3Crect x='97' y='49' width='46' height='2.5' rx='1.2' fill='%23fff' fill-opacity='0.08'/%3E%3Crect x='97' y='68' width='46' height='3' rx='1.2' fill='%23000' fill-opacity='0.18'/%3E%3Crect x='145' y='49' width='46' height='22' rx='1.5' fill='%236a3324'/%3E%3Crect x='145' y='49' width='46' height='2.5' rx='1.2' fill='%23fff' fill-opacity='0.08'/%3E%3Crect x='145' y='68' width='46' height='3' rx='1.2' fill='%23000' fill-opacity='0.18'/%3E%3Crect x='25' y='73' width='46' height='22' rx='1.5' fill='%237f3f2a'/%3E%3Crect x='25' y='73' width='46' height='2.5' rx='1.2' fill='%23fff' fill-opacity='0.08'/%3E%3Crect x='25' y='92' width='46' height='3' rx='1.2' fill='%23000' fill-opacity='0.18'/%3E%3Crect x='73' y='73' width='46' height='22' rx='1.5' fill='%235c2b1e'/%3E%3Crect x='73' y='73' width='46' height='2.5' rx='1.2' fill='%23fff' fill-opacity='0.08'/%3E%3Crect x='73' y='92' width='46' height='3' rx='1.2' fill='%23000' fill-opacity='0.18'/%3E%3Crect x='121' y='73' width='46' height='22' rx='1.5' fill='%238a4b31'/%3E%3Crect x='121' y='73' width='46' height='2.5' rx='1.2' fill='%23fff' fill-opacity='0.08'/%3E%3Crect x='121' y='92' width='46' height='3' rx='1.2' fill='%23000' fill-opacity='0.18'/%3E%3Crect x='169' y='73' width='46' height='22' rx='1.5' fill='%2370362a'/%3E%3Crect x='169' y='73' width='46' height='2.5' rx='1.2' fill='%23fff' fill-opacity='0.08'/%3E%3Crect x='169' y='92' width='46' height='3' rx='1.2' fill='%23000' fill-opacity='0.18'/%3E%3Crect x='-23' y='73' width='46' height='22' rx='1.5' fill='%2370362a'/%3E%3Crect x='-23' y='73' width='46' height='2.5' rx='1.2' fill='%23fff' fill-opacity='0.08'/%3E%3Crect x='-23' y='92' width='46' height='3' rx='1.2' fill='%23000' fill-opacity='0.18'/%3E %3C/svg%3E") 0 0 / 19.2rem 9.6rem,
+    var(--board-background);
 }
 
-/* The name in blackletter, in upper and lower case as the abbeys' labels set it */
+/* The name on an oval sign of cream enamel, rimmed in gold with a burgundy line, like the abbey signs on the cellar
+   walls. Blackletter in upper and lower case, as the abbeys' labels set it */
 .board-title {
-  width: 92rem;
-  border: 0;
-  padding: 1rem 0 0.4rem;
+  width: 84rem;
+  margin-top: 2rem;
+  border: 0.4rem solid var(--board-rule);
+  border-radius: 50%;
+  padding: 2.2rem 0 1.8rem;
+  background: radial-gradient(ellipse at 50% 40%, #fbf5e6, var(--board-cream));
   color: var(--board-heading);
-  font-size: 9.2rem;
+  font-size: 8rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   text-transform: none;
   text-shadow: 0.035em 0.03em 0 #c8962f;
+  box-shadow: inset 0 0 0 0.5rem var(--board-cream), inset 0 0 0 0.65rem var(--board-burgundy), 0 0.6rem 1.6rem rgb(0 0 0 / 60%);
 }
 
-/* The tagline in gold Roman capitals between fine gold rules */
+/* The tagline in gold Roman capitals on the brick, between fine gold rules */
 .board-tagline {
+  margin: 2rem 0 2.2rem;
+  color: #e8c46a;
   font-family: "Cinzel", serif;
-  font-size: 2.8rem;
+  font-size: 2.6rem;
   font-weight: 700;
   letter-spacing: 0.3em;
+  text-shadow: 0 0.06em 0.2em rgb(0 0 0 / 70%);
 }
 
 .board-tagline::before,
 .board-tagline::after {
   border-top-width: 0.12rem;
+}
+
+/* The drinks on a cream label with an arched top, edged in gold and burgundy. Sized in em so it shrinks with long
+   lists, though its width, and so the arch's span, stays put */
+.board-lists {
+  border: 0.3em solid var(--board-rule);
+  border-radius: 50% 50% 0.6em 0.6em / 4em 4em 0.6em 0.6em;
+  padding: 3.2em 2.6em 0.6em;
+  background: radial-gradient(ellipse at 50% 25%, #fbf5e6, var(--board-cream) 70%, #e3d3ad);
+  box-shadow: inset 0 0 0 0.35em var(--board-cream), inset 0 0 0 0.48em var(--board-burgundy), 0 0.8em 2em rgb(0 0 0 / 65%);
 }
 
 /* Section headings in blackletter over a fine gold rule */
@@ -72,5 +96,5 @@
 
 .board-item--kicked .board-item-name,
 .board-item--kicked .board-item-stat {
-  text-decoration-color: var(--board-rule);
+  text-decoration-color: var(--board-burgundy);
 }

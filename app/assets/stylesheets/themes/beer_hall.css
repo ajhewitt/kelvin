@@ -1,56 +1,69 @@
-/* Beer Hall: a Munich beer hall's Fraktur in Bavarian blue on white plaster, between bands of blue and white diamonds */
+/* Beer Hall: an Oktoberfest hall, the name in white Fraktur on a Bavarian blue band under a row of blue and white
+   diamonds, like the festival's tablecloths, with gold and blue ribbons on the hall's cream plaster */
 @import url("/fonts/manufacturing-consent.css");
 @import url("/fonts/spectral.css");
 
 .board {
-  --board-background: #f6f3ea;
-  --board-accent: #154a8a;
+  --board-background: #f5ecd6;
+  --board-accent: #1c7fc2;
   --board-accent-faded: rgb(29 36 48 / 30%);
-  --board-rule: #154a8a;
+  --board-rule: #e0b030;
   --board-heading: #fff;
-  --board-text: #575e69;
+  --board-text: #5d5a52;
   --board-display-font: "Manufacturing Consent", serif;
   --board-font: "Spectral", serif;
   --board-item-spacing: 0.05em;
+  --board-blue: #1c7fc2;
   --board-ink: #1d2430;
 
-  background: radial-gradient(ellipse at 50% 30%, #fbf9f3 0%, var(--board-background) 60%, #e9e4d6 100%);
+  /* Cream plaster, warmer toward the lanterns' light */
+  background: radial-gradient(ellipse at 50% 55%, #fbf6e9 0%, var(--board-background) 55%, #e8dabd 100%);
 }
 
-/* The name in classic Fraktur capitals, like a German beer label */
+/* The name in white Fraktur capitals on a blue band across the screen, the diamonds above it on a gold line */
 .board-title {
-  width: 92rem;
+  width: auto;
+  margin: 0;
   border: 0;
-  padding: 0.8rem 0 0.2rem;
-  color: var(--board-rule);
-  font-size: 8.4rem;
+  border-bottom: 0.35rem solid var(--board-rule);
+  padding: 5.6rem 0 1.4rem;
+  background:
+    linear-gradient(var(--board-rule), var(--board-rule)) 0 3.8rem / 100% 0.35rem no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='48' viewBox='0 0 400 48'%3E %3Cdefs%3E%3Cpattern id='d' width='40' height='24' patternUnits='userSpaceOnUse' patternTransform='skewX(-25)'%3E %3Crect width='40' height='24' fill='%23fff'/%3E%3Cpath d='M20 0 L40 12 L20 24 L0 12 Z' fill='%231c7fc2'/%3E %3C/pattern%3E%3C/defs%3E %3Crect width='400' height='48' fill='url(%23d)'/%3E %3C/svg%3E") 0 0 / auto 3.8rem repeat-x,
+    var(--board-blue);
+  color: #fff;
+  font-size: 8rem;
   letter-spacing: 0.03em;
+  text-shadow: 0 0.04em 0 #0f4f80, 0 0.06em 0.14em rgb(0 0 0 / 30%);
 }
 
+/* The tagline in brown Fraktur on a gold ribbon, like the banners in the hall, with no rules beside it */
 .board-tagline {
-  color: var(--board-ink);
-  font-family: var(--board-font);
+  justify-content: center;
+  margin: 2.2rem 0 2.6rem;
+  color: #3a2a12;
   font-size: 3rem;
-  font-style: italic;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   text-transform: none;
 }
 
-/* Bands of Bavaria's blue and white diamonds */
 .board-tagline::before,
 .board-tagline::after {
-  height: 1.6rem;
-  border: 0.15rem solid var(--board-rule);
-  border-width: 0.15rem 0;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='32' viewBox='0 0 240 32'%3E %3Cdefs%3E%3Cpattern id='r' width='24' height='16' patternUnits='userSpaceOnUse' patternTransform='skewX(-30)'%3E %3Crect width='24' height='16' fill='%23fff'/%3E%3Cpath d='M12 0 L24 8 L12 16 L0 8 Z' fill='%232f80cf'/%3E %3C/pattern%3E%3C/defs%3E %3Crect width='240' height='32' fill='url(%23r)'/%3E %3C/svg%3E") 0 50% / auto 100% repeat-x;
+  display: none;
 }
 
-/* Section headings in white Fraktur on Bavarian blue, in upper and lower case so brand names stay readable */
+.board-tagline span {
+  padding: 0.28em 1.5em 0.22em;
+  background: linear-gradient(180deg, #f6d466, #dba82a);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 0.6em) 50%, 100% 100%, 0 100%, 0.6em 50%);
+}
+
+/* Section headings in white Fraktur on blue ribbons, in upper and lower case so brand names stay readable */
 .board-section-title {
   border: 0;
-  border-radius: 0.15em;
   padding: 0.25em 0 0.2em;
-  background: var(--board-rule);
+  background: var(--board-blue);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 0.5em) 50%, 100% 100%, 0 100%, 0.5em 50%);
   font-size: 2.6em;
   letter-spacing: 0.04em;
   text-transform: none;
@@ -73,5 +86,5 @@
 
 .board-item--kicked .board-item-name,
 .board-item--kicked .board-item-stat {
-  text-decoration-color: var(--board-rule);
+  text-decoration-color: var(--board-blue);
 }
