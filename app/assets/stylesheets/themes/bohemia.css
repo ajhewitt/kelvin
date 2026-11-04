@@ -1,0 +1,91 @@
+/* Bohemia: a Czech lager's label in cream, gold and red on Pilsner green, framed in gold */
+@import url("/fonts/abril-fatface.css");
+@import url("/fonts/old-standard-tt.css");
+
+.board {
+  --board-background: #17432b;
+  --board-accent: #e2bd5a;
+  --board-accent-faded: rgb(246 237 211 / 30%);
+  --board-rule: #c9a13b;
+  --board-heading: #f6edd3;
+  --board-text: #b9cbb6;
+  --board-display-font: "Abril Fatface", serif;
+  --board-font: "Old Standard TT", serif;
+  --board-item-spacing: 0.06em;
+  --board-red: #b7282e;
+
+  background: radial-gradient(ellipse at 50% 35%, #1f5838 0%, var(--board-background) 60%, #0f3220 100%);
+}
+
+/* The label's edge: a double gold frame just inside the screen */
+.board::before {
+  content: "";
+  position: fixed;
+  inset: 1.2rem;
+  border: 0.4rem double var(--board-rule);
+  border-radius: 1.6rem;
+  pointer-events: none;
+}
+
+/* The name in a fat face, cream with a gold shadow, as the labels print it */
+.board-title {
+  width: 92rem;
+  border: 0;
+  padding: 1.6rem 0 0.4rem 0.04em;
+  color: var(--board-heading);
+  font-size: 8rem;
+  letter-spacing: 0.04em;
+  text-shadow: 0.03em 0.03em 0 var(--board-rule);
+}
+
+/* The tagline on a red ribbon with swallowtail ends, between gold rules that stop at the frame */
+.board-tagline {
+  margin: 2.6rem 2.4rem 3rem;
+  color: var(--board-heading);
+  font-family: var(--board-font);
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+}
+
+.board-tagline span {
+  padding: 0.4em 1.3em 0.32em 1.55em;
+  background: var(--board-red);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 0.7em) 50%, 100% 100%, 0 100%, 0.7em 50%);
+}
+
+.board-tagline::before,
+.board-tagline::after {
+  height: 0.35rem;
+  border-top: 0.12rem solid var(--board-rule);
+  border-bottom: 0.12rem solid var(--board-rule);
+}
+
+/* Section headings in cream inside double gold frames */
+.board-section-title {
+  border: 0.14em double var(--board-rule);
+  border-radius: 0.3em;
+  padding: 0.35em 0 0.25em 0.12em;
+  font-size: 2.2em;
+  letter-spacing: 0.12em;
+}
+
+.board-item-name,
+.board-item-stat {
+  font-size: 1.35em;
+  font-weight: 700;
+}
+
+.board-item-name {
+  color: var(--board-heading);
+}
+
+.board-item-description {
+  font-size: 1.2em;
+  font-style: italic;
+}
+
+.board-item--kicked .board-item-name,
+.board-item--kicked .board-item-stat {
+  text-decoration-color: var(--board-red);
+}

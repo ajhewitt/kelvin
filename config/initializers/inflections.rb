@@ -14,3 +14,8 @@
 # ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.acronym "RESTful"
 # end
+
+# The CCCP theme's name, which titleize would otherwise turn into "Cccp"
+ActiveSupport::Inflector.inflections(:en) do |inflect|
+  inflect.acronym "CCCP"
+end

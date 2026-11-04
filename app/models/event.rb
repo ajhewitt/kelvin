@@ -25,7 +25,9 @@ class Event < ApplicationRecord
       "trappist" => "Brown and gold blackletter on a cream label, like an abbey's own beer",
       "beer_hall" => "Fraktur and Bavarian blue diamonds, like a Munich beer hall",
       "berlin_deco" => "Art Deco in black, red and gold, like Berlin in the twenties",
-      "absinthe" => "Art Nouveau in olive and ochre on absinthe green, like a Belle Époque poster"
+      "absinthe" => "Art Nouveau in olive and ochre on absinthe green, like a Belle Époque poster",
+      "bohemia" => "Cream, gold and a red ribbon on Pilsner green, like a Czech lager label",
+      "cccp" => "Red and black on poster paper, like a Soviet constructivist poster"
     },
     "Bold and retro" => {
       "neon" => "Neon signs behind the bar",
