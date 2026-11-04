@@ -14,3 +14,8 @@
 # ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.acronym "RESTful"
 # end
+
+# The SMOD theme's name, which titleize would otherwise turn into "Smod"
+ActiveSupport::Inflector.inflections(:en) do |inflect|
+  inflect.acronym "SMOD"
+end
