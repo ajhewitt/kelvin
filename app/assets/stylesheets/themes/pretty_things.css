@@ -1,8 +1,18 @@
 /* Pretty Things: a Pretty Things Beer & Ale Project label in its whimsical, hand-drawn style, cream paper inside a
-   turquoise border printed with little red flowers, the name in red hand-cut capitals, the rest in green and black ink,
-   rows of red flowers, and meadows growing up the bottom corners */
-@import url("/fonts/germania-one.css");
+   turquoise border printed with little red flowers, the name in red capitals like the brewery's hand-drawn lettering,
+   the rest in green and black ink, rows of red flowers, and meadows growing up the bottom corners */
+@import url("/fonts/sancreek.css");
 @import url("/fonts/zilla-slab.css");
+
+/* The lettering is No Club Lone Wolf, a match for Pretty Things' own. It's free for personal use only, so it isn't in
+   this repository: installed on the Pi (see the README), the browser finds it by name, and anywhere else Sancreek stands
+   in. It draws ornaments in place of some symbols and leaves some accents off, so only the letters, digits and
+   punctuation it draws properly come from it, and the rest from Sancreek */
+@font-face {
+  font-family: "Pretty Things Lettering";
+  src: local("No Club Lone Wolf"), local("NoClubLoneWolf");
+  unicode-range: U+0020-0022, U+0027, U+002C-003A, U+003F, U+0041-005A, U+0061-007A, U+00A1, U+00BF, U+2018-2019, U+201C-201D;
+}
 
 .board {
   --board-background: #f4ebd3;
@@ -11,7 +21,7 @@
   --board-rule: #3f8f30;
   --board-heading: #3f8f30;
   --board-text: #3d3122;
-  --board-display-font: "Germania One", sans-serif;
+  --board-display-font: "Pretty Things Lettering", "Sancreek", sans-serif;
   --board-font: "Zilla Slab", serif;
   --board-item-spacing: 0.05em;
   --board-green: #4fa23e;
@@ -35,7 +45,7 @@
   pointer-events: none;
 }
 
-/* The name in red hand-cut capitals, the red of the brewery's shield */
+/* The name in red capitals, the red of the brewery's shield */
 .board-title {
   width: 92rem;
   margin-top: 4.2rem;

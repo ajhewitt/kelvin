@@ -163,6 +163,16 @@ if [ "$(tty)" = "/dev/tty1" ] && [ -z "$WAYLAND_DISPLAY" ]; then
 fi
 ```
 
+### 7. The Pretty Things lettering (optional)
+The Pretty Things theme's lettering is No Club Lone Wolf by Woodcutter, a match for the brewery's hand-drawn letters. It's free for personal use only, so it isn't in this repository, and without it the theme uses Sancreek. To use it, copy the font's `.ttf` file to the Pi (with `scp`, say), then install it where the kiosk's browser finds it and restart:
+```bash
+sudo mkdir -p /usr/local/share/fonts
+sudo cp "No Club Lone Wolf.ttf" /usr/local/share/fonts/
+sudo fc-cache -f
+sudo reboot
+```
+`fc-list | grep -i "lone wolf"` shows it's installed. The admin's theme previews show it only on a computer that has the font installed too.
+
 ### Updating
 ```bash
 cd ~/kelvin
