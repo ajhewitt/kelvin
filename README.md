@@ -164,14 +164,14 @@ fi
 ```
 
 ### 7. The brewery themes' lettering (optional)
-The Pretty Things and SMOD themes letter their names, taglines and headings in hand-drawn fonts like the breweries' own: No Club Lone Wolf by Woodcutter for Pretty Things, and Lithunoa by Jadatype for SMOD. Both are free for personal use only, so they aren't in this repository, and without them the themes use Sancreek and Sriracha. To use them, copy the fonts' files to the Pi (with `scp`, say), then install them where the kiosk's browser finds them and restart:
+The brewery themes letter their names, taglines and headings in fonts like the breweries' own: No Club Lone Wolf by Woodcutter for Pretty Things, Lithunoa by Jadatype for SMOD, and Flareserif 821 Light, Bitstream's Albertus, the lettering of Old Peculier, for Theakston. The first two are free for personal use only and Flareserif is a commercial font, so none of them is in this repository. Without them the themes use Sancreek, Sriracha and Marcellus SC. To use them, copy the fonts' files to the Pi (with `scp`, say), then install them where the kiosk's browser finds them and restart:
 ```bash
 sudo mkdir -p /usr/local/share/fonts
-sudo cp "No Club Lone Wolf.ttf" Lithunoa-*.otf /usr/local/share/fonts/
+sudo cp "No Club Lone Wolf.ttf" Lithunoa-*.otf Flareserif_821_Light_Regular.otf /usr/local/share/fonts/
 sudo fc-cache -f
 sudo reboot
 ```
-Lithunoa's download also has a dingbats font, which the board doesn't use. `fc-list | grep -i -e "lone wolf" -e lithunoa` shows they're installed. The admin's theme previews show the lettering only on a computer that has the fonts installed too.
+Lithunoa's download also has a dingbats font, which the board doesn't use. `fc-list | grep -i -e "lone wolf" -e lithunoa -e flareserif` shows they're installed. The admin's theme previews show the lettering only on a computer that has the fonts installed too.
 
 ### Updating
 ```bash
@@ -202,7 +202,7 @@ The board at `/` is public, for the TV. Everything else is behind a login at `/l
 **Tap list**
 
 * **Current list:** everything for the night in one place. Start and stop the event's serving session, and turn its draft temperature up or down a degree at a time, with the latest reading beside it. Below that are the event's drinks, laid out like the board. Kick a drink (it stays on the board, crossed out), move drinks up and down within their brand, move whole brands, set an emoji or hide a drink's image, and add or take off drinks. The board picks up changes within 15 seconds.
-* **Events:** date, name, tagline, which stats the board shows (SRM, IBU, ABV) and the board's theme. **Themes** previews every theme on the event's board, in four groups: pub classics like Classic (the original look), Public House, Racing Green and Tudor; looks from around the world, like Grand Place, Trappist, Beer Hall, Absinthe, Art Deco and Dublin; breweries' own styles, Pretty Things and SMOD (The Brewery of Saint Mars of the Desert); and bold and retro ones like Neon, Cyberpunk, Synthwave, Arcade, Disco, Matrix and Industrial. Each is a stylesheet in `app/assets/stylesheets/themes`, with its fonts bundled so the kiosk needs no internet.
+* **Events:** date, name, tagline, which stats the board shows (SRM, IBU, ABV) and the board's theme. **Themes** previews every theme on the event's board, in four groups: pub classics like Classic (the original look), Public House, Racing Green and Tudor; looks from around the world, like Grand Place, Trappist, Beer Hall, Absinthe, Art Deco and Dublin; breweries' own styles, Pretty Things, SMOD (The Brewery of Saint Mars of the Desert), Theakston and Mystic; and bold and retro ones like Neon, Cyberpunk, Synthwave, Arcade, Disco, Matrix and Industrial. Each is a stylesheet in `app/assets/stylesheets/themes`, with its fonts bundled so the kiosk needs no internet.
 * **Drinks:** name, brand (blank for the house's own), ABV, IBU, SRM, description and image. When a beer comes back with different numbers, use **Copy as new brew** so earlier events keep theirs.
 * **Brands and Packages:** package sizes are typed as printed (12 oz, 660 ml, 5 gal, 4.5 imp gal).
 
