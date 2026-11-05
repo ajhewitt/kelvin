@@ -27,7 +27,7 @@ class Event < ApplicationRecord
     "Breweries" => {
       "pretty_things" => "Red hand-cut capitals on a label in a turquoise flower trim, like Pretty Things Beer & Ale Project's",
       "smod" => "A light blue sky over a grey brick works and smokestacks, its windows holding the drinks, like Saint Mars of the Desert's mural",
-      "theakston" => "Yellow swash capitals on a black badge inside a striped gold rope, like Theakston's beer mats and pump clips"
+      "theakston" => "Old Peculier's flared lettering in yellow on a black badge inside a twisted gold rope, like Theakston's pump clips"
     },
     "Bold and retro" => {
       "neon" => "Neon signs behind the bar",

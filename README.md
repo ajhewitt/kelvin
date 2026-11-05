@@ -164,14 +164,14 @@ fi
 ```
 
 ### 7. The brewery themes' lettering (optional)
-The Pretty Things and SMOD themes letter their names, taglines and headings in hand-drawn fonts like the breweries' own: No Club Lone Wolf by Woodcutter for Pretty Things, and Lithunoa by Jadatype for SMOD. Both are free for personal use only, so they aren't in this repository, and without them the themes use Sancreek and Sriracha. To use them, copy the fonts' files to the Pi (with `scp`, say), then install them where the kiosk's browser finds them and restart:
+The brewery themes letter their names, taglines and headings in fonts like the breweries' own: No Club Lone Wolf by Woodcutter for Pretty Things, Lithunoa by Jadatype for SMOD, and Flareserif 821 Light, Bitstream's Albertus, the lettering of Old Peculier, for Theakston. The first two are free for personal use only and Flareserif is a commercial font, so none of them is in this repository. Without them the themes use Sancreek, Sriracha and Marcellus SC. To use them, copy the fonts' files to the Pi (with `scp`, say), then install them where the kiosk's browser finds them and restart:
 ```bash
 sudo mkdir -p /usr/local/share/fonts
-sudo cp "No Club Lone Wolf.ttf" Lithunoa-*.otf /usr/local/share/fonts/
+sudo cp "No Club Lone Wolf.ttf" Lithunoa-*.otf Flareserif_821_Light_Regular.otf /usr/local/share/fonts/
 sudo fc-cache -f
 sudo reboot
 ```
-Lithunoa's download also has a dingbats font, which the board doesn't use. `fc-list | grep -i -e "lone wolf" -e lithunoa` shows they're installed. The admin's theme previews show the lettering only on a computer that has the fonts installed too.
+Lithunoa's download also has a dingbats font, which the board doesn't use. `fc-list | grep -i -e "lone wolf" -e lithunoa -e flareserif` shows they're installed. The admin's theme previews show the lettering only on a computer that has the fonts installed too.
 
 ### Updating
 ```bash
