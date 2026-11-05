@@ -163,15 +163,15 @@ if [ "$(tty)" = "/dev/tty1" ] && [ -z "$WAYLAND_DISPLAY" ]; then
 fi
 ```
 
-### 7. The Pretty Things lettering (optional)
-The Pretty Things theme's lettering is No Club Lone Wolf by Woodcutter, a match for the brewery's hand-drawn letters. It's free for personal use only, so it isn't in this repository, and without it the theme uses Sancreek. To use it, copy the font's `.ttf` file to the Pi (with `scp`, say), then install it where the kiosk's browser finds it and restart:
+### 7. The brewery themes' lettering (optional)
+The Pretty Things and SMOD themes letter their names, taglines and headings in hand-drawn fonts like the breweries' own: No Club Lone Wolf by Woodcutter for Pretty Things, and Lithunoa by Jadatype for SMOD. Both are free for personal use only, so they aren't in this repository, and without them the themes use Sancreek and Sriracha. To use them, copy the fonts' files to the Pi (with `scp`, say), then install them where the kiosk's browser finds them and restart:
 ```bash
 sudo mkdir -p /usr/local/share/fonts
-sudo cp "No Club Lone Wolf.ttf" /usr/local/share/fonts/
+sudo cp "No Club Lone Wolf.ttf" Lithunoa-*.otf /usr/local/share/fonts/
 sudo fc-cache -f
 sudo reboot
 ```
-`fc-list | grep -i "lone wolf"` shows it's installed. The admin's theme previews show it only on a computer that has the font installed too.
+Lithunoa's download also has a dingbats font, which the board doesn't use. `fc-list | grep -i -e "lone wolf" -e lithunoa` shows they're installed. The admin's theme previews show the lettering only on a computer that has the fonts installed too.
 
 ### Updating
 ```bash
