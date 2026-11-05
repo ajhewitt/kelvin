@@ -5,6 +5,16 @@
 @import url("/fonts/sriracha.css");
 @import url("/fonts/mali.css");
 
+/* The lettering is Lithunoa by Jadatype, hand-drawn like the brewery's own. It's free for personal use only, so it isn't
+   in this repository: installed on the Pi (see the README), the browser finds it by name, and anywhere else Sriracha
+   stands in. It has no curly quotes, dashes or accents and draws nothing for { | } ~, so only the plain letters, digits
+   and punctuation come from it, and the rest from Sriracha */
+@font-face {
+  font-family: "SMOD Lettering";
+  src: local("Lithunoa");
+  unicode-range: U+0020-007A;
+}
+
 .board {
   --board-background: #58acdc;
   --board-accent: #a8dcf0;
@@ -12,7 +22,7 @@
   --board-rule: #fbf7ef;
   --board-heading: #fbf7ef;
   --board-text: #c3d1de;
-  --board-display-font: "Sriracha", cursive;
+  --board-display-font: "SMOD Lettering", "Sriracha", cursive;
   --board-font: "Mali", sans-serif;
   --board-item-spacing: 0.05em;
   --board-white: #fbf7ef;
