@@ -153,17 +153,17 @@ sudo systemctl enable --now kelvin-backend
 RVM's wrapper sets up Ruby the way a login shell would; `ls ~/.rvm/wrappers/ruby-3.4.9/bundle` shows it's there. Rails takes a minute or so to start on the Pi. Then `curl -s -o /dev/null -w "%{http_code}\n" http://localhost:3000/up` prints `200`, and the board is at `http://<Pi's address>:3000` (`hostname -I` shows the address).
 
 ### 6. The kiosk
-Console autologin (step 1) logs in on the Pi's screen at boot. These lines at the end of `~/.bashrc` turn that login into the board: they wait for the server, then open the board full screen in Cog.
+Console autologin (step 1) logs in on the Pi's screen at boot. These lines at the end of `~/.bashrc` turn that login into the board, full screen in Cog.
 ```bash
-# The kiosk: on the Pi's own screen (tty1) only, not over SSH, show the board once the server answers
+# The kiosk: on the Pi's own screen (tty1) only, not over SSH, show the board
 if [ "$(tty)" = "/dev/tty1" ] && [ -z "$WAYLAND_DISPLAY" ]; then
-  until curl -sf -o /dev/null http://localhost:3000/up; do sleep 2; done
   # Let Cage start without a keyboard or mouse plugged in
   export WLR_LIBINPUT_NO_DEVICES=1
   # -s lets Ctrl+Alt+F2 switch to a login prompt
-  cage -s -- cog http://localhost:3000
+  cage -s -- cog "file://$HOME/kelvin/kiosk/index.html"
 fi
 ```
+Cog opens `kiosk/index.html` from the Pi's disk rather than from the server, so it's there even while the server is starting or restarting. That page shows the board and reloads it every 15 seconds, swapping in each new copy only once it has loaded. When the server is down, the last board stays on screen until the server answers again, and at boot the screen stays black until the first board is ready. If your `~/.bashrc` still opens `http://localhost:3000` directly, change it to these lines and reboot: a reload that caught the server restarting would leave Cog's error page on screen, with nothing to reload it. Cog reads the kiosk page once, when it starts, so reboot after an update that changes it.
 
 ### 7. The brewery themes' lettering (optional)
 The brewery themes letter their names, taglines and headings in fonts like the breweries' own: No Club Lone Wolf by Woodcutter for Pretty Things, Lithunoa by Jadatype for SMOD, and Flareserif 821 Light, Bitstream's Albertus, the lettering of Old Peculier, for Theakston. The first two are free for personal use only and Flareserif is a commercial font, so none of them is in this repository. Without them the themes use Sancreek, Sriracha and Marcellus SC. To use them, copy the fonts' files to the Pi (with `scp`, say), then install them where the kiosk's browser finds them and restart:
@@ -186,7 +186,7 @@ sudo systemctl restart kelvin-backend
 Restarting the service migrates the database. If an update brings a new system package, step 2's `apt install` is safe to re-run.
 
 ### Troubleshooting
-* **Is the server answering?** `curl -s -o /dev/null -w "%{http_code}\n" http://localhost:3000/up` prints `200` when it is. The kiosk waits for it, so a blank screen at boot usually means the server hasn't started.
+* **Is the server answering?** `curl -s -o /dev/null -w "%{http_code}\n" http://localhost:3000/up` prints `200` when it is. The kiosk stays black until it does, so a black screen at boot usually means the server hasn't started.
 * **Why didn't it start?** `systemctl status kelvin-backend`, and `journalctl -u kelvin-backend -b --no-pager | tail -50` for its output. Or stop the service and run the server by hand, which prints why it stops:
   ```bash
   sudo systemctl stop kelvin-backend

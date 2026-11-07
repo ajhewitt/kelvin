@@ -3,8 +3,10 @@
   <head>
     <title>The Ludlow Park</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%# Reload every 15 seconds to pick up list changes and the next event, unless previewing a theme %>
-    <% unless @preview_theme %>
+    <%# Reload every 15 seconds to pick up list changes and the next event, unless previewing a theme. In the kiosk, the
+        page holding the board reloads it instead (see kiosk/index.html): a reload of the board itself that found the server
+        restarting would leave the browser's error page on screen, with nothing to reload it %>
+    <% unless @preview_theme || @kiosk %>
       <meta http-equiv="refresh" content="15">
     <% end %>
     <link rel="icon" href="/icon.png" type="image/png">
@@ -25,7 +27,18 @@
       // lists stay hidden until they're fitted
       (function () {
         var lists = document.querySelector(".board-lists");
-        if (!lists) return;
+        var fonts = document.fonts ? document.fonts.ready : Promise.resolve();
+
+        // In the kiosk, the page holding the board shows each new copy only once it's drawn and fitted, so the board
+        // tells it when it is (see kiosk/index.html)
+        function ready() {
+          if (window.parent !== window) window.parent.postMessage("kelvin-board-ready", "*");
+        }
+
+        if (!lists) {
+          fonts.then(ready);
+          return;
+        }
         var key = "board-fit " + location.pathname + location.search;
         var last = null;
 
@@ -52,7 +65,10 @@
           } catch (error) {}
         }
 
-        (document.fonts ? document.fonts.ready : Promise.resolve()).then(fit);
+        fonts.then(function () {
+          fit();
+          ready();
+        });
         window.addEventListener("resize", fit);
       })();
     </script>

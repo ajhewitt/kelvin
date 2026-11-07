@@ -119,6 +119,24 @@ RSpec.describe "Board", type: :request do
     expect(page.at_css("meta[http-equiv=refresh]")["content"]).to eq("15")
   end
 
+  it "leaves reloading to the kiosk's page, which may show the board in a frame" do
+    Event.create!(name: "Black Friday", date: Date.new(2026, 11, 27))
+
+    get root_path
+    expect(page.at_css("meta[http-equiv=refresh]")).to be_present
+    expect(response.headers["X-Frame-Options"]).to eq("SAMEORIGIN")
+
+    get root_path(kiosk: "")
+    expect(page.at_css("meta[http-equiv=refresh]")).to be_nil
+    expect(response.headers["X-Frame-Options"]).to be_nil
+
+    # The kiosk's page loads the board with ?kiosk and shows each copy once the board says it's ready
+    kiosk = Rails.root.join("kiosk/index.html").read
+    expect(kiosk).to include('"http://localhost:3000/?kiosk"')
+    expect(kiosk).to include('"kelvin-board-ready"')
+    expect(page.css("script").map(&:text).join).to include('postMessage("kelvin-board-ready", "*")')
+  end
+
   it "still renders before any event exists" do
     get root_path
 

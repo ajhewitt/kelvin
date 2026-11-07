@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>The Ludlow Park</title>
+    <!--
+      The kiosk's page. Cog opens it from the Pi's disk (README step 6), so it's there even while the server is starting
+      or restarting. It shows the board in a frame and reloads it every 15 seconds, the way the board reloads itself when
+      opened on its own.
+
+      Each new copy of the board loads in a second, hidden frame and takes the screen only once the board says it's
+      drawn and fitted. A copy that doesn't, because the server didn't answer, is never shown: the last board stays on
+      screen and the next reload tries again. At boot the screen stays black until the first board is ready.
+    -->
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: #000;
+      }
+
+      iframe {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        visibility: hidden;
+      }
+
+      iframe.shown {
+        visibility: visible;
+      }
+    </style>
+  </head>
+
+  <body>
+    <iframe title="The board"></iframe>
+    <iframe title="The board"></iframe>
+
+    <script>
+      (function () {
+        // The board on this Pi. ?kiosk turns off its own reloading, which this page does instead
+        var board = "http://localhost:3000/?kiosk";
+        var every = 15000;
+        var frames = document.querySelectorAll("iframe");
+        var shown = null;
+        var loading = null;
+
+        // Loads the board into the frame that isn't on screen. If that frame still holds a copy that never said it was
+        // ready, most likely because the server was down, it's replaced
+        function reload() {
+          loading = frames[0] === shown ? frames[1] : frames[0];
+          loading.src = board;
+        }
+
+        window.addEventListener("message", function (event) {
+          if (event.data !== "kelvin-board-ready" || !loading || event.source !== loading.contentWindow) return;
+          loading.className = "shown";
+          if (shown) shown.className = "";
+          shown = loading;
+          loading = null;
+        });
+
+        reload();
+        setInterval(reload, every);
+      })();
+    </script>
+  </body>
+</html>
