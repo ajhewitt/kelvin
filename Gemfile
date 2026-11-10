@@ -38,7 +38,7 @@ gem "kamal", require: false
 gem "thruster", require: false
 
 # Admin screens for the tap list [https://github.com/excid3/madmin]
-gem "madmin", "~> 3.3"
+gem "madmin", "~> 3.4"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 2.0"
