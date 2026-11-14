@@ -157,13 +157,14 @@ Console autologin (step 1) logs in on the Pi's screen at boot. These lines at th
 ```bash
 # The kiosk: on the Pi's own screen (tty1) only, not over SSH, show the board
 if [ "$(tty)" = "/dev/tty1" ] && [ -z "$WAYLAND_DISPLAY" ]; then
-  # Let Cage start without a keyboard or mouse plugged in
-  export WLR_LIBINPUT_NO_DEVICES=1
-  # -s lets Ctrl+Alt+F2 switch to a login prompt
-  cage -s -- cog "file://$HOME/kelvin/kiosk/index.html"
+  "$HOME/kelvin/kiosk/start"
 fi
 ```
-Cog opens `kiosk/index.html` from the Pi's disk rather than from the server, so it's there even while the server is starting or restarting. That page shows the board and reloads it every 15 seconds, swapping in each new copy only once it has loaded. When the server is down, the last board stays on screen until the server answers again, and at boot the screen stays black until the first board is ready. If your `~/.bashrc` still opens `http://localhost:3000` directly, change it to these lines and reboot: a reload that caught the server restarting would leave Cog's error page on screen, with nothing to reload it. Cog reads the kiosk page once, when it starts, so reboot after an update that changes it.
+`kiosk/start` runs Cog full screen in Cage, showing `kiosk/index.html` from the Pi's disk rather than from the server, so it's there even while the server is starting or restarting. That page shows the board and reloads it every 15 seconds, swapping in each new copy only once it has loaded. When the server is down, the last board stays on screen until the server answers again, and at boot the screen stays black until the first board is ready.
+
+The browser's page process can still die. In the Pi Zero's 512MB it can run out of memory, typically overnight with the TV off. When it does, Cog exits rather than show an error page that asks for a reload nobody can give without a keyboard, and `kiosk/start` starts Cage and Cog again a few seconds later. It does the same whatever else stops them, and keeps what they print in `~/kiosk.log`. To stop the kiosk for maintenance, over SSH: `pkill -f kiosk/start; pkill cage`.
+
+If your `~/.bashrc` has older kiosk lines, replace them with these and reboot. The kiosk reads its script and page when it starts, so reboot after an update that changes them.
 
 ### 7. The brewery themes' lettering (optional)
 The brewery themes letter their names, taglines and headings in fonts like the breweries' own: No Club Lone Wolf by Woodcutter for Pretty Things, Lithunoa by Jadatype for SMOD, and Flareserif 821 Light, Bitstream's Albertus, the lettering of Old Peculier, for Theakston. The first two are free for personal use only and Flareserif is a commercial font, so none of them is in this repository. Without them the themes use Sancreek, Sriracha and Marcellus SC. To use them, copy the fonts' files to the Pi (with `scp`, say), then install them where the kiosk's browser finds them and restart:
