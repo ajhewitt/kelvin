@@ -186,14 +186,17 @@ sudo systemctl restart kelvin-backend
 ```
 Restarting the service migrates the database. If an update brings a new system package, step 2's `apt install` is safe to re-run.
 
-If an update changes the Ruby version in `.ruby-version`, install that Ruby too and point the service at it. The service keeps running the old Ruby until you do. For example, from 3.4.9 to 3.4.13:
+If an update changes the Ruby version in `.ruby-version`, install that Ruby too and point the service at it. The service keeps running the old Ruby until you do, and the old Ruby doesn't get the update's gems, so do this before restarting the service. For example, from 3.4.9 to 3.4.13:
 ```bash
 rvm install 3.4.13 -j 1
-cd ~/kelvin && rvm use 3.4.13 && bundle install
-sudo sed -i 's/ruby-3\.4\.9/ruby-3.4.13/g' /etc/systemd/system/kelvin-backend.service
+cd ~/kelvin && rvm 3.4.13 do bundle install
+# Matches the service's Ruby however it's named, ruby-3.4.9 in the wrapper's path or rvm 3.4.9 do
+sudo sed -i 's/3\.4\.9/3.4.13/g' /etc/systemd/system/kelvin-backend.service
+grep Exec /etc/systemd/system/kelvin-backend.service
 sudo systemctl daemon-reload
 sudo systemctl restart kelvin-backend
 ```
+The `grep` shows the service's commands, which should now name 3.4.13. Until the service runs the new Ruby, `rvm 3.4.9 do bundle install` gives the old one the update's gems instead; without them the service fails at start and restarts over and over.
 `rvm remove 3.4.9` then frees the old Ruby's space on the SD card.
 
 ### Troubleshooting
