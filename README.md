@@ -29,7 +29,7 @@ Kelvin is an embedded application and presentation layer for a bespoke, reconfig
 
 * **Operating System:** Raspberry Pi OS Lite (64-bit, headless Debian base)
 * **Compositor & Browser (Kiosk Mode):** Cage (Wayland kiosk compositor) + Cog (WPE WebKit browser engine)
-* **Language Runtime:** Ruby 3.4.9 (Compiled single-threaded via RVM)
+* **Language Runtime:** Ruby 3.4.13 (Compiled single-threaded via RVM)
 * **Web Framework:** Rails 8.1 (Configured for strict memory optimization)
 * **Web Server:** Puma (Strict single-process, single-thread worker mode)
 * **Database:** SQLite3
@@ -98,12 +98,12 @@ sudo apt install -y git curl gpg build-essential libvips-tools fonts-noto-color-
 * `cage` and `cog`: the kiosk. Cage is a Wayland compositor that shows a single app full screen, and Cog is the WPE WebKit browser it shows.
 
 ### 3. Ruby
-Ruby 3.4.9 through RVM, compiled one job at a time so it fits in 512MB, which takes a while:
+Ruby 3.4.13 through RVM, compiled one job at a time so it fits in 512MB, which takes a while:
 ```bash
 gpg --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 curl -sSL https://get.rvm.io | bash -s stable
 source ~/.rvm/scripts/rvm
-rvm install 3.4.9 -j 1
+rvm install 3.4.13 -j 1
 echo "gem: --no-document" >> ~/.gemrc
 ```
 The last line skips installing gem documentation, saving disk space and writes to the SD card.
@@ -139,8 +139,8 @@ After=network.target
 User=$USER
 WorkingDirectory=$HOME/kelvin
 Environment=RAILS_ENV=production MALLOC_ARENA_MAX=2
-ExecStartPre=$HOME/.rvm/wrappers/ruby-3.4.9/bundle exec rails db:prepare
-ExecStart=$HOME/.rvm/wrappers/ruby-3.4.9/bundle exec rails server -b 0.0.0.0
+ExecStartPre=$HOME/.rvm/wrappers/ruby-3.4.13/bundle exec rails db:prepare
+ExecStart=$HOME/.rvm/wrappers/ruby-3.4.13/bundle exec rails server -b 0.0.0.0
 Restart=on-failure
 RestartSec=5
 
@@ -150,20 +150,21 @@ EOF
 sudo systemctl daemon-reload
 sudo systemctl enable --now kelvin-backend
 ```
-RVM's wrapper sets up Ruby the way a login shell would; `ls ~/.rvm/wrappers/ruby-3.4.9/bundle` shows it's there. Rails takes a minute or so to start on the Pi. Then `curl -s -o /dev/null -w "%{http_code}\n" http://localhost:3000/up` prints `200`, and the board is at `http://<Pi's address>:3000` (`hostname -I` shows the address).
+RVM's wrapper sets up Ruby the way a login shell would; `ls ~/.rvm/wrappers/ruby-3.4.13/bundle` shows it's there. Rails takes a minute or so to start on the Pi. Then `curl -s -o /dev/null -w "%{http_code}\n" http://localhost:3000/up` prints `200`, and the board is at `http://<Pi's address>:3000` (`hostname -I` shows the address).
 
 ### 6. The kiosk
 Console autologin (step 1) logs in on the Pi's screen at boot. These lines at the end of `~/.bashrc` turn that login into the board, full screen in Cog.
 ```bash
 # The kiosk: on the Pi's own screen (tty1) only, not over SSH, show the board
 if [ "$(tty)" = "/dev/tty1" ] && [ -z "$WAYLAND_DISPLAY" ]; then
-  # Let Cage start without a keyboard or mouse plugged in
-  export WLR_LIBINPUT_NO_DEVICES=1
-  # -s lets Ctrl+Alt+F2 switch to a login prompt
-  cage -s -- cog "file://$HOME/kelvin/kiosk/index.html"
+  "$HOME/kelvin/kiosk/start"
 fi
 ```
-Cog opens `kiosk/index.html` from the Pi's disk rather than from the server, so it's there even while the server is starting or restarting. That page shows the board and reloads it every 15 seconds, swapping in each new copy only once it has loaded. When the server is down, the last board stays on screen until the server answers again, and at boot the screen stays black until the first board is ready. If your `~/.bashrc` still opens `http://localhost:3000` directly, change it to these lines and reboot: a reload that caught the server restarting would leave Cog's error page on screen, with nothing to reload it. Cog reads the kiosk page once, when it starts, so reboot after an update that changes it.
+`kiosk/start` runs Cog full screen in Cage, showing `kiosk/index.html` from the Pi's disk rather than from the server, so it's there even while the server is starting or restarting. That page shows the board and reloads it every 15 seconds, swapping in each new copy only once it has loaded. When the server is down, the last board stays on screen until the server answers again, and at boot the screen stays black until the first board is ready.
+
+The browser's page process can still die. In the Pi Zero's 512MB it can run out of memory, typically overnight with the TV off. When it does, Cog exits rather than show an error page that asks for a reload nobody can give without a keyboard, and `kiosk/start` starts Cage and Cog again a few seconds later. It does the same whatever else stops them, and keeps what they print in `~/kiosk.log`. To stop the kiosk for maintenance, over SSH: `pkill -f kiosk/start; pkill cage`.
+
+If your `~/.bashrc` has older kiosk lines, replace them with these and reboot. The kiosk reads its script and page when it starts, so reboot after an update that changes them.
 
 ### 7. The brewery themes' lettering (optional)
 The brewery themes letter their names, taglines and headings in fonts like the breweries' own: No Club Lone Wolf by Woodcutter for Pretty Things, Lithunoa by Jadatype for SMOD, and Flareserif 821 Light, Bitstream's Albertus, the lettering of Old Peculier, for Theakston. The first two are free for personal use only and Flareserif is a commercial font, so none of them is in this repository. Without them the themes use Sancreek, Sriracha and Marcellus SC. To use them, copy the fonts' files to the Pi (with `scp`, say), then install them where the kiosk's browser finds them and restart:
@@ -184,6 +185,16 @@ RAILS_ENV=production bin/rails assets:precompile
 sudo systemctl restart kelvin-backend
 ```
 Restarting the service migrates the database. If an update brings a new system package, step 2's `apt install` is safe to re-run.
+
+If an update changes the Ruby version in `.ruby-version`, install that Ruby too and point the service at it. The service keeps running the old Ruby until you do. For example, from 3.4.9 to 3.4.13:
+```bash
+rvm install 3.4.13 -j 1
+cd ~/kelvin && rvm use 3.4.13 && bundle install
+sudo sed -i 's/ruby-3\.4\.9/ruby-3.4.13/g' /etc/systemd/system/kelvin-backend.service
+sudo systemctl daemon-reload
+sudo systemctl restart kelvin-backend
+```
+`rvm remove 3.4.9` then frees the old Ruby's space on the SD card.
 
 ### Troubleshooting
 * **Is the server answering?** `curl -s -o /dev/null -w "%{http_code}\n" http://localhost:3000/up` prints `200` when it is. The kiosk stays black until it does, so a black screen at boot usually means the server hasn't started.

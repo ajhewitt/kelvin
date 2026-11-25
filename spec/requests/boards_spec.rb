@@ -135,6 +135,11 @@ RSpec.describe "Board", type: :request do
     expect(kiosk).to include('"http://localhost:3000/?kiosk"')
     expect(kiosk).to include('"kelvin-board-ready"')
     expect(page.css("script").map(&:text).join).to include('postMessage("kelvin-board-ready", "*")')
+
+    # The kiosk's launcher opens that page, and has Cog exit if its page process dies, to start it again
+    start = Rails.root.join("kiosk/start")
+    expect(start).to be_executable
+    expect(start.read).to include('"file://$kiosk/index.html"', "--webprocess-failure=exit", "while true")
   end
 
   it "still renders before any event exists" do

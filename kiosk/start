@@ -1,0 +1,37 @@
+#!/bin/bash
+# The kiosk: the board full screen on the Pi's own screen, started from ~/.bashrc by the console login (README step 6).
+#
+# Cog, the browser, shows kiosk/index.html from the Pi's disk. That page loads the board from the server and keeps
+# reloading it, so a server that's starting or restarting can't leave an error page on screen. Cog runs inside Cage, a
+# compositor that shows one app full screen.
+#
+# The browser's page process can still die: it can run out of memory in the Pi Zero's 512MB, over a long night of
+# reloads with the TV off, or it can crash. Cog would then show an error page asking for a reload, which nobody can give
+# without a keyboard. Instead Cog is told to exit, and this loop starts Cage and Cog again a few seconds later, as at
+# boot. Whatever else stops them, they start again the same way. What they print goes to ~/kiosk.log
+#
+# To stop the kiosk, over SSH: pkill -f kiosk/start; pkill cage
+kiosk="$(cd "$(dirname "$0")" && pwd)"
+log="$HOME/kiosk.log"
+
+# Let Cage start without a keyboard or mouse plugged in
+export WLR_LIBINPUT_NO_DEVICES=1
+
+# Versions of Cog without the option would refuse to start with it
+options=()
+if timeout 10 cog --help 2>&1 | grep -q -- "--webprocess-failure"; then
+  options+=(--webprocess-failure=exit)
+fi
+
+while true; do
+  # Keep the log to a megabyte or so, and the one before it
+  if [ -f "$log" ] && [ "$(stat -c %s "$log")" -gt 1000000 ]; then
+    mv "$log" "$log.1"
+  fi
+  echo "$(date '+%F %T') starting the kiosk" >> "$log"
+  # -s lets Ctrl+Alt+F2 switch to a login prompt
+  cage -s -- cog "${options[@]}" "file://$kiosk/index.html" >> "$log" 2>&1
+  status=$?
+  echo "$(date '+%F %T') the kiosk stopped with status $status, starting it again" >> "$log"
+  sleep 3
+done

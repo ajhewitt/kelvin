@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <title>The Ludlow Park</title>
     <!--
-      The kiosk's page. Cog opens it from the Pi's disk (README step 6), so it's there even while the server is starting
-      or restarting. It shows the board in a frame and reloads it every 15 seconds, the way the board reloads itself when
+      The kiosk's page. Cog opens it from the Pi's disk (kiosk/start, README step 6), so it's there even while the server
+      is starting or restarting. It shows the board in a frame and reloads it every 15 seconds, the way the board reloads itself when
       opened on its own.
 
       Each new copy of the board loads in a second, hidden frame and takes the screen only once the board says it's
@@ -60,7 +60,11 @@
         window.addEventListener("message", function (event) {
           if (event.data !== "kelvin-board-ready" || !loading || event.source !== loading.contentWindow) return;
           loading.className = "shown";
-          if (shown) shown.className = "";
+          if (shown) {
+            // Empty the copy just replaced, so only one board at a time takes memory in the Pi Zero's 512MB
+            shown.className = "";
+            shown.src = "about:blank";
+          }
           shown = loading;
           loading = null;
         });
