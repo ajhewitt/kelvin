@@ -38,7 +38,7 @@ gem "kamal", require: false
 gem "thruster", require: false
 
 # Admin screens for the tap list [https://github.com/excid3/madmin]
-gem "madmin", "~> 3.3"
+gem "madmin", "~> 3.4"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 2.0"
@@ -59,7 +59,7 @@ group :development, :test do
   # Ruby style guide, linter, and formatter [https://github.com/standardrb/standard]
   gem "standard", require: false
 
-  gem "rspec-rails", "~> 8.0" # Matches Rails 8+ expectations
+  gem "rspec-rails", "~> 8.1" # Matches Rails 8+ expectations
 end
 
 group :development do
